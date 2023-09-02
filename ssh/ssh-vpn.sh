@@ -167,7 +167,7 @@ echo "=== Install Dropbear ==="
 apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 50000 -p 8880 -p 110 -p 8080"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 50000 -p 109 -p 110 -p 69"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 /etc/init.d/ssh restart
@@ -318,6 +318,8 @@ wget -O user-lock "https://${julak}/ssh/user-lock.sh"
 wget -O user-password "https://${julak}/ssh/user-password.sh"
 wget -O menu-l2tp "https://${julak}/ipsec/menu-l2tp.sh"
 wget -O sshlogin "https://${julak}/ssh/cek.sh"
+wget -O backup "https://${julak}/backup/backup.sh"
+wget -O restore "https://${julak}/backup/restore.sh"
 
 chmod +x menu-update
 chmod +x update
