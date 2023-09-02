@@ -1,0 +1,5 @@
+[dr]
+type = drive
+scope = drive
+token = {"access_token":"ya29.a0AbVbY6OYEvAxxO9WYqE-aAh8uvzP6-glzcFVPvymijjHqZqKe6z_KdouU16H8BR7X_k2KkGJb3d5Fr62GJ71LnS8nwZIl8dU6cKzO8_6sGMH-5sHECSU_SIcDeJhLye-ghB85hOVeq1DJby7UXcf36c8BJbCaCgYKAfoSARASFQFWKvPlwTYAgmPP67BOl5O96ur7ZQ0163","token_type":"Bearer","refresh_token":"1//0gchphONIsJuQCgYIARAAGBASNgF-L9IrUphAQbylMISuF9wm4M8lc-EistgsYZ4VJXoE1TwoZIuWNkWJ8aUrfiVjjSLuheJfKQ","expiry":"2023-07-02T16:54:39.330424616Z"}
+root_folder_id = 1kq99tJbQMoej5OKOlk9Vb8gyVJLnGP81
