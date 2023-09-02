@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script By Julak Bantur
 # ==================================================
-julak="raw.githubusercontent.com/ppnhss/sc3/main"
+julak="raw.githubusercontent.com/b/sc3/main"
 
 # initializing var
 export DEBIAN_FRONTEND=noninteractive
@@ -441,7 +441,7 @@ echo "unset HISTFILE" >> /etc/profile
 
 rm -f /root/key.pem
 rm -f /root/cert.pem
-rm -f /root/ssh-vpn.sh
+rm -f /root/julak-bantur.sh
 rm -f /root/bbr.sh
 
 # finihsing
