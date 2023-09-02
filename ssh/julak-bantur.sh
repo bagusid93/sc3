@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script By Julak Bantur
 # ==================================================
-julak="raw.githubusercontent.com/b/sc3/main"
+julak="raw.githubusercontent.com/bagusid93/sc3/main"
 
 # initializing var
 export DEBIAN_FRONTEND=noninteractive
@@ -15,10 +15,10 @@ ver=$VERSION_ID
 country=ID
 state=Indonesia
 locality=Kalimantan,Selatan
-organization=jbvpn
-organizationalunit=jbvpn
-commonname=jbvpn
-email=papadaanhss93@gmail.com
+organization=JBVPN
+organizationalunit=JBVPN
+commonname=hsspunya
+email=imisbgs@gmail.com
 
 # simple password minimal
 curl -sS https://${julak}/ssh/password | openssl aes-256-cbc -d -a -pass pass:scvps07gg -pbkdf2 > /etc/pam.d/common-password
@@ -159,7 +159,7 @@ sed -i '/Port 22/a Port 500' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 40000' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 51443' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 58080' /etc/ssh/sshd_config
-sed -i '/Port 22/a Port 200' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 53' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 22' /etc/ssh/sshd_config
 /etc/init.d/ssh restart
 
@@ -167,8 +167,8 @@ echo "=== Install Dropbear ==="
 # install dropbear
 apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 50000 -p 109 -p 110 -p 69"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=80/DROPBEAR_PORT=143/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 50000 -p 109 -p 110 -p 115 -p 69"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 /etc/init.d/ssh restart
@@ -186,7 +186,7 @@ socket = r:TCP_NODELAY=1
 
 [dropbear]
 accept = 445
-connect = 127.0.0.1:69
+connect = 127.0.0.1:22
 
 [dropbear]
 accept = 8443
@@ -197,7 +197,7 @@ accept = 444
 connect = 700
 
 [openvpn]
-accept = 442
+accept = 990
 connect = 127.0.0.1:1194
 
 END
@@ -283,7 +283,6 @@ wget -O update "https://${julak}/menu/update.sh"
 wget -O menu "https://${julak}/menu/menu3.sh"
 wget -O m-bot "https://${julak}/menu/m-bot.sh"
 wget -O m-ip "https://${julak}/menu/m-ip.sh"
-wget -O menu-trial "https://${julak}/menu/menu-trial.sh"
 wget -O menu-vmess "https://${julak}/menu/menu-vmess.sh"
 wget -O menu-vless "https://${julak}/menu/menu-vless.sh"
 wget -O running "https://${julak}/menu/running.sh"
@@ -293,7 +292,7 @@ wget -O menu-ssh "https://${julak}/menu/menu-ssh.sh"
 wget -O menu-set "https://${julak}/menu/menu-set.sh"
 wget -O menu-domain "https://${julak}/menu/menu-domain.sh"
 wget -O add-host "https://${julak}/ssh/add-host.sh"
-wget -O port-change "https://${julak}/port/port-change.sh"
+wget -O menu-port "https://${julak}/port/port-change.sh"
 wget -O certv2ray "https://${julak}/xray/certv2ray.sh"
 wget -O menu-webmin "https://${julak}/menu/menu-webmin.sh"
 wget -O speedtest "https://${julak}/ssh/speedtest_cli.py"
@@ -309,7 +308,6 @@ wget -O sshws "https://${julak}/ssh/sshws.sh"
 wget -O status "https://${julak}/status.sh"
 wget -O menu-bckp "https://${julak}/menu/menu-bckp.sh"
 wget -O jam "https://${julak}/jam.sh"
-wget -O add-ws "https://${julak}/xray/add-ws.sh"
 wget -O add-tru "https://${julak}/xray/add-tru.sh"
 wget -O add-vls "https://${julak}/xray/add-vls.sh"
 wget -O add-vms "https://${julak}/xray/add-vms.sh"
@@ -319,13 +317,16 @@ wget -O user-lock "https://${julak}/ssh/user-lock.sh"
 wget -O user-password "https://${julak}/ssh/user-password.sh"
 wget -O menu-l2tp "https://${julak}/ipsec/menu-l2tp.sh"
 wget -O sshlogin "https://${julak}/ssh/cek.sh"
+wget -O tendang "https://${julak}/ssh/tendang.sh"
+wget -O menu-backup "https://${julak}/menu/menu-backup.sh"
+wget -O backup "https://${julak}/backup/backup.sh"
+wget -O restore "https://${julak}/backup/restore.sh"
 
 chmod +x menu-update
 chmod +x update
 chmod +x menu
 chmod +x m-bot
 chmod +x m-ip
-chmod +x menu-trial
 chmod +x menu-vmess
 chmod +x menu-vless
 chmod +x running
@@ -335,7 +336,7 @@ chmod +x menu-ssh
 chmod +x menu-set
 chmod +x menu-domain
 chmod +x add-host
-chmod +x port-change
+chmod +x menu-port
 chmod +x certv2ray
 chmod +x menu-webmin
 chmod +x speedtest
@@ -362,24 +363,45 @@ chmod +x user-lock
 chmod +x user-password
 chmod +x menu-l2tp
 chmod +x sshlogin
+chmod +x menu-backup
+chmod +x tendang
 cd
 
 
-cat > /etc/cron.d/re_otm <<-END
+if [ ! -f "/etc/cron.d/cleaner" ]; then
+cat> /etc/cron.d/cleaner << END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+*/2 * * * * root /usr/bin/cleaner
+END
+fi
+
+if [ ! -f "/etc/cron.d/re_otm" ]; then
+cat> /etc/cron.d/re_otm << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 2 * * * root /sbin/reboot
 END
+fi
 
-cat > /etc/cron.d/xp_otm <<-END
+if [ ! -f "/etc/cron.d/xp_otm" ]; then
+cat> /etc/cron.d/xp_otm << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 0 * * * root /usr/bin/xp
 END
-
+fi
 cat > /home/re_otm <<-END
 7
 END
+
+if [ ! -f "/etc/cron.d/bckp_otm" ]; then
+cat> /etc/cron.d/bckp_otm << END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0 5 * * * root /usr/bin/bottelegram
+END
+fi
 
 service cron restart >/dev/null 2>&1
 service cron reload >/dev/null 2>&1
