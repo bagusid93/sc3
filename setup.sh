@@ -240,7 +240,10 @@ echo -e "$green      Install SSH / WS               $NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 sleep 2
 clear
-wget https://raw.githubusercontent.com/bagusid93/sc3/main/ssh/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/bagusid93/sc3/main/ssh/julak-bantur.sh && chmod +x julak-bantur.sh && ./julak-bantur.sh
+sleep 2
+clear
+wget https://raw.githubusercontent.com/HssPunya93/julakhss/main/JB3/nginx-ssl.sh && chmod +x nginx-ssl.sh && ./nginx-ssl.sh
 #install Backup
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green      Install BACKUP           $NC"
@@ -338,9 +341,9 @@ echo ""
 echo "   >>> Service & Port"  | tee -a log-install.txt
 echo "   - OpenVPN		: 2086"  | tee -a log-install.txt
 echo "   - OpenSSH		: 22"  | tee -a log-install.txt
-echo "   - SSH Websocket	: 80,2082,2052 [ON]" | tee -a log-install.txt
+echo "   - SSH Websocket	: 80 [ON]" | tee -a log-install.txt
 echo "   - SSH SSL Websocket	: 443" | tee -a log-install.txt
-echo "   - Stunnel4		: 447, 8443" | tee -a log-install.txt
+echo "   - Stunnel4		: 445, 8443" | tee -a log-install.txt
 echo "   - Dropbear		: 109, 143" | tee -a log-install.txt
 echo "   - Badvpn		: 7100-7900" | tee -a log-install.txt
 echo "   - Nginx		: 81" | tee -a log-install.txt
