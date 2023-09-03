@@ -45,6 +45,7 @@ echo -e "$COLOR1 $NC   ${BICyan}[${WH}07${BICyan}]${NC} ${WH}• ${COLOR1}Restar
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}08${BICyan}]${NC} ${WH}• ${COLOR1}Change Banner ${NC}     $COLOR1 $NC"
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}09${BICyan}]${NC} ${WH}• ${COLOR1}Cek Bandwith ${NC}     $COLOR1 $NC"
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}10${BICyan}]${NC} ${WH}• ${COLOR1}Menu Bot ${NC}     $COLOR1 $NC"
+echo -e "$COLOR1 $NC   ${BICyan}[${WH}11${BICyan}]${NC} ${WH}• ${COLOR1}Update AutoScript ${NC}     $COLOR1 $NC"
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}00${BICyan}]${NC} ${WH}• ${COLOR1}Back To Menu ${NC}     $COLOR1 $NC"
 echo -e ""
 echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}"
