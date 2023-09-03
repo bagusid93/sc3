@@ -83,17 +83,18 @@ echo -e "\033[1;93mSambil Ngopi Dulu Broow..!\e[0m"
 sleep 5
 
 rm -rf kimut
-#rm -rf menu
+rm -rf menu
 rm -rf menu-set
 
 cd /usr/bin
 wget -O kimut "https://${julak}/main/menu/kimut.sh"
-#wget -O menu "https://${julak}/main/menu/menu3.sh"
+wget -O menu "https://${julak}/main/menu/menu3.sh"
 wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
 
 chmod +x kimut
-#chmod +x menu
+chmod +x menu
 chmod +x menu-set
+cd
 
 clear
 echo -e ""
