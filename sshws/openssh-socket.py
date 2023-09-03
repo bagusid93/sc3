@@ -2,7 +2,7 @@
 import socket, threading, thread, select, signal, sys, time, getopt
 
 # Listen
-LISTENING_ADDR = '0.0.0.0'
+LISTENING_ADDR = '127.0.0.1'
 LISTENING_PORT = sys.argv[1]
 
 # Pass
@@ -11,7 +11,7 @@ PASS = ''
 # CONST
 BUFLEN = 4096 * 4
 TIMEOUT = 60
-DEFAULT_HOST = '127.0.0.1:8880'
+DEFAULT_HOST = '0.0.0.0:22'
 RESPONSE = 'HTTP/1.1 101 <font color="green"><b><i>Hss Punya</font></b></i>\r\nContent-Length: 104857600000\r\n\r\n'
 
 class Server(threading.Thread):
