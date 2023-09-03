@@ -87,9 +87,9 @@ rm -rf menu
 rm -rf menu-set
 
 cd /usr/bin
-wget -O kimut "https://${julak}/main/menu/kimut.sh"
-wget -O menu "https://${julak}/main/menu/menu3.sh"
-wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
+elif [ "wget -O kimut "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh" = "Permission Accepted..." ]; then
+elif [ "wget -O menu "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh" = "Permission Accepted..." ]; then
+elif [ "wget -O menu-set "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh" = "Permission Accepted..." ]; then
 
 chmod +x kimut
 chmod +x menu
