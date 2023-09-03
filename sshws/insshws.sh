@@ -4,23 +4,23 @@
 cd
 
 #Install Script Websocket-SSH Python
-#wget -O /usr/local/bin/ws-openssh https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/openssh-socket.py
-wget -O /usr/local/bin/ws-dropbear https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/dropbear-ws.py
+wget -O /usr/local/bin/ws-openssh https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/openssh-socket.py
+#wget -O /usr/local/bin/ws-dropbear https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/dropbear-ws.py
 wget -O /usr/local/bin/ws-stunnel https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/ws-stunnel
 wget -O /usr/local/bin/ws-ovpn https://raw.githubusercontent.com/bagusid93/sc3/main/OPENVPN/ws-ovpn
 
 #izin permision
-#chmod +x /usr/local/bin/ws-openssh
-chmod +x /usr/local/bin/ws-dropbear
+chmod +x /usr/local/bin/ws-openssh
+#chmod +x /usr/local/bin/ws-dropbear
 chmod +x /usr/local/bin/ws-stunnel
 chmod +x /usr/local/bin/ws-ovpn
 
 
 #System OpenSSH Websocket-SSH Python
-#wget -O /etc/systemd/system/ws-openssh.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/ws-openssh.service && chmod +x /etc/systemd/system/ws-openssh.service
+wget -O /etc/systemd/system/ws-openssh.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/ws-openssh.service && chmod +x /etc/systemd/system/ws-openssh.service
 
 #System Dropbear Websocket-SSH Python
-wget -O /etc/systemd/system/ws-dropbear.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/service-wsdropbear && chmod +x /etc/systemd/system/ws-dropbear.service
+#wget -O /etc/systemd/system/ws-dropbear.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/service-wsdropbear && chmod +x /etc/systemd/system/ws-dropbear.service
 
 #System SSL/TLS Websocket-SSH Python
 wget -O /etc/systemd/system/ws-stunnel.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/ws-stunnel.service && chmod +x /etc/systemd/system/ws-stunnel.service
@@ -32,14 +32,14 @@ wget -O /etc/systemd/system/ws-ovpn.service https://raw.githubusercontent.com/ba
 #
 systemctl daemon-reload
 #Enable & Start & Restart ws-openssh service
-#systemctl enable ws-openssh.service
-#systemctl start ws-openssh.service
-#systemctl restart ws-openssh.service
+systemctl enable ws-openssh.service
+systemctl start ws-openssh.service
+systemctl restart ws-openssh.service
 
 #Enable & Start & Restart ws-dropbear service
-systemctl enable ws-dropbear.service
-systemctl start ws-dropbear.service
-systemctl restart ws-dropbear.service
+#systemctl enable ws-dropbear.service
+#systemctl start ws-dropbear.service
+#systemctl restart ws-dropbear.service
 
 #Enable & Start & Restart ws-openssh service
 systemctl enable ws-stunnel.service
