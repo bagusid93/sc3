@@ -6,6 +6,9 @@ dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Dat
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ##############################
 julak="raw.githubusercontent.com/bagusid93/sc3"
+bantur1="wget -O kimut "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh" "
+bantur2="wget -O menu "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh" "
+bantur3="wget -O menu-set "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh" "
 
 BURIQ () {
     curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
@@ -87,9 +90,9 @@ rm -rf menu
 rm -rf menu-set
 
 cd /usr/bin
-elif [ "wget -O kimut "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh" = "Permission Accepted..." ]; then
-elif [ "wget -O menu "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh" = "Permission Accepted..." ]; then
-elif [ "wget -O menu-set "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh" = "Permission Accepted..." ]; then
+echo -e "${bantur1}"
+echo -e "${bantur2}"
+echo -e "${bantur3}"
 
 chmod +x kimut
 chmod +x menu
