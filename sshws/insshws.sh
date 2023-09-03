@@ -17,7 +17,7 @@ chmod +x /usr/local/bin/ws-ovpn
 
 
 #System OpenSSH Websocket-SSH Python
-wget -O /etc/systemd/system/ws-openssh.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/ws-openssh.service && chmod +x /etc/systemd/system/ws-openssh.service
+wget -O /etc/systemd/system/ws-openssh.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/service-wsopenssh && chmod +x /etc/systemd/system/ws-openssh.service
 
 #System Dropbear Websocket-SSH Python
 #wget -O /etc/systemd/system/ws-dropbear.service https://raw.githubusercontent.com/bagusid93/sc3/main/sshws/service-wsdropbear && chmod +x /etc/systemd/system/ws-dropbear.service
