@@ -73,25 +73,32 @@ echo ""
 version=$(cat /home/ver)
 ver=$( curl sS https://raw.githubusercontent.com/bagusid93/sc3/main/versi )
 clear
-echo -e "\e[1;36mStart Update AutoScript, Please Wait..\e[m"
+echo -e "\e[1;36mStart Update AutoScript, Please Wait..\e[0m"
 sleep 2
 clear
-echo -e "\e[0;32mSabar Yaaaaa !!!\e[0m"
+echo -e "\e[1;36mSabar Yaaaaa !!!\e[0m"
 sleep 1
 clear
 echo -e "\033[1;93mSambil Ngopi Dulu Broow..!\e[0m"
 sleep 5
 
+rm -rf kimut
 rm -rf menu
 
 cd /usr/bin
-wget -O menu "https://${julak}/main/menu/menu3.sh"
+wget -O kimut "https://${julak}/main/menu/kimut.sh"
+#wget -O menu "https://${julak}/main/menu/menu3.sh"
+wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
 
-chmod +x menu
+chmod +x kimut
+#chmod +x menu
+chmod +x menu-set
 
 clear
 echo -e ""
-echo -e "\e[0;32mBERHASIL\e[0m"
+echo -e "\e[1;36mBERHASIL\e[0m"
+sleep 2
+clear
 echo ""
 echo -e "\033[0;34m----------------------------------------\033[0m"
 echo -e "\E[44;1;39m            SCRIPT UPDATED              \E[0m"
