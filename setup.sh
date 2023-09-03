@@ -265,7 +265,7 @@ echo -e "$green      Install Janda Pirang                $NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 sleep 2
 clear
-wget https://raw.githubusercontent.com/bagusid93/bantur/main/julak/insshws.sh && chmod +x insshws.sh && ./insshws.sh
+wget https://raw.githubusercontent.com/bagusid93/bantur/main/julak/websocket.sh && chmod +x websocket.sh && ./websocket.sh
 clear
 #install slowdns
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
