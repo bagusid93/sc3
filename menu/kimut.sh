@@ -6,12 +6,9 @@ dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Dat
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ##############################
 julak="raw.githubusercontent.com/bagusid93/sc3"
-bantur1="https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh"
-bantur2="https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh"
-bantur3="https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh"
-julak1="kimut"
-julak2="menu"
-julak3="menu-set"
+bantur1="https://${julak}/main/menu/kimut.sh"
+bantur2="https://${julak}/main/menu/menu3.sh"
+bantur3="https://${julak}/main/menu/menu-set.sh"
 
 BURIQ () {
     curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
@@ -93,9 +90,18 @@ rm -rf menu
 rm -rf menu-set
 
 cd /usr/bin
-echo -e " wget -O ${julak1} "${bantur1}" OKE"
-echo -e " wget -O ${julak2} "${bantur2}" OKE"
-echo -e " wget -O ${julak3} "${bantur3}" OKE"
+wget -O kimut "https://${julak}/main/menu/kimut.sh"
+clear
+echo -e "\033[1;93mOKE..!\e[0m"
+sleep 1
+wget -O menu "https://${julak}/main/menu/menu3.sh"
+clear
+echo -e "\033[1;93mOKE..!\e[0m"
+sleep 1
+wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
+clear
+echo -e "\033[1;93mOKE..!\e[0m"
+echo -e ""
 
 chmod +x kimut
 chmod +x menu
@@ -103,6 +109,7 @@ chmod +x menu-set
 cd
 
 clear
+sleep 3
 echo -e ""
 echo -e "\e[1;36mBERHASIL\e[0m"
 sleep 2
