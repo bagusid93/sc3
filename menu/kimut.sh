@@ -9,9 +9,9 @@ julak="raw.githubusercontent.com/bagusid93/sc3"
 bantur1="https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh"
 bantur2="https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh"
 bantur3="https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh"
-julak1="wget -O kimut"
-julak2="wget -O menu"
-julak3="wget -O menu-set"
+julak1="kimut"
+julak2="menu"
+julak3="menu-set"
 
 BURIQ () {
     curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
@@ -93,9 +93,9 @@ rm -rf menu
 rm -rf menu-set
 
 cd /usr/bin
-echo -e "Ibam ${julak1}${bantur1}"
-echo -e "Hayyahh ${julak2}${bantur2}"
-echo -e "Uguhhh ${julak3}${bantur3}"
+echo -e " wget -O ${julak1} "${bantur1}" OKE"
+echo -e " wget -O ${julak2} "${bantur2}" OKE"
+echo -e " wget -O ${julak3} "${bantur3}" OKE"
 
 chmod +x kimut
 chmod +x menu
