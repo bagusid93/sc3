@@ -33,8 +33,16 @@ echo "Checking VPS"
 aureb=$(cat /home/re_otm)
 clear
 echo " "
-echo "==============-[ SCRIPT PAPADA'AN STORE ]-============="
-echo ""
+echo " ________  ________  ________  ________  ________  ________  ________  ________                 ________  _________  ________  ________  _______      
+|\   __  \|\   __  \|\   __  \|\   __  \|\   ___ \|\   __  \|\   __  \|\   ___  \              |\   ____\|\___   ___\\   __  \|\   __  \|\  ___ \     
+\ \  \|\  \ \  \|\  \ \  \|\  \ \  \|\  \ \  \_|\ \ \  \|\  \ \  \|\  \ \  \\ \  \             \ \  \___|\|___ \  \_\ \  \|\  \ \  \|\  \ \   __/|    
+ \ \   ____\ \   __  \ \   ____\ \   __  \ \  \ \\ \ \   __  \ \   __  \ \  \\ \  \             \ \_____  \   \ \  \ \ \  \\\  \ \   _  _\ \  \_|/__  
+  \ \  \___|\ \  \ \  \ \  \___|\ \  \ \  \ \  \_\\ \ \  \ \  \ \  \ \  \ \  \\ \  \             \|____|\  \   \ \  \ \ \  \\\  \ \  \\  \\ \  \_|\ \ 
+   \ \__\    \ \__\ \__\ \__\    \ \__\ \__\ \_______\ \__\ \__\ \__\ \__\ \__\\ \__\              ____\_\  \   \ \__\ \ \_______\ \__\\ _\\ \_______\
+    \|__|     \|__|\|__|\|__|     \|__|\|__|\|_______|\|__|\|__|\|__|\|__|\|__| \|__|             |\_________\   \|__|  \|_______|\|__|\|__|\|_______|
+                                                                                                  \|_________|                                        
+                                                                                                                                                      
+                                                                                                                                                      "
 echo "------------------------------------------------------------"
 echo ""
 echo ""
@@ -53,7 +61,6 @@ echo "   - Vless None TLS      : 80 " | tee -a log-install.txt
 echo "   - Trojan GRPC         : 443 " | tee -a log-install.txt
 echo "   - Trojan WS           : 443 " | tee -a log-install.txt
 echo "   - Trojan None TLS     : 80 " | tee -a log-install.txt
-echo "   - Port Alternatif     : 2082,2052 " | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   >>> Server Information & Other Features "  | tee -a log-install.txt
 echo "   - Timezone            : Asia/Jakarta (GMT +7) "  | tee -a log-install.txt
@@ -73,8 +80,6 @@ echo "   - Full Orders For Various Services" | tee -a log-install.txt
 echo ""
 echo ""
 echo "------------------------------------------------------------"
-echo ""
-echo "==========-[ PAPADA'AN STORE ]-==========="
 echo -e ""
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
