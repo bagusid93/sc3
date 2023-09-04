@@ -46,6 +46,84 @@ clear
 echo -e "\033[1;93mSambil Ngopi Dulu Broow..!\e[0m"
 sleep 5
 
+rm -rf kimut
+rm -rf menu-update
+rm -rf menu
+rm -rf m-bot
+rm -rf m-ip
+rm -rf menu-trial
+rm -rf menu-vmess
+rm -rf menu-vless
+rm -rf menu-ssws
+rm -rf running
+rm -rf clearcache
+rm -rf menu-trgo
+rm -rf menu-trojan
+rm -rf menu-ssh
+rm -rf usernew
+rm -rf trial
+rm -rf renew
+rm -rf hapuslama
+rm -rf cek
+rm -rf member
+rm -rf delete
+rm -rf autokill
+rm -rf ceklim
+rm -rf tendang
+rm -rf menu-set
+rm -rf menu-domain
+rm -rf add-host
+rm -rf menu-port
+rm -rf certv2ray
+rm -rf menu-webmin
+rm -rf speedtest
+rm -rf about
+rm -rf auto-reboot
+rm -rf restart
+rm -rf bw
+rm -rf port-ssl
+rm -rf port-ovpn
+rm -rf xp
+rm -rf acs-set
+rm -rf sshws
+rm -rf status
+rm -rf menu-backup
+rm -rf backup
+rm -rf restore
+rm -rf jam
+rm -rf trialvmess
+rm -rf renew-ws
+rm -rf del-ws
+rm -rf cek-ws
+rm -rf add-ssws
+rm -rf trialvless
+rm -rf renew-vless
+rm -rf del-vless
+rm -rf cek-vless
+rm -rf add-tr
+rm -rf trialtrojan
+rm -rf del-tr
+rm -rf renew-tr
+rm -rf cek-tr
+rm -rf addtrgo
+rm -rf trialtrojango
+rm -rf deltrgo
+rm -rf renewtrgo
+rm -rf cektrgo
+rm -rf m-sshovpn
+rm -rf cf
+rm -rf add-vmess
+rm -rf menu-bckp
+rm -rf add-ns
+rm -rf issue
+rm -rf add-wireguard
+rm -rf add-tru
+rm -rf add-vls
+rm -rf add-vms
+rm -rf menu-theme
+rm -rf menu-l2tp
+rm -rf sshlogin
+
 cd /usr/bin
 #update
 wget -O kimut "https://${julak}/main/menu/kimut.sh"
@@ -60,18 +138,11 @@ wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
+echo -e "\033[1;93mUPDATE ALL MENU..!\e[0m"
+sleep 3
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
-clear
-echo -e "\033[1;93mOKE..!\e[0m"
-sleep 1
 wget -O renew "https://${julak}/main/ssh/renew.sh"
-clear
-echo -e "\033[1;93mOKE..!\e[0m"
-echo -e ""
 wget -O usernew "https://${julak}/main/ssh/usernew.sh"
-clear
-echo -e "\033[1;93mOKE..!\e[0m"
-echo -e ""
 wget -O hapuslama "https://${julak}/main/ssh/hapus.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
@@ -89,7 +160,7 @@ cd
 clear
 sleep 3
 echo -e ""
-echo -e "\e[1;36mBERHASIL\e[0m"
+echo -e "\e[1;36mYES BERHASIL\e[0m"
 sleep 2
 clear
 echo ""
