@@ -64,7 +64,7 @@ case $opt in
 8) clear ; nano /etc/issue.net ; exit ;;
 9) clear ; bw ; exit ;;
 10) clear ; m-bot ; exit ;;
-11) clear ; menu-update ; exit ;;
+11) clear ; kimut ; exit ;;
 12) clear ; m-bot ; exit ;;
 13) clear ; m-ip ; exit ;;
 0) clear ; menu ; exit ;;
