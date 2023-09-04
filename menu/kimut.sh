@@ -49,17 +49,27 @@ sleep 5
 rm -rf kimut
 rm -rf menu
 rm -rf menu-set
+rm -rf menu-ssh
+rm -rf renew
 
 cd /usr/bin
 wget -O kimut "https://${julak}/main/menu/kimut.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
-wget -O menu "https://${julak}/main/menu/menu3.sh"
+wget -O menu "https://${julak}/main/menu/menu4.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
 wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
+clear
+echo -e "\033[1;93mOKE..!\e[0m"
+sleep 1
+wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
+clear
+echo -e "\033[1;93mOKE..!\e[0m"
+sleep 1
+wget -O renew "https://${julak}/main/ssh/renew.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 echo -e ""
@@ -67,6 +77,8 @@ echo -e ""
 chmod +x kimut
 chmod +x menu
 chmod +x menu-set
+chmod +x menu-ssh
+chmod +x renew
 cd
 
 clear
