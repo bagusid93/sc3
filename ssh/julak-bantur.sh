@@ -322,6 +322,7 @@ wget -O menu-backup "https://${julak}/menu/menu-backup.sh"
 wget -O backup "https://${julak}/backup/backup.sh"
 wget -O restore "https://${julak}/backup/restore.sh"
 wget -O kimut "https://${julak}/menu/kimut.sh"
+wget -O renew "https://${julak}/ssh/renew.sh"
 
 chmod +x menu-update
 chmod +x update
@@ -367,6 +368,7 @@ chmod +x sshlogin
 chmod +x menu-backup
 chmod +x tendang
 chmod +x kimut
+chmod +x renew
 cd
 
 
