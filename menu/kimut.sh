@@ -143,7 +143,6 @@ sleep 3
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 wget -O renew "https://${julak}/main/ssh/renew.sh"
 wget -O hapuslama "https://${julak}/main/ssh/hapus.sh"
-wget -O sshlogin "https://${julak}/main/ssh/cek.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 echo -e ""
@@ -154,7 +153,6 @@ chmod +x menu-set
 chmod +x menu-ssh
 chmod +x renew
 chmod +x hapuslama
-chmod +x sshlogin
 
 clear
 sleep 3
