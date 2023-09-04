@@ -13,7 +13,7 @@ curl "https://raw.githubusercontent.com/bagusid93/bantur/main/julak/insshws.sh" 
 
 
 
-wget -O /usr/local/bin/edu-proxy https://raw.githubusercontent.com/bagusid93/bantur/main/julak/openssh.py && chmod +x /usr/local/bin/edu-proxy
+wget -O /usr/local/bin/edu-proxy https://raw.githubusercontent.com/ppnhss/websocket/main/openssh.py && chmod +x /usr/local/bin/edu-proxy
 
 wget -O /etc/systemd/system/edu-proxy.service https://raw.githubusercontent.com/bagusid93/bantur/main/julak/http.service && chmod +x /etc/systemd/system/edu-proxy.service
 
