@@ -57,24 +57,29 @@ usermod -e  $Expiration $User
 egrep "^$User" /etc/passwd >/dev/null
 echo -e "$Pass\n$Pass\n"|passwd $User &> /dev/null
 clear
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\E[40;1;37m               RENEW  USER                \E[0m"
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"  
+TEXT="
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>  SSHWS OVPN RENEW</b>
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>DOMAIN   :</b> <code>${domain} </code>
+<b>USERNAME :</b> <code>$User </code>
+<b>EXPIRED  :</b> <code>$Expiration_Display </code>
+<code>◇━━━━━━━━━━━━━━◇</code>
+"
+
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+
+
+echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• RENEW USERS •                 ${NC}$COLOR1$NC"
+echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
+echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo -e ""
-echo -e " Username : $User"
+echo -e " Username   : $User"
 echo -e " Days Added : $Days Days"
-echo -e " Expires on :  $Expiration_Display"
+echo -e " Expires on : $Expiration_Display"
 echo -e ""
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-else
-clear
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "\E[40;1;37m               RENEW  USER                \E[0m"
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"  
-echo -e ""
-echo -e "   Username Doesnt Exist      "
-echo -e ""
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 fi
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
