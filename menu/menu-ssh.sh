@@ -75,6 +75,204 @@ else
 touch /etc/xray/ssh
 fi
 
+function add-ssh(){
+clear
+cekray=`cat /root/log-install.txt | grep -ow "XRAY" | sort | uniq`
+if [ "$cekray" = "XRAY" ]; then
+domen=`cat /etc/xray/domain`
+else
+domen=`cat /etc/v2ray/domain`
+fi
+#nameserver=`cat /root/nsdomain`
+sldomain=`cat /etc/xray/dns`
+slkey=`cat /etc/slowdns/server.pub`
+#nameserver1=`cat /etc/slowdns/infons`
+#slkey1=`cat /root/server.pub`
+TIMES="10"
+CHATID=$(cat /etc/per/id)
+KEY=$(cat /etc/per/token)
+URL="https://api.telegram.org/bot$KEY/sendMessage"
+portsshws=`cat ~/log-install.txt | grep -w "SSH Websocket" | cut -d: -f2 | awk '{print $1}'`
+wsssl=`cat /root/log-install.txt | grep -w "SSH SSL Websocket" | cut -d: -f2 | awk '{print $1}'`
+author=$(cat /etc/profil)
+
+
+echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+echo -e "$COLOR1 ${NC} ${COLBG1}               ${WH}• SSH PANEL MENU •              ${NC} $COLOR1 $NC"
+echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
+echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+read -p "Username : " Login
+
+CLIENT_EXISTS=$(grep -w $Login /etc/xray/ssh | wc -l)
+
+  if [[ ${CLIENT_EXISTS} == '1' ]]; then
+    clear
+    echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+    echo -e "$COLOR1 ${NC} ${COLBG1}               ${WH}• SSH PANEL MENU •              ${NC} $COLOR1 $NC"
+    echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
+    echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+    echo ""
+    echo "A client with the specified name was already created, please choose another name."
+    echo ""
+    echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
+    read -n 1 -s -r -p "Press any key to back on menu"
+    menu-ssh
+  fi
+read -p "Password : " Pass
+read -p "Expired (hari): " masaaktif
+
+IP=$(curl -sS ifconfig.me);
+ossl=`cat /root/log-install.txt | grep -w "OpenVPN" | cut -f2 -d: | awk '{print $6}'`
+opensh=`cat /root/log-install.txt | grep -w "OpenSSH" | cut -f2 -d: | awk '{print $1}'`
+db=`cat /root/log-install.txt | grep -w "Dropbear" | cut -f2 -d: | awk '{print $1,$2}'`
+ssl="$(cat ~/log-install.txt | grep -w "Stunnel4" | cut -d: -f2)"
+sqd="$(cat ~/log-install.txt | grep -w "Squid" | cut -d: -f2)"
+ovpn="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+ovpn2="$(netstat -nlpu | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+
+OhpSSH=`cat /root/log-install.txt | grep -w "OHP SSH" | cut -d: -f2 | awk '{print $1}'`
+OhpDB=`cat /root/log-install.txt | grep -w "OHP DBear" | cut -d: -f2 | awk '{print $1}'`
+OhpOVPN=`cat /root/log-install.txt | grep -w "OHP OpenVPN" | cut -d: -f2 | awk '{print $1}'`
+sleep 1
+clear
+clear
+clear
+clear
+expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
+useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
+exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
+echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
+echo -e "#ssh $Login $expi $Pass" >> /etc/xray/ssh
+PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
+
+TEXT="
+<code>──────────────────</code>
+<code>    SSH OVPN Premium Account   </code>
+<code>──────────────────</code>
+<code>Username        : </code> <code>$Login</code>
+<code>Password        : </code> <code>$Pass</code>
+<code>Expired          : </code> <code>$exp</code>
+<code>──────────────────</code>
+<code>IP               : </code> <code>$IP</code>
+<code>Host             : </code> <code>$domen</code>
+<code>Host Slowdns    : </code> <code>$sldomain</code>
+<code>Pub Key          : </code> <code> $slkey</code>
+<code>Port OpenSSH    : </code> <code>$opensh</code>
+<code>Port Dropbear    : </code> <code>$db</code>
+<code>Port DNS         : </code> <code>80, 443,53</code> 
+<code>Port SSH WS     : </code> <code>80</code>
+<code>Port SSH SSL WS : </code> <code>$wsssl</code>
+<code>Port SSL/TLS     : </code> <code>447,8443</code>
+<code>Port OVPN WS SSL : </code> <code>2086</code>
+<code>Port OVPN SSL    : </code> <code>990</code>
+<code>Port OVPN TCP    : </code> <code>$ovpn</code>
+<code>Port OVPN UDP    : </code> <code>$ovpn2</code>
+<code>Proxy Squid        : </code> <code>3128</code>
+<code>BadVPN UDP       : </code> <code>7100, 7300, 7300</code>
+<code>───────────────────</code>
+<code>SSH UDP VIRAL :</code> <code>$domen:100-200@$Login:$Pass</code>
+<code>Payload WS   : </code> <code>GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]</code>
+<code>───────────────────</code>
+<code>OpenVPN SSL      : </code> https://$domen:81/ssl.ovpn
+<code>OpenVPN TCP      : </code> https://$domen:81/tcp.ovpn
+<code>OpenVPN UDP      : </code> https://$domen:81/udp.ovpn
+<code>───────────────────</code>
+<code>           $author                       </code>
+<code>───────────────────</code>
+"
+
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+
+if [[ ! -z "${PID}" ]]; then
+
+clear
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• Ssh Ovpn Account •           ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Username   ${COLOR1}: ${WH}$Login"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Password   ${COLOR1}: ${WH}$Pass" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
+#echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}$opensh" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}$db" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}$wsssl" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH SSL/TLS ${COLOR1}: ${WH}447,8443" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port Ovpn TCP    ${COLOR1}: ${WH}$ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port Ovpn UDP    ${COLOR1}: ${WH}$ovpn2" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port Ovpn SSL    ${COLOR1}: ${WH}990" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OVPN TCP         ${COLOR1}: ${WH}http://$domen:81/tcp.ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OVPN UDP         ${COLOR1}: ${WH}http://$domen:81/udp.ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OVPN SSL         ${COLOR1}: ${WH}http://$domen:81/ssl.ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}UDPGW            ${COLOR1}: ${WH}7100-7900" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}PORT SLWDNS     ${COLOR1}: ${WH}80,443,53"
+echo -e "$COLOR1 $NC ${WH}NAMESERVER      ${COLOR1}: ${WH}$sldomain"
+#echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver"
+echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
+#echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
+#echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1└────────────────────┘${NC}" | tee -a /etc/log-create-user.log
+else
+
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• Ssh Ovpn Account •           ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Username   ${COLOR1}: ${WH}$Login"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Password   ${COLOR1}: ${WH}$Pass" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
+#echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}$opensh" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}$db" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}$wsssl" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port SSH SSL/TLS ${COLOR1}: ${WH}447,8443" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port Ovpn TCP    ${COLOR1}: ${WH}$ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port Ovpn UDP    ${COLOR1}: ${WH}$ovpn2" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Port Ovpn SSL    ${COLOR1}: ${WH}990" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OVPN TCP         ${COLOR1}: ${WH}http://$domen:81/tcp.ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OVPN UDP         ${COLOR1}: ${WH}http://$domen:81/udp.ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}OVPN SSL         ${COLOR1}: ${WH}http://$domen:81/ssl.ovpn" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}UDPGW            ${COLOR1}: ${WH}7100-7900" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}PORT SLWDNS     ${COLOR1}: ${WH}80,443,53"
+echo -e "$COLOR1 $NC ${WH}NAMESERVER      ${COLOR1}: ${WH}$sldomain"
+#echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver"
+echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
+#echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
+#echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1└────────────────────┘${NC}" | tee -a /etc/log-create-user.log
+fi
+echo "" | tee -a /etc/log-create-user.log
+read -n 1 -s -r -p "Press any key to back on menu"
+menu-ssh
+}
 clear
 author=$(cat /etc/profil)
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
