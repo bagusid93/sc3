@@ -25,6 +25,7 @@ echo -e "      ${GREEN}WhatsApp${NC} wa.me/6281250851741"
 echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
 exit
 fi
+checking_sc
 
 # =========================================
 vmc=$(grep -c -E "^#vmg " "/etc/xray/config.json")
