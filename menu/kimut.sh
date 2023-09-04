@@ -142,7 +142,6 @@ echo -e "\033[1;93mUPDATE ALL MENU..!\e[0m"
 sleep 3
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 wget -O renew "https://${julak}/main/ssh/renew.sh"
-wget -O add-ssh "https://${julak}/main/ssh/usernew.sh"
 wget -O hapuslama "https://${julak}/main/ssh/hapus.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
@@ -153,7 +152,6 @@ chmod +x menu
 chmod +x menu-set
 chmod +x menu-ssh
 chmod +x renew
-chmod +x add-ssh
 chmod +x hapuslama
 cd
 
