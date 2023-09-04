@@ -43,7 +43,7 @@ echo -e "$COLOR1┌────────────────────�
 echo "Account number: $JUMLAH user"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo ""
-read -p "Masukkan Username Yang Akan Di Renew 👉 " User
+read -p "Username To Renew 👉 " User
 egrep "^$User" /etc/passwd >/dev/null
 if [ $? -eq 0 ]; then
 read -p "Tambah Masa Aktif 👉 " Days
