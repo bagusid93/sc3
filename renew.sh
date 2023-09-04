@@ -35,14 +35,6 @@ echo -e "$COLOR1┌────────────────────�
 echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• RENEW USERS •                 ${NC}$COLOR1$NC"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo ""	
-echo "  Select the existing client you want to renew}"
-echo "  Press CTRL+C to return"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC} ${COLBG1}                 ${WH}• MEMBER SSH •                ${NC}$COLOR1$NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo "USERNAME          EXP DATE          STATUS"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 while read expired
@@ -63,6 +55,8 @@ JUMLAH="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo "Account number: $JUMLAH user"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
+until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
+if [[ ${CLIENT_NUMBER} == '1' ]]; then
 read -rp "Select one client [1]: " CLIENT_NUMBER
 else
 read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
