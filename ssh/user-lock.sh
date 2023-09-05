@@ -59,7 +59,6 @@ echo "Username not found on your server."
 fi
 echo ""
 read -n 1 -s -r -p "Press x or 0 to back on menu"
-user-lock
 ;;                                                                         
 0)
 menu
