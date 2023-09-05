@@ -685,7 +685,7 @@ sed -i "/^#ssh $Pengguna/d" /etc/xray/ssh
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
-function cek(){
+function login(){
 TIMES="10"
 CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
@@ -995,7 +995,7 @@ case $opt in
 01 | 1) clear ; usernew ; exit ;;
 02 | 2) clear ; renew ; exit ;;
 03 | 3) clear ; hapuslama ; exit ;;
-04 | 4) clear ; sshlogin ; exit ;;
+04 | 4) clear ; login ; exit ;;
 05 | 5) clear ; cekconfig ; exit ;;
 06 | 6) clear ; delete ; exit ;;
 07 | 7) clear ; autokill ; exit ;;
