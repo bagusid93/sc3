@@ -54,22 +54,11 @@ clear
   echo -e "Access for Username ${blue}$username${NC} has been restored"
   echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
   else
-  echo " "
-  echo -e "Username ${red}$username${NC} not found in your server."
-echo " "    
-	exit 1
-fi
-echo ""
-read -n 1 -s -r -p "Press x or 0 to back on menu"
-;;                                                                         
-0)
-menu
-exit
-;;
-x)
-clear
-exit
-;;
-*) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; user-lock ;;               
+echo -e ""
+echo -ne " ${WH}Input x To Exit Or 0 For Back To Menu ${COLOR1}: ${WH}"; read opt
+case $opt in
+00 | 0) clear ; menu ; exit ;;
+X  | 0) clear ; menu ;;
+x) exit ;;
+*) echo " salah tekan sayang" ; sleep 1 ; menu-ssh ;;
 esac
-
