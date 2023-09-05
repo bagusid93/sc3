@@ -30,3 +30,4 @@ echo -e "Username ${red}$username${NC} not found in your server."
 echo " "    
 	exit 1
 fi
+menu
