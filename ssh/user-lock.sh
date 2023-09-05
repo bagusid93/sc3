@@ -57,4 +57,19 @@ else
 echo "Username not found on your server."
     exit 1
 fi
+echo ""
+read -n 1 -s -r -p "Press x or 0 to back on menu"
+user-lock
+;;                                                                         
+0)
 menu
+exit
+;;
+x)
+clear
+exit
+;;
+*) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; user-lock ;;               
+esac
+
+
