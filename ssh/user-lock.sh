@@ -58,10 +58,12 @@ echo "Username not found on your server."
     exit 1
 fi
 echo -e ""
-echo -ne " ${WH}Input x To Exit Or 0 For Back To Menu ${COLOR1}: ${WH}"; read opt
+echo -e "$COLOR1 $NC ${BICyan}[${WH}01${BICyan}]${NC} ${WH}• ${COLOR1}Back To Menu ${NC}     $COLOR1 $NC"
+echo -e "$COLOR1 $NC ${BICyan}[${WH}02${BICyan}]${NC} ${WH}• ${COLOR1}Exit Script  ${NC}     $COLOR1 $NC"
+echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
+echo -e ""
 case $opt in
-00 | 0) clear ; menu ; exit ;;
-X  | 0) clear ; menu ;;
-x) exit ;;
-*) echo " salah tekan sayang" ; sleep 1 ; user-lock ;;
+1) clear ; menu ; exit ;;
+2) exit ;;
+*) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; user-unlock ;;
 esac
