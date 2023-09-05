@@ -58,7 +58,7 @@ rm -rf menu
 #rm -rf clearcache
 #rm -rf menu-trgo
 #rm -rf menu-trojan
-#rm -rf menu-ssh
+rm -rf menu-ssh
 #rm -rf add-ssh
 #rm -rf trial
 #rm -rf renew
@@ -139,7 +139,7 @@ echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
 echo -e "\033[1;93mUPDATE ALL MENU..!\e[0m"
 sleep 3
-#wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
+wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 echo -e ""
@@ -147,7 +147,7 @@ echo -e ""
 chmod +x kimut
 chmod +x menu
 #chmod +x menu-set
-#chmod +x menu-ssh
+chmod +x menu-ssh
 
 clear
 sleep 3
