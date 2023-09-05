@@ -8,7 +8,7 @@ RED="\033[0;31m"
 echo -e "\e[32mloading...\e[0m"
 clear
 echo " "
-read -p "Input Username you want to lock: " username
+read -p "Input Username to lock 👉 " username
 egrep "^$username" /etc/passwd >/dev/null
 if [ $? -eq 0 ]; then
 # proses mengganti passwordnya
@@ -25,3 +25,4 @@ else
 echo "Username not found on your server."
     exit 1
 fi
+menu
