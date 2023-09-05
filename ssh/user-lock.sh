@@ -49,10 +49,10 @@ clear
   echo " "
   echo " "
   echo " "
-  echo "-----------------------------------------------"
+  echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
   echo -e "Username ${blue}$username${NC} successfully ${red}LOCKED!${NC}."
   echo -e "Access Login to username ${blue}$username${NC} has been locked."
-  echo "-----------------------------------------------"
+  echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 else
 echo "Username not found on your server."
     exit 1
