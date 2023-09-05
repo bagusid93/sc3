@@ -55,10 +55,10 @@ clear
   echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
   else
 echo -e ""
-echo -ne " ${WH}Input x To Exit Or 0 For Back To Menu ${COLOR1}: ${WH}"; read opt
+read -p " Input x To Exit Or 0 For Back To Menu : " opt
+echo -e ""
 case $opt in
-00 | 0) clear ; menu ; exit ;;
-X  | 0) clear ; menu ;;
+0) clear ; menu ; exit ;;
 x) exit ;;
-*) echo " salah tekan sayang" ; sleep 1 ; menu-ssh ;;
+*) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; user-unlock ;;
 esac
