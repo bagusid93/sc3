@@ -686,28 +686,24 @@ read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
 function login(){
-TIMES="10"
-CHATID=$(cat /etc/per/id)
-KEY=$(cat /etc/per/token)
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-domain=$(cat /etc/xray/domain)
+clear
+echo " "
+echo " "
 author=$(cat /etc/profil)
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC} ${COLBG1}              ${WH}• SSH ACTIVE USERS •             ${NC} $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e ""
-systemctl restart ws-stunnel > /dev/null 2>&1
-systemctl restart ws-dropbear > /dev/null 2>&1
-sleep 1
+
 if [ -e "/var/log/auth.log" ]; then
         LOG="/var/log/auth.log";
 fi
 if [ -e "/var/log/secure" ]; then
         LOG="/var/log/secure";
 fi
-
+               
 data=( `ps aux | grep -i dropbear | awk '{print $2}'`);
+echo -e "$COLOR1┌──────────────────────────────────┐${NC}"
+echo -e "$COLOR1 ${NC}${COLBG1}         ${WH}SSH User Login           ${NC} $COLOR1 $NC"
+echo -e "$COLOR1└──────────────────────────────────┘${NC}"
+echo "ID  |  Username  |  IP Address";
+echo -e "$COLOR1┌──────────────────────────────────┐${NC}"
 cat $LOG | grep -i dropbear | grep -i "Password auth succeeded" > /tmp/login-db.txt;
 for PID in "${data[@]}"
 do
@@ -734,33 +730,31 @@ do
                 echo "$PID - $USER - $IP";
         fi
 
-
 done
 if [ -f "/etc/openvpn/server/openvpn-tcp.log" ]; then
         echo " "
-
         cat /etc/openvpn/server/openvpn-tcp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' > /tmp/vpn-login-tcp.txt
         cat /tmp/vpn-login-tcp.txt
 fi
 
 if [ -f "/etc/openvpn/server/openvpn-udp.log" ]; then
         echo " "
-
         cat /etc/openvpn/server/openvpn-udp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' > /tmp/vpn-login-udp.txt
         cat /tmp/vpn-login-udp.txt
 fi
-
+echo -e "$COLOR1└──────────────────────────────────┘${NC}"
+echo ""
+echo -e "$COLOR1┌──────────────────────────────────┐${NC}"
+echo -e "$COLOR1 ${NC}${COLBG1}          ${WH}• $author •           ${NC}$COLOR1$NC"
+echo -e "$COLOR1└──────────────────────────────────┘${NC}"
+echo "";
 
 rm -f /tmp/login-db-pid.txt
 rm -f /tmp/login-db.txt
 rm -f /tmp/vpn-login-tcp.txt
 rm -f /tmp/vpn-login-udp.txt
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1${NC}${COLBG1}                   ${WH}• $author •              ${NC}$COLOR1$NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
+
 menu-ssh
 }
 
