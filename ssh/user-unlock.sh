@@ -48,10 +48,10 @@ clear
   echo " "
   echo " "
   echo " "
-  echo "-------------------------------------------"
+echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
   echo -e "Username ${blue}$username${NC} successfully ${green}UNLOCKED${NC}."
   echo -e "Access for Username ${blue}$username${NC} has been restored"
-  echo "-------------------------------------------"
+echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 else
 echo " "
 echo -e "Username ${red}$username${NC} not found in your server."
@@ -59,10 +59,12 @@ echo " "
 	exit 1
 fi
 echo -e ""
-read -p " Input x To Exit Or 0 For Back To Menu : " opt
+echo -e "$COLOR1 $NC ${BICyan}[${WH}01${BICyan}]${NC} ${WH}• ${COLOR1}Back To Menu ${NC}     $COLOR1 $NC"
+echo -e "$COLOR1 $NC ${BICyan}[${WH}02${BICyan}]${NC} ${WH}• ${COLOR1}Exit Script  ${NC}     $COLOR1 $NC"
+echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
 echo -e ""
 case $opt in
-0) clear ; menu ; exit ;;
-x) exit ;;
+1) clear ; menu ; exit ;;
+2) exit ;;
 *) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; user-unlock ;;
 esac
