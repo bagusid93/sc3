@@ -321,8 +321,6 @@ wget -O menu-backup "https://${julak}/menu/menu-backup.sh"
 wget -O backup "https://${julak}/backup/backup.sh"
 wget -O restore "https://${julak}/backup/restore.sh"
 wget -O kimut "https://${julak}/menu/kimut.sh"
-wget -O renew "https://${julak}/ssh/renew.sh"
-wget -O hapuslama "https://${julak}/ssh/hapus.sh"
 
 chmod +x menu-update
 chmod +x update
@@ -369,10 +367,8 @@ chmod +x menu-backup
 chmod +x tendang
 chmod +x kimut
 chmod +x renew
-chmod +x usernew
-chmod +x hapuslama
 cd
-
+clear
 
 if [ ! -f "/etc/cron.d/cleaner" ]; then
 cat> /etc/cron.d/cleaner << END
