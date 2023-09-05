@@ -39,7 +39,6 @@ echo -e "$COLOR1┌────────────────────�
 echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• UNLOCK USER SSH •                 ${NC}$COLOR1$NC"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo " "
 read -p "Input Username To Unlock 👉 " username
 egrep "^$username" /etc/passwd >/dev/null
 if [ $? -eq 0 ]; then
@@ -49,11 +48,16 @@ clear
   echo " "
   echo " "
   echo " "
-  echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+  echo "-------------------------------------------"
   echo -e "Username ${blue}$username${NC} successfully ${green}UNLOCKED${NC}."
   echo -e "Access for Username ${blue}$username${NC} has been restored"
-  echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-  else
+  echo "-------------------------------------------"
+else
+echo " "
+echo -e "Username ${red}$username${NC} not found in your server."
+echo " "    
+	exit 1
+fi
 echo -e ""
 read -p " Input x To Exit Or 0 For Back To Menu : " opt
 echo -e ""
