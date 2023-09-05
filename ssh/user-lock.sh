@@ -63,5 +63,5 @@ case $opt in
 00 | 0) clear ; menu ; exit ;;
 X  | 0) clear ; menu ;;
 x) exit ;;
-*) echo " salah tekan sayang" ; sleep 1 ; menu-ssh ;;
+*) echo " salah tekan sayang" ; sleep 1 ; user-lock ;;
 esac
