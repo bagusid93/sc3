@@ -49,10 +49,10 @@ clear
   echo " "
   echo " "
   echo " "
-  echo "-------------------------------------------"
+  echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
   echo -e "Username ${blue}$username${NC} successfully ${green}UNLOCKED${NC}."
   echo -e "Access for Username ${blue}$username${NC} has been restored"
-  echo "-------------------------------------------"
+  echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
   else
   echo " "
   echo -e "Username ${red}$username${NC} not found in your server."
