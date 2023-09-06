@@ -111,7 +111,7 @@ echo -e "
 Detail Backup Papada'an Store
 ====================================
 IP VPS         : $IP
-Token ID        : $id
+Token ID       : $id
 Tanggal        : $date
 ====================================
 " | mail -s "Backup Data By Papada'an Store" $email
@@ -122,12 +122,12 @@ echo ""
 clear
 echo -e "
 ==================================
-       Detail Backup
+      Detail Backup
            By
-      Papada'an Store
+     Papada'an Store
 ==================================
 IP VPS         : $IP
-Token ID        : $id
+Token ID       : $id
 Tanggal        : $date
 ==================================
 "
@@ -137,13 +137,13 @@ message="
 <code>==========================</code>
 <code>      Papada'an Store </code>
 <code>===========================</code>
-<code>DOMAIN        : ${domain}</code>
+<code>DOMAIN     : ${domain}</code>
 <code>=========================/=</code>
-<code>IP VPS        : ${IP}</code>
+<code>IP VPS     : ${IP}</code>
 <code>===========================</code>
-<code>Token ID Backup:</code> $id
+<code>Token ID   :</code> $id
 <code>===========================</code>
-<code>Tanggal       : $date</code>
+<code>Tanggal    : $date</code>
 <code>===========================</code>
 "
 curl -s -X POST "$LINK" \
