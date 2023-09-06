@@ -28,9 +28,8 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• EDIT LIMIT SSH •        
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""
-grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s '
+grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 echo ""
-echo -e "\033[0;35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 read -rp "Input Username : " user
 if [ -z $user ]; then
 menu
