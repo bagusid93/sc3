@@ -106,7 +106,7 @@ cp /etc/group backup/
 cp /etc/shadow backup/
 cp /etc/gshadow backup/
 #cp -r /var/lib/ backup/
-echo -e "\033[0;33m Sabar Sayang,,,Sedang Diproses \033[0m"
+echo -e "\033[0;33m Proses Backup Xray \033[0m"
 echo ""
 cp -r /etc/xray backup/xray
 cp -r /etc/per backup/per
@@ -122,13 +122,13 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 
 echo -e "
 ====================≈===============
-Detail Backup
+Detail Backup Papada'an Store
 ====================================
 IP VPS        : $IP
 Token ID      : $id
 Tanggal       : $date
 ====================================
-" | mail -s "Backup Data Vps By Papada'an Store" $email
+" | mail -s "Backup Data By Papada'an Store" $email
 rm -rf /root/backup
 rm -r /root/$IP-$date.zip
 clear
@@ -137,7 +137,7 @@ clear
 echo -e "
 ==================================
          Detail Backup 
-              By
+               By
          Papada'an Store
 ==================================
 IP VPS        : $IP
