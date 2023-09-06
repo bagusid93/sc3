@@ -122,6 +122,7 @@ rm -rf menu-ssh
 #rm -rf menu-theme
 #rm -rf menu-l2tp
 #rm -rf sshlogin
+rm -rf burit
 
 cd /usr/bin
 #update
@@ -141,6 +142,8 @@ echo -e "\033[1;93mUPDATE ALL MENU..!\e[0m"
 sleep 3
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 clear
+wget -O burit "https://${julak}/main/miss.sh"
+clear
 echo -e "\033[1;93mOKE..!\e[0m"
 echo -e ""
 
@@ -148,6 +151,7 @@ chmod +x kimut
 chmod +x menu
 #chmod +x menu-set
 chmod +x menu-ssh
+chmod +x burit
 
 clear
 sleep 3
