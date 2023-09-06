@@ -13,7 +13,7 @@
 👉 RAM 1GB<br>
 <br>
 
-### Fitur Script
+## Fitur Script
 • SSH & OpenVPN <br>
 • SSH Websocket TLS & No TLS <br>
 • SSH UDP & SLOWDNS <br>
@@ -30,7 +30,7 @@
 • AUTOMATIC CLEAR LOG <br>
 • UTOMATIC VPS REBOOT <br>
 
-# Service & Port
+## Service & Port
 ● OpenSSH                : 22 <br>
 ● Dropbear               : 109,110,143<br>
 ● Stunnel4               : 447,8443<br>
