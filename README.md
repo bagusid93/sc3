@@ -67,7 +67,7 @@
 ![Service Status](https://raw.githubusercontent.com/bagusid93/image/main/menujulak.png)
 
 # Service Status
-![Service Status](https://raw.githubusercontent.com/bagusid93/image/main/sevicejulak.png)
+![Service Status](https://raw.githubusercontent.com/bagusid93/image/main/bantur.png)
 
 # install
 - Step 1 Update
