@@ -122,7 +122,7 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 
 echo -e "
 ====================≈===============
-Detail Backup 
+        Detail Backup 
 ====================================
 IP VPS        : $IP
 Link ID Backup: $id
@@ -136,28 +136,28 @@ echo ""
 clear
 echo -e "
 ==================================
-       Detail Backup 
+          Detail Backup 
                By
- PAPADA'AN STORE
+        PAPADA'AN STORE
 ==================================
-IP VPS        : $IP
-Link ID Backup: $id
-Tanggal       : $date
+IP VPS         : $IP
+Token ID       : $id
+Tanggal Backup : $date
 ==================================
 "
 message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>  PAPADA'AN STORE </code>
+<code>     PAPADA'AN STORE </code>
 <code>===========================</code>
-<code>DOMAIN        : ${domain}</code>
+<code>DOMAIN         : ${domain}</code>
 <code>=========================/=</code>
-<code>IP VPS        : ${IP}</code>
+<code>IP VPS         : ${IP}</code>
 <code>===========================</code>
-<code>Link ID Backup:</code> $id
+<code>Token ID       :</code> $id
 <code>===========================</code>
-<code>Tanggal       : $date</code>
+<code>Tanggal Backup : $date</code>
 <code>===========================</code>
 "
 curl -s -X POST "$LINK" \
