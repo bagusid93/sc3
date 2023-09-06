@@ -1,34 +1,34 @@
-## 💣 AUTOSCRIPT WEBSOCKET XRAY MULTIPORT / MULTIPATH 💣
+## 💣 AUTOSCRIPT WEBSOCKET XRAY 💣
+## 💣 MULTIPORT / MULTIPATH 💣
 </p> 
 <h2 align="center"> Supported Linux Distribution</h2>
 <p align="center"><img src="https://d33wubrfki0l68.cloudfront.net/5911c43be3b1da526ed609e9c55783d9d0f6b066/9858b/assets/img/debian-ubuntu-hover.png"></p> 
 <p align="center"><img src="https://img.shields.io/static/v1?style=for-the-badge&logo=debian&label=Debian%2010&message=Buster&color=purple">  <img src="https://img.shields.io/static/v1?style=for-the-badge&logo=ubuntu&label=Ubuntu%2020&message=Lts&color=red">
 </p>
   
-# Diperlukan
-<br>
-- DEBIAN 10<br>
-- Ubuntu 20 LTS<br>
-- CPU MIN 1 CORE<br>
-- RAM 1GB<br>
+## Diperlukan
+👉 DEBIAN 10<br>
+👉 Ubuntu 20 LTS<br>
+👉 CPU MIN 1 CORE<br>
+👉 RAM 1GB<br>
 <br>
 
 ### Fitur Script
-• SSH & OpenVPN
-• SSH Websocket TLS & No TLS
-• SSH UDP & SLOWDNS
-• XRAY VMESS 
-• XRAY VLESS
-• XRAY TROJAN
-• PPTP VPN
-• L2TP VPN
-• Backup Data VPS
-• Restore Data VPS
-• DNS CHANGER
-• CHECK USER LOGIN
-• CHECK CREATED CONFIG
-• AUTOMATIC CLEAR LOG
-• UTOMATIC VPS REBOOT 
+• SSH & OpenVPN <br>
+• SSH Websocket TLS & No TLS <br>
+• SSH UDP & SLOWDNS <br>
+• XRAY VMESS <br>
+• XRAY VLESS <br>
+• XRAY TROJAN <br>
+• PPTP VPN <br>
+• L2TP VPN <br>
+• Backup Data VPS <br>
+• Restore Data VPS <br>
+• DNS CHANGER <br>
+• CHECK USER LOGIN <br>
+• CHECK CREATED CONFIG <br>
+• AUTOMATIC CLEAR LOG <br>
+• UTOMATIC VPS REBOOT <br>
 
 # Service & Port
 
