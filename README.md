@@ -1,5 +1,5 @@
-###💣 AUTOSCRIPT WEBSOCKET XRAY 💣
-###💣 MULTIPORT / MULTIPATH 💣
+<h2 align="center">AUTOSCRIP XRAY WEBSOCKET</h2>
+<h2 align="center">MULTIPORT / MULTIPATH</h2>
 </p> 
 <h2 align="center"> Supported Linux Distribution</h2>
 <p align="center"><img src="https://d33wubrfki0l68.cloudfront.net/5911c43be3b1da526ed609e9c55783d9d0f6b066/9858b/assets/img/debian-ubuntu-hover.png"></p> 
@@ -31,48 +31,37 @@
 • UTOMATIC VPS REBOOT <br>
 
 # Service & Port
-•OpenSSH                : 22 <br>
-•Dropbear               : 109,110,143<br>
-•Stunnel4               : 447,8443<br>
-•Websocket TLS          : 443,444 <br>
-•Websocket None TLS     : 80<br>
-•Vmess TLS & GRPC        : 443<br>
-•Vmess None TLS         : 80<br>
-•Vless TLS & GRPC        : 443<br>
-•Vless None TLS           : 80<br>
-•Trojan TLS & GRPC      : 443<br>
-•Trojan None TLS         : 80<br>
-•OpenVPN TCP            : 1194 <br>
-•OpenVPN UDP            : 2200 <br>
-•OpenVPN SSL             : 990 <br>
-•Websocket Ovpn         : 2086 <br>
-•L2tp VPN               : 1701<br>
-•Pptp VPN               : 1732<br>
-•Squid Proxy            : 3128<br>
-•Badvpn                 : 7100, 7200, 7300 <br>
-•Nginx                  : 81 <br>
+● OpenSSH                : 22 <br>
+● Dropbear               : 109,110,143<br>
+● Stunnel4               : 447,8443<br>
+● Websocket TLS          : 443,444 <br>
+● Websocket None TLS     : 80<br>
+● Vmess TLS & GRPC        : 443<br>
+● Vmess None TLS         : 80<br>
+● Vless TLS & GRPC        : 443<br>
+● Vless None TLS           : 80<br>
+● Trojan TLS & GRPC      : 443<br>
+● Trojan None TLS         : 80<br>
+● OpenVPN TCP            : 1194 <br>
+● OpenVPN UDP            : 2200 <br>
+● OpenVPN SSL             : 990 <br>
+● Websocket Ovpn         : 2086 <br>
+● L2tp VPN               : 1701<br>
+● Pptp VPN               : 1732<br>
+● Squid Proxy            : 3128<br>
+● Badvpn                 : 7100, 7200, 7300 <br>
+● Nginx                  : 81 <br>
 
  ### Server Information & Other Features
 
-• Timezone                : Asia/Jakarta (GMT +7)
-
-• Fail2Ban                : [ON]
-
-• Dflate                  : [ON]
-
-• IPtables                : [ON]
-
-• Auto-Reboot             : [ON]
-
-• IPv6                    : [OFF]
-
-• Autoreboot On 02.00 GMT +7
-
-• Futo Delete Expired Account
-
-• Full Orders For Various Services
-
-• White Label
+• Timezone                : Asia/Jakarta (GMT +7)<br>
+• Fail2Ban                : [ON]<br>
+• Dflate                  : [ON]<br>
+• IPtables                : [ON]<br>
+• Auto-Reboot             : [ON]<br>
+• IPv6                    : [OFF]<br>.
+• Autoreboot On 02.00 GMT +7<br>
+• Auto Delete Expired Account<br>
 
 # install
 - Step 1 Update
