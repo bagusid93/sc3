@@ -47,7 +47,7 @@ fi
 
 PERMISSION () {
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | awk '{print $4}' | grep $MYIP)
+    IZIN=$(curl -sS https://raw.githubusercontent.com/bagsuid93/hss/main/sc3 | awk '{print $4}' | grep $MYIP)
     if [ "$MYIP" = "$IZIN" ]; then
     Bloman
     else
@@ -98,7 +98,7 @@ $email
 EOF
 fi
 clear
-echo -e "\033[0;33m Sabar Sayang , Proses Backup sedang berlangsung !!! \033[0m"
+echo -e "\033[0;33m Mohon Menunggu , Proses Backup sedang berlangsung !!! \033[0m"
 rm -rf /root/backup
 mkdir /root/backup
 cp /etc/passwd backup/
@@ -106,7 +106,7 @@ cp /etc/group backup/
 cp /etc/shadow backup/
 cp /etc/gshadow backup/
 #cp -r /var/lib/ backup/
-echo -e "\033[0;33m Proses Backup Xray \033[0m"
+echo -e "\033[0;33m Sabar Sayang,,,Sedang Diproses \033[0m"
 echo ""
 cp -r /etc/xray backup/xray
 cp -r /etc/per backup/per
@@ -122,13 +122,13 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 
 echo -e "
 ====================≈===============
-        Detail Backup 
+Detail Backup
 ====================================
 IP VPS        : $IP
-Link ID Backup: $id
+Token ID      : $id
 Tanggal       : $date
 ====================================
-" | mail -s "Backup Data Autoscript By Papada'an Store" $email
+" | mail -s "Backup Data Vps By Papada'an Store" $email
 rm -rf /root/backup
 rm -r /root/$IP-$date.zip
 clear
@@ -136,35 +136,35 @@ echo ""
 clear
 echo -e "
 ==================================
-          Detail Backup 
-               By
-        PAPADA'AN STORE
+         Detail Backup 
+              By
+         Papada'an Store
 ==================================
-IP VPS         : $IP
-Token ID       : $id
-Tanggal Backup : $date
+IP VPS        : $IP
+Token ID      : $id
+Tanggal       : $date
 ==================================
 "
 message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>     PAPADA'AN STORE </code>
+<code>      Papada'an Store </code>
 <code>===========================</code>
-<code>DOMAIN         : ${domain}</code>
+<code>DOMAIN        : ${domain}</code>
 <code>=========================/=</code>
-<code>IP VPS         : ${IP}</code>
+<code>IP VPS        : ${IP}</code>
 <code>===========================</code>
-<code>Token ID       :</code> $id
+<code>Token ID      :</code> $id
 <code>===========================</code>
-<code>Tanggal Backup : $date</code>
+<code>Tanggal       : $date</code>
 <code>===========================</code>
 "
 curl -s -X POST "$LINK" \
 -d "chat_id=$CHATID" -d "parse_mode=html" -d "text=$message" >/dev/null 2>&1
-echo -e "\033[0;33m Cek Email Kamu Link Backup Sudah Dikirim \033[0m"
+echo -e "\033[0;33m Cek Email Kamu Token ID Backup Sudah Dikirim \033[0m"
 echo -e "\033[0;33m               Atau  ${NC}"
-echo -e "\033[0;33m Copy Token ID Di Atas Dan Pastekan Pada Menu Restore Di VPS Baru \033[0m"
+echo -e "\033[0;33m Copy Token ID Di Atas Dan Paste Di Menu Restore Di VPS Baru Kamu \033[0m"
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
-menu
+menu-backup
