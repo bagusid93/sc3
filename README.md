@@ -54,14 +54,14 @@
 
  ### Server Information & Other Features
 
-• Timezone                : Asia/Jakarta (GMT +7)<br>
-• Fail2Ban                : [ON]<br>
-• Dflate                  : [ON]<br>
-• IPtables                : [ON]<br>
-• Auto-Reboot             : [ON]<br>
-• IPv6                    : [OFF]<br>.
-• Autoreboot On 02.00 GMT +7<br>
-• Auto Delete Expired Account<br>
+• Timezone                : Asia/Jakarta (GMT +7) ✔<br>
+• Fail2Ban                : [ON] ✔<br>
+• Dflate                  : [ON] ✔<br>
+• IPtables                : [ON] ✔<br>
+• Auto-Reboot             : [ON] ✔<br>
+• IPv6                    : [OFF] ✔<br>.
+• Autoreboot On 02.00 GMT +7 ✔<br>
+• Auto Delete Expired Account ✔<br>
 
 # install
 - Step 1 Update
@@ -79,5 +79,6 @@ Hubungi_Admin_Untuk_Buy_AutoScript
 # Whatsapp
 [![Chat-whatsapp](https://img.shields.io/badge/Chat-Whatsapp-blue)](https://wa.me/+6281250851741/)
 
-## 💣 AUTOSCRIPT WEBSOCKET XRAY MULTIPORT BY JULAK BANTUR 💣
+## 💣 AUTOSCRIPT XRAY WEBSOCKET 💣
+## 💣 BY JULAK BANTUR 💣
   
