@@ -4,7 +4,7 @@ clear
 # install Ruby & Yum
 apt-get install ruby -y
 # install lolcat
-wget https://github.com/busyloop/lolcat/archive/master.zip
+wget https://github.com/HssPunya93/lolcat/archive/master.zip
 unzip master.zip
 rm -f master.zip
 cd lolcat-master/bin
@@ -13,10 +13,10 @@ gem install lolcat
 apt-get install figlet
 # Install figlet ascii
 sudo apt-get install figlet
-git clone https://github.com/busyloop/lolcat
+git clone https://github.com/HssPunya93/lolcat
 cd lolcat/bin && gem install lolcat
 cd /usr/share
-git clone https://github.com/xero/figlet-fonts
+git clone https://github.com/HssPunya93/figlet-fonts
 mv figlet-fonts/* figlet && rm –rf figlet-fonts
 
 cd
