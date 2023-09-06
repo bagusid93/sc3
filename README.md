@@ -59,7 +59,7 @@
 • Dflate                  : [ON] ✔<br>
 • IPtables                : [ON] ✔<br>
 • Auto-Reboot             : [ON] ✔<br>
-• IPv6                    : [OFF] ✔<br>.
+• IPv6                    : [OFF] ✔<br>
 • Autoreboot On 02.00 GMT +7 ✔<br>
 • Auto Delete Expired Account ✔<br>
 
