@@ -63,6 +63,12 @@
 • Autoreboot On 02.00 GMT +7 ✔<br>
 • Auto Delete Expired Account ✔<br>
 
+# Menu
+![Service Status](https://raw.githubusercontent.com/bagusid93/image/main/menujulak.png)
+
+# Service Status
+![Service Status](https://raw.githubusercontent.com/bagusid93/image/main/sevicejulak.png)
+
 # install
 - Step 1 Update
 ```
