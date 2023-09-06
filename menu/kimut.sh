@@ -7,8 +7,7 @@ biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ##############################
 julak="raw.githubusercontent.com/bagusid93/sc3"
 
-clear
-ipsaya=$(wget -qO- ipinfo.io/ip)
+=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
 data_ip="https://raw.githubusercontent.com/bagusid93/hss/main/sc3"
@@ -25,8 +24,8 @@ echo -e "            ${RED}AKSES DITOLAK !${NC}"
 echo -e "   \033[0;33mIPVPS KAMU${NC} $ipsaya \033[0;33mTidak Terdaftar${NC}"
 echo -e "   \033[0;33mHubungi Admin Untuk Buy AutoScript${NC}"
 echo -e "             \033[0;33mContact Admin :${NC}"
-echo -e "             \033[0;36mTelegram${NC} t.me/Cibut2d"
-echo -e "               ${GREEN}WhatsApp${NC} wa.me/6281250851741"
+echo -e "       \033[0;36mTelegram${NC} t.me/Cibut2d"
+echo -e "        ${GREEN}WhatsApp${NC} wa.me/6281250851741"
 echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
 exit
 fi
