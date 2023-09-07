@@ -125,7 +125,7 @@ echo -e "
 Detail Backup Papada'an Store
 ====================================
 IP VPS        : $IP
-Token ID Backup: $id
+Token ID      : $id
 Tanggal       : $date
 ====================================
 " | mail -s "Backup Data By Julak Bantur Autoscript" $email
@@ -141,7 +141,7 @@ echo -e "
          Papada'an Store
 ==================================
 IP VPS        : $IP
-Token ID Backup: $id
+Token ID      : $id
 Tanggal       : $date
 ==================================
 "
@@ -149,13 +149,13 @@ message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>  Papada'an Store </code>
+<code>     Papada'an Store   </code>
 <code>===========================</code>
 <code>DOMAIN        : ${domain}</code>
 <code>=========================/=</code>
 <code>IP VPS        : ${IP}</code>
 <code>===========================</code>
-<code>Token ID Backup:</code> $id
+<code>Token ID      :</code> $id
 <code>===========================</code>
 <code>Tanggal       : $date</code>
 <code>===========================</code>
