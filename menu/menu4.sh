@@ -10,6 +10,7 @@ COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //
 WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 
+
 BURIQ () {
     curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
     data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
@@ -40,7 +41,7 @@ CekTwo=$(cat /etc/.$Name.ini)
         res="Expired"
     fi
 else
-res="Registered"
+res="Permission Accepted..."
 fi
 }
 
@@ -50,7 +51,7 @@ PERMISSION () {
     if [ "$MYIP" = "$IZIN" ]; then
     Bloman
     else
-    res="Expired Guys"
+    res="Permission Denied!"
     fi
     BURIQ
 }
@@ -63,7 +64,7 @@ PERMISSION
 if [ -f /home/needupdate ]; then
 red "Your script need to update first !"
 exit 0
-elif [ "$res" = "Permission Accepted..." ]; then
+elif [ "$res" = "ON..." ]; then
 echo -ne
 else
 echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
