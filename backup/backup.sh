@@ -98,7 +98,7 @@ $email
 EOF
 fi
 clear
-echo -e "\033[0;33m Sabar Sayang , Proses Backup sedang berlangsung !!! \033[0m"
+echo -e "\033[0;33m Mohon Menunggu , Proses Backup sedang berlangsung !!! \033[0m"
 rm -rf /root/backup
 mkdir /root/backup
 cp /etc/passwd backup/
@@ -122,13 +122,13 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 
 echo -e "
 ====================≈===============
-Detail Backup Autoscript Julak Bantur
+Detail Backup 
 ====================================
 IP VPS        : $IP
-Token ID      : $id
+Link ID Backup: $id
 Tanggal       : $date
 ====================================
-" | mail -s "Backup Data By TARAP KUHING TUNNELING" $email
+" | mail -s "Backup Data " $email
 rm -rf /root/backup
 rm -r /root/$IP-$date.zip
 clear
@@ -138,10 +138,10 @@ echo -e "
 ==================================
          Detail Backup 
                By
-         PAPADA'AN STORE
+ TARAP KUHING TUNNELING { T.K.T }
 ==================================
 IP VPS        : $IP
-Token ID      : $id
+Link ID Backup: $id
 Tanggal       : $date
 ==================================
 "
@@ -149,13 +149,13 @@ message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>      Papada'an Store   </code>
+<code>  TARAP KUHING TUNNELING </code>
 <code>===========================</code>
 <code>DOMAIN        : ${domain}</code>
 <code>=========================/=</code>
 <code>IP VPS        : ${IP}</code>
 <code>===========================</code>
-<code>Token ID      :</code> $id
+<code>Link ID Backup:</code> $id
 <code>===========================</code>
 <code>Tanggal       : $date</code>
 <code>===========================</code>
@@ -164,7 +164,7 @@ curl -s -X POST "$LINK" \
 -d "chat_id=$CHATID" -d "parse_mode=html" -d "text=$message" >/dev/null 2>&1
 echo -e "\033[0;33m Cek Email Kamu Link ID Backup Sudah Dikirim \033[0m"
 echo -e "\033[0;33m               Atau  ${NC}"
-echo -e "\033[0;33m Copy Token ID Di Atas Dan Restore Di VPS Baru \033[0m"
+echo -e "\033[0;33m Copy Link ID Di Atas Dan Restore Di VPS Baru \033[0m"
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
 menu
