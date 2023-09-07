@@ -1,6 +1,6 @@
 #!/bin/bash
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=`date +"%d-%m-%Y" -d "$dateFromServer"`
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ###########- COLOR CODE -##############
 colornow=$(cat /etc/julak/theme/color.conf)
 export NC="\e[0m"
@@ -88,7 +88,7 @@ KEY=$(cat /etc/per/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 IP=$(wget -qO- ipinfo.io/ip);
 domain=$(cat /etc/xray/domain)
-date=$(date +"%d-%m-%Y")
+date=$(date +"%Y-%m-%d")
 email=$(cat /root/email)
 if [[ "$email" = "" ]]; then
 echo -e "${YELLOW} Masukkan Email Untuk Menerima Backup ${NC}"
@@ -105,14 +105,14 @@ cp /etc/passwd backup/
 cp /etc/group backup/
 cp /etc/shadow backup/
 cp /etc/gshadow backup/
-cp -r /var/lib/ backup/
+#cp -r /var/lib/ backup/
 echo -e "\033[0;33m Proses Backup Xray \033[0m"
 echo ""
 cp -r /etc/xray backup/xray
 cp -r /etc/per backup/per
 #echo -e "\033[0;33m Proses Backup Slowdns \033[0m"
 #cp -r /etc/slowdns backup/slowdns
-cp -r /home/vps/public_html /root/backup/public_html &> /dev/null
+cp -r /home/vps/public_html backup/public_html
 cd /root
 zip -r $IP-$date.zip backup > /dev/null 2>&1
 rclone copy /root/$IP-$date.zip dr:backup/
@@ -122,13 +122,13 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 
 echo -e "
 ====================≈===============
-Detail Backup Papada'an Store
+Detail Backup Autoscript Julak Bantur
 ====================================
 IP VPS        : $IP
 Token ID      : $id
 Tanggal       : $date
 ====================================
-" | mail -s "Backup Data By Julak Bantur Autoscript" $email
+" | mail -s "Backup Data By TARAP KUHING TUNNELING" $email
 rm -rf /root/backup
 rm -r /root/$IP-$date.zip
 clear
@@ -138,7 +138,7 @@ echo -e "
 ==================================
          Detail Backup 
                By
-         Papada'an Store
+         PAPADA'AN STORE
 ==================================
 IP VPS        : $IP
 Token ID      : $id
@@ -149,7 +149,7 @@ message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>     Papada'an Store   </code>
+<code>      Papada'an Store   </code>
 <code>===========================</code>
 <code>DOMAIN        : ${domain}</code>
 <code>=========================/=</code>
@@ -162,9 +162,9 @@ message="
 "
 curl -s -X POST "$LINK" \
 -d "chat_id=$CHATID" -d "parse_mode=html" -d "text=$message" >/dev/null 2>&1
-echo -e "\033[0;33m Cek Email Kamu Token ID Backup Sudah Dikirim \033[0m"
+echo -e "\033[0;33m Cek Email Kamu Link ID Backup Sudah Dikirim \033[0m"
 echo -e "\033[0;33m               Atau  ${NC}"
-echo -e "\033[0;33m Copy Token ID Di Atas Dan Paste Di Menu Restore Di VPS Baru Kamu\033[0m"
+echo -e "\033[0;33m Copy Token ID Di Atas Dan Restore Di VPS Baru \033[0m"
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
-menu-backup
+menu
