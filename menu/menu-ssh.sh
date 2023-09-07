@@ -454,9 +454,9 @@ echo -e "$COLOR1└────────────────────�
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
-read -rp "Select one client [1]: " CLIENT_NUMBER
+read -rp "Select Number [1]: " CLIENT_NUMBER
 else
-read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
+read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
 User=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
@@ -529,9 +529,9 @@ echo -e "$COLOR1└────────────────────�
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
-read -rp "Select one client [1]: " CLIENT_NUMBER
+read -rp "Select Number [1]: " CLIENT_NUMBER
 else
-read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
+read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
 Pengguna=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
@@ -590,9 +590,9 @@ echo -e "$COLOR1└────────────────────�
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
-read -rp "Select one client [1]: " CLIENT_NUMBER
+read -rp "Select Number [1]: " CLIENT_NUMBER
 else
-read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
+read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
 Login=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
@@ -988,7 +988,7 @@ echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
 case $opt in
 01 | 1) clear ; usernew ; exit ;;
 02 | 2) clear ; renew ; exit ;;
-03 | 3) clear ; hapuslama ; exit ;;
+03 | 3) clear ; hapus ; exit ;;
 04 | 4) clear ; login ; exit ;;
 05 | 5) clear ; cekconfig ; exit ;;
 06 | 6) clear ; user-lock ; exit ;;
