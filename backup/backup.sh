@@ -127,7 +127,7 @@ echo -e "
         PAPADA'AN STORE 
 ====================================
 IP VPS        : $IP
-Link ID Backup: $id
+Toke ID       : $id
 Tanggal       : $date
 ====================================
 " | mail -s "Backup Data " $email
@@ -143,7 +143,7 @@ echo -e "
         PAPADA'AN STORE
 ==================================
 IP VPS        : $IP
-Link ID Backup: $id
+Token      ID : $id
 Tanggal       : $date
 ==================================
 "
@@ -151,22 +151,22 @@ message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>  PAPADA'AN STORE </code>
+<code>      PAPADA'AN STORE   </code>
 <code>===========================</code>
 <code>DOMAIN        : ${domain}</code>
 <code>=========================/=</code>
 <code>IP VPS        : ${IP}</code>
 <code>===========================</code>
-<code>Link ID Backup:</code> $id
+<code>Token ID      :</code> $id
 <code>===========================</code>
 <code>Tanggal       : $date</code>
 <code>===========================</code>
 "
 curl -s -X POST "$LINK" \
 -d "chat_id=$CHATID" -d "parse_mode=html" -d "text=$message" >/dev/null 2>&1
-echo -e "\033[0;33m Cek Email Kamu Link ID Backup Sudah Dikirim \033[0m"
+echo -e "\033[0;33m Cek Email Kamu Link Backup Sudah Dikirim \033[0m"
 echo -e "\033[0;33m               Atau  ${NC}"
-echo -e "\033[0;33m Copy Link ID Di Atas Dan Restore Di VPS Baru \033[0m"
+echo -e "\033[0;33m Copy Token ID Di Atas Dan Restore Di VPS Baru \033[0m"
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
 menu
