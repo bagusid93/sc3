@@ -278,7 +278,7 @@ echo -e "$COLOR1 └────────────────────
 echo -e " $COLOR1┌─────────────────────────────────────────────────────┐${NC}"
 echo -e " $COLOR1│$NC  ${WH}Version      ${NC} :${BICyan} ${sem} ${BICyan}LITE ${NC}"
 echo -e " $COLOR1│$NC  ${WH}User         ${NC} :${BIYellow} ${Name} ${NC}"
-echo -e " $COLOR1│$NC  ${WH}Expired      ${NC} :${Blue} ${Exp}${NC} [${red} $res ${NC}] ${NC}"
+echo -e " $COLOR1│$NC  ${WH}Expired      ${NC} :${Blue} ${Exp}${NC} [${red}$res${NC}] ${NC}"
 echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}"
 echo ""
 echo -e   " [$COLOR1 Tekan x Untuk Exit Script ${NC}]"
