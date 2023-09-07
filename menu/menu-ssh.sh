@@ -287,7 +287,7 @@ clear
 clear
 clear
 clear
-expi=`date -d "$Menit Minutes"`
+expi=`date -d "$days hari"`
 useradd -e `date -d "$hari days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
@@ -436,7 +436,7 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• RENEW USERS •           
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""
-echo "  You have no existing clients!"
+echo -e "$COLOR1  Yahhh , Tidak Ada User ${NC}"
 echo ""
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo ""
@@ -448,8 +448,8 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• RENEW USERS •           
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""	
-echo "  Select the existing client you want to renew}"
-echo "  Press CTRL+C to return"
+echo -e "  Pilih Nomer User Yang Akan Di Renew ${NC}"
+echo -e "  Tekan CTRL+C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
