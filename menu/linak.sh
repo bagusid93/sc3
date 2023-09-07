@@ -66,10 +66,8 @@ wget -O user-lock "https://${julak}/main/ssh/user-lock.sh"
 wget -O user-unlock "https://${julak}/main/ssh/user-unlock.sh"
 wget -O menu-backup "https://${julak}/main/menu/menu-backup.sh"
 wget -O menu-theme "https://${julak}/main/menu/menu-theme.sh"
-wget -O menu-l2tp "https://${julak}/main/ipsec/menu-l2tp.sh"
-wget -O menu2 "https://${julak}/main/menu/menu2.sh"
 
-chmod +x menu-update
+chmod +x kimut
 chmod +x menu
 chmod +x m-bot
 chmod +x menu-l2tp
@@ -107,7 +105,6 @@ chmod +x user-lock
 chmod +x user-unlock
 chmod +x menu-backup
 chmod +x menu-theme
-chmod +x menu2
 
 cd
 sleep 3
