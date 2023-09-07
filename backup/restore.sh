@@ -31,7 +31,7 @@ cp -r per /etc/
 echo -e "\033[0;34m Proses Restore Xray \033[0m"
 cp -r xray /etc/
 echo -e "\033[0;34m Proses Restore Slowdns \033[0m"
-#cp -r slowdns /etc/
+cp -r slowdns /etc/
 cp -r public_html /home/vps/
 systemctl restart xray
 echo -e "\033[0;34m Proses Restore SELESAI !!!! \033[0m"
