@@ -79,7 +79,7 @@ CLIENT_EXISTS=$(grep -w $Login /etc/xray/ssh | wc -l)
     echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
     echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
     echo ""
-    echo "A client with the specified name was already created, please choose another name."
+    echo -e "$COLOR1 Username Sudah Terdaftar, Silahkan Buat Dengan Username Lain ${NC}"
     echo ""
     echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
     read -n 1 -s -r -p "Press any key to back on menu"
@@ -116,33 +116,34 @@ TEXT="
 <code>──────────────────</code>
 <code>    SSH OVPN Premium Account   </code>
 <code>──────────────────</code>
-<code>Username        : </code> <code>$Login</code>
-<code>Password        : </code> <code>$Pass</code>
+<code>Username         : </code> <code>$Login</code>
+<code>Password         : </code> <code>$Pass</code>
 <code>Expired          : </code> <code>$exp</code>
 <code>──────────────────</code>
 <code>IP               : </code> <code>$IP</code>
 <code>Host             : </code> <code>$domen</code>
-<code>Host Slowdns    : </code> <code>$sldomain</code>
+<code>Host Slowdns     : </code> <code>$sldomain</code>
 <code>Pub Key          : </code> <code> $slkey</code>
-<code>Port OpenSSH    : </code> <code>22</code>
+<code>Port OpenSSH     : </code> <code>22</code>
 <code>Port Dropbear    : </code> <code>143,109,110</code>
 <code>Port DNS         : </code> <code>80, 443,53</code> 
-<code>Port SSH WS     : </code> <code>80</code>
-<code>Port SSH SSL WS : </code> <code>443,444</code>
+<code>Port SSH WS      : </code> <code>80</code>
+<code>Port SSH SSL WS  : </code> <code>443,444</code>
 <code>Port SSL/TLS     : </code> <code>447,8443</code>
 <code>Port OVPN WS SSL : </code> <code>2086</code>
 <code>Port OVPN SSL    : </code> <code>990</code>
 <code>Port OVPN TCP    : </code> <code>$ovpn</code>
 <code>Port OVPN UDP    : </code> <code>$ovpn2</code>
-<code>Proxy Squid        : </code> <code>3128</code>
+<code>Proxy Squid      : </code> <code>3128</code>
 <code>BadVPN UDP       : </code> <code>7100, 7300, 7300</code>
 <code>───────────────────</code>
-<code>SSH UDP VIRAL :</code> <code>$domen:100-200@$Login:$Pass</code>
-<code>Payload WS   : </code> <code>GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]</code>
+<code>SSH UDP          :</code> <code>$domen:1-65535@$Login:$Pass</code>
 <code>───────────────────</code>
-<code>OpenVPN SSL      : </code> https://$IP:89/ssl.ovpn
-<code>OpenVPN TCP      : </code> https://$IP:89/tcp.ovpn
-<code>OpenVPN UDP      : </code> https://$IP:89/udp.ovpn
+<code>Payload WS       : </code> <code>GET ws://$domen/ [protocol][crlf]Host: isi_bug_disini[crlf]Upgrade: websocket[crlf][crlf]</code>
+<code>───────────────────</code>
+<code>OpenVPN SSL      : </code> https://$domen:81/ssl.ovpn
+<code>OpenVPN TCP      : </code> https://$domen:81/tcp.ovpn
+<code>OpenVPN UDP      : </code> https://$domen:81/udp.ovpn
 <code>───────────────────</code>
 <code>           $author                       </code>
 <code>───────────────────</code>
@@ -164,7 +165,7 @@ echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/lo
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}143,109,110" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}443,444" | tee -a /etc/log-create-user.log
@@ -184,11 +185,11 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET ws://$domen/ [protocol][crlf]Host: Isi_Bug_Disini[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
@@ -226,11 +227,11 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP   :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET ws://$domen/ [protocol][crlf]Host: Isi_Bug_Disini[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
@@ -307,7 +308,7 @@ TEXT="
 <code>Host Slowdns    : </code> <code>$sldomain</code>
 <code>Pub Key          : </code> <code> $slkey</code>
 <code>Port OpenSSH    : </code> <code>22</code>
-<code>Port Dropbear    : </code> <code>143,109,110</code>
+<code>Port Dropbear    : </code> <code>109,110,143</code>
 <code>Port DNS         : </code> <code>80, 443,53</code> 
 <code>Port SSH WS     : </code> <code>80</code>
 <code>Port SSH SSL WS : </code> <code>443,444</code>
@@ -319,7 +320,7 @@ TEXT="
 <code>Proxy Squid        : </code> <code>3128</code>
 <code>BadVPN UDP       : </code> <code>7100, 7300, 7300</code>
 <code>───────────────────</code>
-<code>SSH UDP VIRAL :</code> <code>$domen:100-200@$Login:$Pass</code>
+<code>SSH UDP      :</code> <code>$domen:1-65535@$Login:$Pass</code>
 <code>Payload WS   : </code> <code>GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]</code>
 <code>───────────────────</code>
 <code>OpenVPN SSL      : </code> https://$domen:81/ssl.ovpn
@@ -345,7 +346,7 @@ echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/lo
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}143,109,110" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}443,444" | tee -a /etc/log-create-user.log
@@ -365,11 +366,11 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP    :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET ws://$domen/ [protocol][crlf]Host: Isi_Bug_Disini[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
@@ -387,7 +388,7 @@ echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/lo
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}143,109,110" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}443,444" | tee -a /etc/log-create-user.log
@@ -407,11 +408,11 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP    :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET ws://$domen/ [protocol][crlf]Host: Isi_Bug_Disini[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
@@ -436,7 +437,7 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• RENEW USERS •           
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""
-echo -e "$COLOR1  Yahhh , Tidak Ada User ${NC}"
+echo -e "$COLOR1  Yahhh , Tidak Ada Username Yang Terdaftar${NC}"
 echo ""
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo ""
@@ -448,8 +449,8 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• RENEW USERS •           
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""	
-echo -e "  Pilih Nomer User Yang Akan Di Renew ${NC}"
-echo -e "  Tekan CTRL+C Untuk Membatalkan ${NC}"
+echo -e " $COLOR Pilih Nomer User Yang Akan Di Renew ${NC}"
+echo -e " $COLOR Tekan CTRL+C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
@@ -511,7 +512,7 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• DELETE USERS •          
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""
-echo "  You have no existing clients!"
+echo -e " $COLOR Yahhh, Tidak Ada Username Yang Terdaftar ${NC}"
 echo ""
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo ""
@@ -523,8 +524,8 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• DELETE USERS •          
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""	
-echo "  Select the existing client you want to Delete"
-echo "  Press CTRL+C to return"
+echo -e " $COLOR Pilih Nomer User Yang Akan Di Hapus ${NC}"
+echo -e " $COLOR Tekan CTRL×C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
@@ -572,7 +573,7 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• SELECT USERS •          
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""
-echo "  You have no existing clients!"
+echo -e " $COLOR Yahhh, Tidak Ada Username Yang Terdaftar ${NC}"
 echo ""
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo ""
@@ -584,8 +585,8 @@ echo -e "$COLOR1${NC} ${COLBG1}              ${WH}• SELECT USERS •          
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo ""	
-echo "  Select the existing client you want to Delete"
-echo "  Press CTRL+C to return"
+echo -e " $COLOR Pilih Nomer User Yang Ingin Di Cek ${NC}"
+echo -e " $COLOR Tekan CTRL+C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
@@ -610,7 +611,7 @@ echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/lo
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}143,109,110" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}443,444" | tee -a /etc/log-create-user.log
@@ -630,11 +631,11 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}Payload WSS :                                      ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET wss://$domen/ [protocol][crlf]Host: bug.mu[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP    :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}GET / HTTP/1.1[crlf]Host: $domen[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}GET ws://$domen/ [protocol][crlf]Host: Isi_Bug_Disini[crlf]Upgrade: websocket[crlf][crlf]${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1┌────────────────────┐${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}  ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
