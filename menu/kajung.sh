@@ -30,6 +30,7 @@ sleep 1
 echo -e ""
 sleep 1
 echo -e ""
+cd /usr/bin
 wget -q -O update "https://${julak}/menu/update.sh"
 wget -q -O m-bot "https://${julak}/menu/m-bot.sh"
 wget -q -O m-ip "https://${julak}/menu/m-ip.sh"
