@@ -125,7 +125,7 @@ TEXT="
 <code>Host Slowdns     : </code> <code>$sldomain</code>
 <code>Pub Key          : </code> <code> $slkey</code>
 <code>Port OpenSSH     : </code> <code>22</code>
-<code>Port Dropbear    : </code> <code>143,109,110</code>
+<code>Port Dropbear    : </code> <code>109,110,143</code>
 <code>Port DNS         : </code> <code>80, 443,53</code> 
 <code>Port SSH WS      : </code> <code>80</code>
 <code>Port SSH SSL WS  : </code> <code>443,444</code>
@@ -185,7 +185,7 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}SSH UDP :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP   :                                      ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
@@ -207,7 +207,7 @@ echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/lo
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}143,109,110" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH UDP     ${COLOR1}: ${WH}1-65535" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS      ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Port SSH WS/SSL  ${COLOR1}: ${WH}443,444" | tee -a /etc/log-create-user.log
@@ -227,7 +227,7 @@ echo -e "$COLOR1 $NC ${WH}PUB KEY         ${COLOR1}: ${WH}$slkey"
 #echo -e "$COLOR1 $NC  ${WH}NAMESERVER ${COLOR1}: ${WH}$nameserver1"
 #echo -e "$COLOR1 $NC  ${WH}PUB KEY    ${COLOR1}: ${WH}$slkey1"
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}SSH UDP   :                                      ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}SSH UDP    :                                      ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}$domen:1-65535@$Login:$Pass ${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1${NC}${WH}Payload WS :                  ${NC}" | tee -a /etc/log-create-user.log
