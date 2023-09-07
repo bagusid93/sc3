@@ -87,8 +87,8 @@ rm -rf menu-ssh
 #rm -rf sshws
 #rm -rf status
 #rm -rf menu-backup
-#rm -rf backup
-#rm -rf restore
+rm -rf backup
+rm -rf restore
 #rm -rf jam
 #rm -rf trialvmess
 #rm -rf renew-ws
@@ -144,6 +144,10 @@ wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 clear
 wget -O burit "https://${julak}/main/miss.sh"
 clear
+wget -O backup "https://${julak}/main/backup/backup.sh"
+clear
+wget -O restore "https://${julak}/main/backup/restore.sh"
+clear
 echo -e "\033[1;93mOKE..!\e[0m"
 echo -e ""
 
@@ -152,6 +156,9 @@ chmod +x menu
 #chmod +x menu-set
 chmod +x menu-ssh
 chmod +x burit
+chmod +x backup
+chmod +x restore
+
 
 clear
 sleep 3
