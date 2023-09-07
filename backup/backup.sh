@@ -122,7 +122,9 @@ link="https://drive.google.com/u/4/uc?id=${id}&export=download"
 
 echo -e "
 ====================≈===============
-Detail Backup 
+         Detail Backup 
+               By
+        PAPADA'AN STORE 
 ====================================
 IP VPS        : $IP
 Link ID Backup: $id
@@ -138,7 +140,7 @@ echo -e "
 ==================================
          Detail Backup 
                By
- TARAP KUHING TUNNELING { T.K.T }
+        PAPADA'AN STORE
 ==================================
 IP VPS        : $IP
 Link ID Backup: $id
@@ -149,7 +151,7 @@ message="
 <code>===========================</code>
 <code>      Detail Backup    </code>
 <code>==========================</code>
-<code>  TARAP KUHING TUNNELING </code>
+<code>  PAPADA'AN STORE </code>
 <code>===========================</code>
 <code>DOMAIN        : ${domain}</code>
 <code>=========================/=</code>
