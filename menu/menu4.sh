@@ -42,7 +42,7 @@ CekTwo=$(cat /etc/.$Name.ini)
         res="Expired"
     fi
 else
-res="Permission Accepted..."
+res="Aktif"
 fi
 }
 
