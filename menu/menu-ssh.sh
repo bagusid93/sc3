@@ -123,7 +123,7 @@ TEXT="
 <code>──────────────────</code>
 <code>IP               : </code> <code>$IP</code>
 <code>Host             : </code> <code>$domen</code>
-<code>Limit IP             : </code> <code>$batas</code>
+<code>Limit IP             : </code> <code>$batas (Login)</code>
 <code>Host Slowdns     : </code> <code>$sldomain</code>
 <code>Pub Key          : </code> <code> $slkey</code>
 <code>Port OpenSSH     : </code> <code>22</code>
@@ -165,7 +165,7 @@ echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-cr
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas (Login)" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
@@ -208,7 +208,7 @@ echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-cr
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas (Login)"(Login)" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
@@ -292,8 +292,8 @@ clear
 clear
 clear
 clear
-expi=`date -d "$days hari"`
-useradd -e `date -d "$hari days" +"%Y-%m-%d"` -s /bin/false -M $Login
+expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
+useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 echo -e "#ssh $Login $expi $Pass" >> /etc/xray/ssh
@@ -614,7 +614,7 @@ echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-cr
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas (Login)" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
