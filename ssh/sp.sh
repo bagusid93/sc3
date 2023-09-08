@@ -69,7 +69,7 @@ fi
 done
 
 ##------ Auto Remove SSH
-hariini=`date +%Y-%m-%d`
+hariini=`date +%d-%m-%Y`
 cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
 totalaccounts=`cat /tmp/expirelist.txt | wc -l`
 for((i=1; i<=$totalaccounts; i++ ))
@@ -96,5 +96,4 @@ then
 else
 userdel --force $username
 fi
-/etc/init.d/ssh restart
 done
