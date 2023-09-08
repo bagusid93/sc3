@@ -22,22 +22,22 @@ fi
 done
 
 #----- Auto Remove Vless
-data=( `cat /etc/xray/config.json | grep '^#&' | cut -d ' ' -f 2 | sort | uniq`);
+data=( `cat /etc/xray/config.json | grep '^#vl' | cut -d ' ' -f 2 | sort | uniq`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#vls $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+exp=$(grep -w "^#vl $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#vls $user $exp/,/^},{/d" /etc/xray/config.json
-sed -i "/^#vls $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^#vl $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^#vlg $user $exp/,/^},{/d" /etc/xray/config.json
 fi
 done
 
 #----- Auto Remove Trojan
-data=( `cat /etc/xray/config.json | grep '^#!' | cut -d ' ' -f 2 | sort | uniq`);
+data=( `cat /etc/xray/config.json | grep '^#tr' | cut -d ' ' -f 2 | sort | uniq`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
@@ -47,45 +47,29 @@ d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
 sed -i "/^#tr $user $exp/,/^},{/d" /etc/xray/config.json
-sed -i "/^#tr $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^#trg $user $exp/,/^},{/d" /etc/xray/config.json
 fi
 done
 systemctl restart xray
 
-#----- Auto Remove Trojan Go
-data=( `cat /etc/trojan-go/config.json | grep '^#!' | cut -d ' ' -f 2 | sort | uniq`);
-now=`date +"%Y-%m-%d"`
-for user in "${data[@]}"
-do
-exp=$(grep -w "^#trg $user" "/etc/trojan-go/config.json" | cut -d ' ' -f 3 | sort | uniq)
-d1=$(date -d "$exp" +%s)
-d2=$(date -d "$now" +%s)
-exp2=$(( (d1 - d2) / 86400 ))
-if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#trg $user $exp/,/^},{/d" /etc/trojan-go/config.json
-sed -i "/^#trg $user $exp/,/^},{/d" /etc/trojan-go/config.json
-fi
-done
-systemctl restart trojan-go.service
-
 ##----- Auto Remove SSH2
-data=( `cat /etc/xray/ssh | grep '^#ssh' | cut -d ' ' -f 2 | sort | uniq`);
+data=( `cat /etc/xray/ssh | grep '^###' | cut -d ' ' -f 2 | sort | uniq`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#ssh $user" "/etc/xray/ssh" | cut -d ' ' -f 3 | sort | uniq)
+exp=$(grep -w "^### $user" "/etc/xray/ssh" | cut -d ' ' -f 3 | sort | uniq)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#ssh $user $exp/,/^},{/d" /etc/xray/ssh
-sed -i "/^#ssh $user $exp/,/^},{/d" /etc/xray/ssh
+sed -i "/^### $user $exp/,/^},{/d" /etc/xray/ssh
+sed -i "/^### $user $exp/,/^},{/d" /etc/xray/ssh
 rm -f /etc/xray/ssh/$user $exp
 fi
 done
 
 ##------ Auto Remove SSH
-hariini=`date +%d-%m-%Y`
+hariini=`date +%Y-%m-%d`
 cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
 totalaccounts=`cat /tmp/expirelist.txt | wc -l`
 for((i=1; i<=$totalaccounts; i++ ))
@@ -112,4 +96,5 @@ then
 else
 userdel --force $username
 fi
+/etc/init.d/ssh restart
 done
