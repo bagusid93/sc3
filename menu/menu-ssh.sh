@@ -110,7 +110,7 @@ expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
-echo -e "#ssh $Login $expi $Pass $batas" >> /etc/xray/ssh
+echo -e "### $Login $expi $Pass $batas" >> /etc/xray/ssh
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 TEXT="
@@ -296,7 +296,7 @@ expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
-echo -e "#ssh $Login $expi $Pass" >> /etc/xray/ssh
+echo -e "### $Login $expi $Pass" >> /etc/xray/ssh
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 TEXT="
@@ -433,7 +433,7 @@ CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 domain=$(cat /etc/xray/domain)
-NUMBER_OF_CLIENTS=$(grep -c -E "^#ssh " "/etc/xray/ssh")
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/ssh")
 if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 clear
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
@@ -456,7 +456,7 @@ echo ""
 echo -e " $COLOR Pilih Nomer User Yang Akan Di Renew ${NC}"
 echo -e " $COLOR Tekan CTRL+C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
+grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
 read -rp "Select Number [1]: " CLIENT_NUMBER
@@ -464,8 +464,8 @@ else
 read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
-User=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-Days=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+User=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+Days=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 
 egrep "^$User" /etc/passwd >/dev/null
 if [ $? -eq 0 ]; then
@@ -508,7 +508,7 @@ read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
 function hapus(){
-NUMBER_OF_CLIENTS=$(grep -c -E "^#ssh " "/etc/xray/ssh")
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/ssh")
 if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 clear
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
@@ -531,7 +531,7 @@ echo ""
 echo -e " $COLOR Pilih Nomer User Yang Akan Di Hapus ${NC}"
 echo -e " $COLOR Tekan CTRL×C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
+grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
 read -rp "Select Number [1]: " CLIENT_NUMBER
@@ -539,9 +539,9 @@ else
 read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
-Pengguna=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-Days=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-sed -i "/^#ssh $Pengguna $Days/d" /etc/xray/ssh
+Pengguna=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+Days=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+sed -i "/^### $Pengguna $Days/d" /etc/xray/ssh
 if getent passwd $Pengguna > /dev/null 2>&1; then
         userdel $Pengguna > /dev/null 2>&1
         echo -e "User $Pengguna was removed."
@@ -569,7 +569,7 @@ slkey=`cat /etc/slowdns/server.pub`
 OhpSSH=`cat /root/log-install.txt | grep -w "OHP SSH" | cut -d: -f2 | awk '{print $1}'`
 OhpDB=`cat /root/log-install.txt | grep -w "OHP DBear" | cut -d: -f2 | awk '{print $1}'`
 OhpOVPN=`cat /root/log-install.txt | grep -w "OHP OpenVPN" | cut -d: -f2 | awk '{print $1}'`
-NUMBER_OF_CLIENTS=$(grep -c -E "^#ssh " "/etc/xray/ssh")
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/ssh")
 if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 clear
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
@@ -592,7 +592,7 @@ echo ""
 echo -e " $COLOR Pilih Nomer User Yang Ingin Di Cek ${NC}"
 echo -e " $COLOR Tekan CTRL+C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
+grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
 read -rp "Select Number [1]: " CLIENT_NUMBER
@@ -600,10 +600,10 @@ else
 read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
-Login=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-Pass=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
-batas=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
+Login=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+Pass=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
+batas=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
 
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• Ssh Ovpn Account •           ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
@@ -688,7 +688,7 @@ if getent passwd $Pengguna > /dev/null 2>&1; then
 else
         echo -e "Failure: User $Pengguna Not Exist."
 fi
-sed -i "/^#ssh $Pengguna/d" /etc/xray/ssh
+sed -i "/^### $Pengguna/d" /etc/xray/ssh
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
@@ -848,7 +848,7 @@ function autokill(){
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[ON]${Font_color_suffix}"
 Error="${Red_font_prefix}[OFF]${Font_color_suffix}"
-cek=$(grep -c -E "^#ssh Autokill" /etc/cron.d/tendang)
+cek=$(grep -c -E "^### Autokill" /etc/cron.d/tendang)
 if [[ "$cek" = "1" ]]; then
 sts="${Info}"
 else
@@ -879,7 +879,7 @@ case $AutoKill in
                 sleep 1
                 clear
                 echo > /etc/cron.d/tendang
-                echo "#ssh Autokill" >/etc/cron.d/tendang
+                echo "### Autokill" >/etc/cron.d/tendang
                 echo "*/1 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
                 echo -e ""
                 echo -e "======================================"
@@ -896,7 +896,7 @@ case $AutoKill in
                 sleep 1
                 clear
                 echo > /etc/cron.d/tendang
-                echo "#ssh Autokill" >/etc/cron.d/tendang
+                echo "### Autokill" >/etc/cron.d/tendang
                 echo "*/5 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
                 echo -e ""
                 echo -e "======================================"
@@ -913,7 +913,7 @@ case $AutoKill in
                 sleep 1
                 clear
                 echo > /etc/cron.d/tendang
-                echo "#ssh Autokill" >/etc/cron.d/tendang
+                echo "### Autokill" >/etc/cron.d/tendang
                 echo "*/10 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
                 echo -e ""
                 echo -e "======================================"
