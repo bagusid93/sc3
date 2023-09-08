@@ -87,6 +87,7 @@ CLIENT_EXISTS=$(grep -w $Login /etc/xray/ssh | wc -l)
   fi
 read -p "Password : " Pass
 read -p "Expired (hari): " masaaktif
+read -p "Limit (IP): " batas
 
 IP=$(curl -sS ifconfig.me);
 ossl=`cat /root/log-install.txt | grep -w "OpenVPN" | cut -f2 -d: | awk '{print $6}'`
@@ -109,7 +110,7 @@ expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
-echo -e "#ssh $Login $expi $Pass" >> /etc/xray/ssh
+echo -e "#ssh $Login $expi $Pass $batas" >> /etc/xray/ssh
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 TEXT="
@@ -122,6 +123,7 @@ TEXT="
 <code>──────────────────</code>
 <code>IP               : </code> <code>$IP</code>
 <code>Host             : </code> <code>$domen</code>
+<code>Limit IP             : </code> <code>$batas</code>
 <code>Host Slowdns     : </code> <code>$sldomain</code>
 <code>Pub Key          : </code> <code> $slkey</code>
 <code>Port OpenSSH     : </code> <code>22</code>
@@ -163,6 +165,7 @@ echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-cr
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
@@ -205,6 +208,7 @@ echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-cr
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
@@ -599,6 +603,7 @@ done
 Login=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
 exp=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 Pass=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
+batas=$(grep -E "^#ssh " "/etc/xray/ssh" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
 
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• Ssh Ovpn Account •           ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
@@ -609,6 +614,7 @@ echo -e "$COLOR1 $NC ${WH}Expired On ${COLOR1}: ${WH}$exp"  | tee -a /etc/log-cr
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}IP               ${COLOR1}: ${WH}$IP" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Host             ${COLOR1}: ${WH}$domen" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 $NC ${WH}Limit IP         ${COLOR1}: ${WH}$batas" | tee -a /etc/log-create-user.log
 #echo -e "$COLOR1 $NC ${WH}Wildcard   ${COLOR1}: ${WH}(bug.com).$domen" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}OpenSSH          ${COLOR1}: ${WH}22" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 $NC ${WH}Dropbear         ${COLOR1}: ${WH}109,110,143" | tee -a /etc/log-create-user.log
