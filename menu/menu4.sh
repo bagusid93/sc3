@@ -69,17 +69,7 @@ elif [ "$res" = "Aktif" ]; then
 echo -ne
 else
 echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e "\033[42m          JULAKecho -e "\033[1;93m────────────────────────────────────────────\033[0m"
 echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e ""
-echo -e "            ${RED}AKSES DITOLAK !${NC}"
-echo -e "   \033[0;33mIPVPS KAMU${NC} $MYIP \033[0;33mTidak Terdaftar${NC}"
-echo -e "   \033[0;33mHubungi Admin Untuk Buy AutoScript${NC}"
-echo -e "           ${RED}KONTAK ADMIN !${NC}"
-echo -e "   \033[0;36mTelegram${NC}: https://t.me/Cibut2d"
-echo -e "   \033[0;36mWhatsApp${NC}: https://wa.me/6281250851741"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m" BANTUR AUTOSCRIPT          \033[0m"
 echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
 echo -e ""
 echo -e "            ${RED}AKSES DITOLAK !${NC}"
