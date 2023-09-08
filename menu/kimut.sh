@@ -87,8 +87,8 @@ rm -rf menu-ssh
 #rm -rf sshws
 #rm -rf status
 #rm -rf menu-backup
-rm -rf backup
-rm -rf restore
+#rm -rf backup
+#rm -rf restore
 #rm -rf jam
 #rm -rf trialvmess
 #rm -rf renew-ws
@@ -122,7 +122,7 @@ rm -rf restore
 #rm -rf menu-theme
 #rm -rf menu-l2tp
 #rm -rf sshlogin
-rm -rf burit
+#rm -rf burit
 
 cd /usr/bin
 #update
