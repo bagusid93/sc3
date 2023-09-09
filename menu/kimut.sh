@@ -130,7 +130,7 @@ wget -O kimut "https://${julak}/main/menu/kimut.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
-wget -O menu "https://${julak}/main/menu/menu4.sh"
+wget -O menu "https://${julak}/main/menu/menu3.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
