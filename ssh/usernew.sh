@@ -10,67 +10,6 @@ COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //
 WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 
-BURIQ () {
-    curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
-    data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
-    for user in "${data[@]}"
-    do
-    exp=( `grep -E "^### $user" "/root/tmp" | awk '{print $3}'` )
-    d1=(`date -d "$exp" +%s`)
-    d2=(`date -d "$biji" +%s`)
-    exp2=$(( (d1 - d2) / 86400 ))
-    if [[ "$exp2" -le "0" ]]; then
-    echo $user > /etc/.$user.ini
-    else
-    rm -f /etc/.$user.ini > /dev/null 2>&1
-    fi
-    done
-    rm -f /root/tmp
-}
-
-MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | grep $MYIP | awk '{print $2}')
-echo $Name > /usr/local/etc/.$Name.ini
-CekOne=$(cat /usr/local/etc/.$Name.ini)
-
-Bloman () {
-if [ -f "/etc/.$Name.ini" ]; then
-CekTwo=$(cat /etc/.$Name.ini)
-    if [ "$CekOne" = "$CekTwo" ]; then
-        res="Expired"
-    fi
-else
-res="Permission Accepted..."
-fi
-}
-
-PERMISSION () {
-    MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | awk '{print $4}' | grep $MYIP)
-    if [ "$MYIP" = "$IZIN" ]; then
-    Bloman
-    else
-    res="Permission Denied!"
-    fi
-    BURIQ
-}
-red='\e[1;31m'
-green='\e[1;32m'
-NC='\e[0m'
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-PERMISSION
-if [ -f /home/needupdate ]; then
-red "Your script need to update first !"
-exit 0
-elif [ "$res" = "Permission Accepted..." ]; then
-echo -ne
-else
-red "Permission Denied!"
-exit 0
-fi
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                #!/bin/bash
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
@@ -111,7 +50,7 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
   echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
   echo -e "\e[42m             SSH Ovpn Account            \E[0m"
   echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-  read -p "Username : " user
+  read -p "Username : " login
 
   CLIENT_EXISTS=$(grep -w $user /etc/ssh/.ssh.db | wc -l)
 
@@ -138,10 +77,10 @@ done
 clear 
 echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $user\e[0m\n"
 until [[ $PASSWD =~ ^[a-zA-Z0-9]+$ ]]; do
-read -p "Password : " PASSWD
+read -p "Password : " Pass
 done
 until [[ $EXPIRED =~ ^[0-9]+$ ]]; do
-read -p "Expired (days): " EXPIRED
+read -p "Expired (days): " masaaktif
 done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
@@ -151,19 +90,19 @@ CITY=$(cat /etc/xray/city)
 PUB=$(cat /etc/slowdns/server.pub)
 NS=$(cat /etc/xray/dns)
 domain=$(cat /etc/xray/domain)
-useradd -e $(date -d "$EXPIRED days" +"%Y-No such file or directory-20") -s /bin/false -M $user
-exp="$(chage -l $user | grep "Account expires" | awk -F": " '{print $2}')"
-dbexp=$(date -d "$EXPIRED days" +"%Y-No such file or directory-4")
-echo -e "$PASSWD\n$PASSWD\n" | passwd $user &>/dev/null
+useradd -e $(date -d "$masaaktif days" +"%Y-No such file or directory-20") -s /bin/false -M $login
+exp="$(chage -l $login | grep "Account expires" | awk -F": " '{print $2}')"
+dbexp=$(date -d "$masaaktif days" +"%Y-No such file or directory-4")
+echo -e "$Pass\n$Pass\n" | passwd $login &>/dev/null
 
 if [[ ${c} != "0" ]]; then
-  echo "${iplim}" >/etc/ssh/${user}
+  echo "${iplim}" >/etc/ssh/${login}
 fi
-DATADB=$(cat /etc/ssh/.ssh.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
+DATADB=$(cat /etc/ssh/.ssh.db | grep "^###" | grep -w "${login}" | awk '{print $2}')
 if [[ "${DATADB}" != '' ]]; then
-  sed -i "/\b${user}\b/d" /etc/ssh/.ssh.db
+  sed -i "/\b${login}\b/d" /etc/ssh/.ssh.db
 fi
-echo "### ${user} ${dbexp}" >>/etc/ssh/.ssh.db
+echo "### ${login} ${dbexp}" >>/etc/ssh/.ssh.db
 
 cat >/var/www/html/ssh-$user.txt <<END
 
@@ -171,9 +110,9 @@ cat >/var/www/html/ssh-$user.txt <<END
 Format SSH OVPN Account
 ---------------------
 
-Username         : $user
-Password         : $PASSWD
-Expired          : $exp
+Username         : $login
+Password         : $Pass
+Expired          : $masaaktif
 ---------------------
 IP               : $IP
 Host             : $domain
@@ -210,8 +149,8 @@ clear
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\e[42m      SSH OVPN Account     \E[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Username         : $user" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Password         : $PASSWD" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Username         : $login" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Password         : $Pass" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "IP               : $IP" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Host             : $domain" | tee -a /etc/xray/log-createssh-${user}.log
@@ -243,7 +182,5 @@ echo -e "OpenVPN UDP      : https://$domain:81/udp.ovpn" | tee -a /etc/xray/log-
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Save Link Account: https://$domain:81/ssh-$user.txt"
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Expired          : $masaaktif" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
-
-
