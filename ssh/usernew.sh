@@ -90,9 +90,9 @@ CITY=$(cat /etc/xray/city)
 PUB=$(cat /etc/slowdns/server.pub)
 NS=$(cat /etc/xray/dns)
 domain=$(cat /etc/xray/domain)
-useradd -e $(date -d "$masaaktif days" +"%Y-No such file or directory-20") -s /bin/false -M $login
+useradd -e $(date -d "$masaaktif days" +"%Y-%m-%d") -s /bin/false -M $login
 exp="$(chage -l $login | grep "Account expires" | awk -F": " '{print $2}')"
-dbexp=$(date -d "$masaaktif days" +"%Y-No such file or directory-4")
+dbexp=$(date -d "$masaaktif days" +"%Y-%m-%d")
 echo -e "$Pass\n$Pass\n" | passwd $login &>/dev/null
 
 if [[ ${c} != "0" ]]; then
