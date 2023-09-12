@@ -45,14 +45,14 @@ checking_sc() {
 checking_sc
 clear
 
-until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+until [[ $login =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
   clear
   echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
   echo -e "\e[42m             SSH Ovpn Account            \E[0m"
   echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
   read -p "Username : " login
 
-  CLIENT_EXISTS=$(grep -w $user /etc/ssh/.ssh.db | wc -l)
+  CLIENT_EXISTS=$(grep -w $login /etc/ssh/.ssh.db | wc -l)
 
   if [[ ${CLIENT_EXISTS} == '1' ]]; then
     clear
@@ -75,11 +75,11 @@ while [ $sec -gt 0 ]; do
     sec=$(($sec - 1))
 done
 clear 
-echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $user\e[0m\n"
-until [[ $PASSWD =~ ^[a-zA-Z0-9]+$ ]]; do
+echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $login\e[0m\n"
+until [[ $Pass =~ ^[a-zA-Z0-9]+$ ]]; do
 read -p "Password : " Pass
 done
-until [[ $EXPIRED =~ ^[0-9]+$ ]]; do
+until [[ $masaaktif =~ ^[0-9]+$ ]]; do
 read -p "Expired (days): " masaaktif
 done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
