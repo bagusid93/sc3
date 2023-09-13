@@ -562,7 +562,7 @@ slkey=`cat /etc/slowdns/server.pub`
 OhpSSH=`cat /root/log-install.txt | grep -w "OHP SSH" | cut -d: -f2 | awk '{print $1}'`
 OhpDB=`cat /root/log-install.txt | grep -w "OHP DBear" | cut -d: -f2 | awk '{print $1}'`
 OhpOVPN=`cat /root/log-install.txt | grep -w "OHP OpenVPN" | cut -d: -f2 | awk '{print $1}'`
-NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/ssh")
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/ssh/.ssh.db")
 if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 clear
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
@@ -585,7 +585,7 @@ echo ""
 echo -e " $COLOR Pilih Nomer User Yang Ingin Di Cek ${NC}"
 echo -e " $COLOR Tekan CTRL+C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
+grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
 read -rp "Select Number [1]: " CLIENT_NUMBER
@@ -593,10 +593,10 @@ else
 read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
-Login=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-Pass=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
-batas=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
+Login=$(grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+Pass=$(grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
+batas=$(grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
 
 echo -e "$COLOR1─────────────────${NC}" | tee -a /etc/log-create-user.log
 echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• Ssh Ovpn Account •           ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
