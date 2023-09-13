@@ -986,10 +986,10 @@ echo -e "$COLOR1└────────────────────�
 echo -e ""
 echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
 case $opt in
-01 | 1) clear ; usernew ; exit ;;
+01 | 1) clear ; add-ssh ; exit ;;
 02 | 2) clear ; renew ; exit ;;
-03 | 3) clear ; hapuslama ; exit ;;
-04 | 4) clear ; login ; exit ;;
+03 | 3) clear ; del-ssh ; exit ;;
+04 | 4) clear ; sshlogin ; exit ;;
 05 | 5) clear ; cekconfig ; exit ;;
 06 | 6) clear ; user-lock ; exit ;;
 07 | 7) clear ; user-unlock ; exit ;;
