@@ -50,9 +50,9 @@ until [[ $login =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
   echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
   echo -e "\e[42m             SSH Ovpn Account            \E[0m"
   echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-  read -p "Username : " login
+  read -p "Username : " user
 
-  CLIENT_EXISTS=$(grep -w $login /etc/ssh/.ssh.db | wc -l)
+  CLIENT_EXISTS=$(grep -w $user /etc/ssh/.ssh.db | wc -l)
 
   if [[ ${CLIENT_EXISTS} == '1' ]]; then
     clear
@@ -75,12 +75,12 @@ while [ $sec -gt 0 ]; do
     sec=$(($sec - 1))
 done
 clear 
-echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $login\e[0m\n"
-until [[ $Pass =~ ^[a-zA-Z0-9]+$ ]]; do
-read -p "Password : " Pass
+echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $user\e[0m\n"
+until [[ $PASSWD =~ ^[a-zA-Z0-9]+$ ]]; do
+read -p "Password : " PASSWD
 done
-until [[ $masaaktif =~ ^[0-9]+$ ]]; do
-read -p "Expired (days): " masaaktif
+until [[ $EXPIRED =~ ^[0-9]+$ ]]; do
+read -p "Expired (days): " EXPIRED
 done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
@@ -89,19 +89,19 @@ IP=$(curl -sS ifconfig.me)
 PUB=$(cat /etc/slowdns/server.pub)
 NS=$(cat /etc/xray/dns)
 domain=$(cat /etc/xray/domain)
-useradd -e $(date -d "$masaaktif days" +"%Y-%m-%d") -s /bin/false -M $login
-exp="$(chage -l $login | grep "Account expires" | awk -F": " '{print $2}')"
-dbexp=$(date -d "$masaaktif days" +"%Y-%m-%d")
-echo -e "$Pass\n$Pass\n" | passwd $login &>/dev/null
+useradd -e $(date -d "$EXPIRED days" +"%Y-%m-%d") -s /bin/false -M $user
+exp="$(chage -l $user | grep "Account expires" | awk -F": " '{print $2}')"
+dbexp=$(date -d "$EXPIRED days" +"%Y-%m-%d")
+echo -e "$PASSWD\n$PASSWD\n" | passwd $user &>/dev/null
 
 if [[ ${c} != "0" ]]; then
-  echo "${iplim}" >/etc/ssh/${login}
+  echo "${iplim}" >/etc/ssh/${user}
 fi
-DATADB=$(cat /etc/ssh/.ssh.db | grep "^###" | grep -w "${login}" | awk '{print $2}')
+DATADB=$(cat /etc/ssh/.ssh.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
 if [[ "${DATADB}" != '' ]]; then
-  sed -i "/\b${login}\b/d" /etc/ssh/.ssh.db
+  sed -i "/\b${user}\b/d" /etc/ssh/.ssh.db
 fi
-echo "### ${login} ${dbexp}" >>/etc/ssh/.ssh.db
+echo "### ${user} ${dbexp}" >>/etc/ssh/.ssh.db
 
 cat >/var/www/html/ssh-$user.txt <<END
 
@@ -109,9 +109,9 @@ cat >/var/www/html/ssh-$user.txt <<END
 Format SSH OVPN Account
 ---------------------
 
-Username         : $login
-Password         : $Pass
-Expired          : $masaaktif
+Username         : $user
+Password         : $PASSWD
+Expired          : $exp
 ---------------------
 IP               : $IP
 Host             : $domain
@@ -147,8 +147,8 @@ clear
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\e[42m      SSH OVPN Account     \E[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Username         : $login" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Password         : $Pass" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Username         : $user" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Password         : $PASSWD" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "IP               : $IP" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Host             : $domain" | tee -a /etc/xray/log-createssh-${user}.log
@@ -169,7 +169,7 @@ echo -e "Port OVPN UDP    : 2200" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Proxy Squid      : 3128" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "BadVPN UDP       : 7100, 7300, 7300" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Payload WSS      : GET wss://BUG.COM/ HTTP/1.1[crlf]Host: $domain[crlf]Upgrade: websocket[crlf][crlf]" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Payload WSS      : GET wss://$domain/ HTTP/1.1[crlf]Host: isi_bug_disini[crlf]Upgrade: websocket[crlf][crlf]" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN SSL      : https://$domain:81/ssl.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN TCP      : https://$domain:81/tcp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
@@ -177,5 +177,5 @@ echo -e "OpenVPN UDP      : https://$domain:81/udp.ovpn" | tee -a /etc/xray/log-
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Save Link Account: https://$domain:81/ssh-$user.txt"
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Expired          : $masaaktif" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
