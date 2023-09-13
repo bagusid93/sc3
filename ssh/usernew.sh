@@ -21,7 +21,7 @@ KEY="6560040848:AAGSiQw_SO-wML_vbY8AYUFIvKrF_iC_Reo"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-No such file or directory-0" -d "$data_server")
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
 data_ip="https://raw.githubusercontent.com/bagusid93/hss/main/sc3"
 checking_sc() {
   useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
@@ -86,7 +86,6 @@ until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
 done
 IP=$(curl -sS ifconfig.me)
-CITY=$(cat /etc/xray/city)
 PUB=$(cat /etc/slowdns/server.pub)
 NS=$(cat /etc/xray/dns)
 domain=$(cat /etc/xray/domain)
@@ -118,7 +117,6 @@ IP               : $IP
 Host             : $domain
 Host Slowdns     : ${NS}
 Pub Key          : ${PUB}
-Location         : $CITY
 Port OpenSSH     : 443, 80, 22
 Port UdpSSH      : 1-65535
 Port Dropbear    : 443, 109
@@ -157,25 +155,22 @@ echo -e "Host             : $domain" | tee -a /etc/xray/log-createssh-${user}.lo
 echo -e "User IP          : ${iplim} IP" | tee -a /etc/xray/log-create-${user}.log
 echo -e "Host Slowdns     : ${NS}" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Pub Key          : ${PUB}" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Location         : $CITY" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port OpenSSH     : 443, 80, 22" | tee -a /etc/xray/log-createssh-${user}.log 
+echo -e "Port OpenSSH     : 22" | tee -a /etc/xray/log-createssh-${user}.log 
 echo -e "Port UdpSSH      : 1-65535" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port DNS         : 443, 53 ,22 " | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port Dropbear    : 443, 109" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port Dropbear WS : 443, 109" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port SSH WS      : 80, 8080, 8081-9999 " | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port Dropbear    : 143, 109" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port Dropbear WS : 80, 8880" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port SSH WS      : 80" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port SSH SSL WS  : 443" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port SSL/TLS     : 222-1000" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port OVPN WS SSL : 443" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port OVPN SSL    : 443" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port OVPN TCP    : 443, 1194" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port SSL/TLS     : 447,8443" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port OVPN SSL    : 990" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port OVPN TCP    : 1194" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN UDP    : 2200" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Proxy Squid      : 3128" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "BadVPN UDP       : 7100, 7300, 7300" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Payload WSS      : GET wss://BUG.COM/ HTTP/1.1[crlf]Host: $domain[crlf]Upgrade: websocket[crlf][crlf]" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "OpenVPN WS SSL   : https://$domain:81/ws-ssl.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN SSL      : https://$domain:81/ssl.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN TCP      : https://$domain:81/tcp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN UDP      : https://$domain:81/udp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
