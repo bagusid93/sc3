@@ -1,5 +1,14 @@
 #!/bin/bash
-
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+###########- COLOR CODE -##############
+colornow=$(cat /etc/julak/theme/color.conf)
+NC="\e[0m"
+RED="\033[0;31m"
+COLOR1="$(cat /etc/julak/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+WH='\033[1;37m'
+###########- END COLOR CODE -##########
 RED='\033[0;31m'
 NC='\033[0m'
 GREEN='\033[0;32m'
@@ -11,18 +20,18 @@ LIGHT='\033[0;37m'
 
 clear
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
-echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
-echo -e "\e[42m          SSH OpenVPN User Login         \E[0m"
-echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+echo -e "$COLOR1─────────────────────────────────────────$NC"
+echo -e "$COLBG1          SSH OpenVPN User Login         $NC"
+echo -e "$COLOR1─────────────────────────────────────────$NC"
 if [ -e "/var/log/auth.log" ]; then
     LOG="/var/log/auth.log"
 fi
 if [ -e "/var/log/secure" ]; then
     LOG="/var/log/secure"
 fi
-echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
-echo -e "\e[42m           OpenSSH User Login            \E[0m"
-echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+echo -e "$COLOR1─────────────────────────────────────────$NC"
+echo -e "$COLBG1           OpenSSH User Login            $NC"
+echo -e "$COLOR1─────────────────────────────────────────$NC"
 echo "ID  |  Username  |  IP Address"
 
 cat $LOG | grep -i sshd | grep -i "Accepted password for" >/tmp/login-db.txt
@@ -39,9 +48,9 @@ for PID in "${data[@]}"; do
 done
 echo " "
 data=($(ps aux | grep -i dropbear | awk '{print $2}'))
-echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
-echo -e "\e[42m          Dropbear User Login            \E[0m"
-echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+echo -e "$COLOR1─────────────────────────────────────────$NC"
+echo -e "$COLBG1          Dropbear User Login            $NC"
+echo -e "$COLOR1─────────────────────────────────────────$NC"
 echo "ID  |  Username  |  IP Address"
 
 cat $LOG | grep -i dropbear | grep -i "Password auth succeeded" >/tmp/login-db.txt
@@ -58,9 +67,9 @@ echo " "
 
 if [ -f "/etc/openvpn/server/openvpn-tcp.log" ]; then
     echo ""
-    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
-    echo -e "\e[42m         OpenVPN TCP User Login          \E[0m"
-    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+    echo -e "$COLOR1─────────────────────────────────────────$NC"
+    echo -e "$COLBG1         OpenVPN TCP User Login          $NC"
+    echo -e "$COLOR1─────────────────────────────────────────$NC"
     echo "Username  |  IP Address  |  Connected"
     
     cat /etc/openvpn/server/openvpn-tcp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' >/tmp/vpn-login-tcp.txt
@@ -70,9 +79,9 @@ fi
 
 if [ -f "/etc/openvpn/server/openvpn-udp.log" ]; then
     echo " "
-    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
-    echo -e "\e[42m         OpenVPN UDP User Login          \E[0m"
-    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+    echo -e "$COLOR1─────────────────────────────────────────$NC"
+    echo -e "$COLBG1         OpenVPN UDP User Login          $NC"
+    echo -e "$COLOR1─────────────────────────────────────────$NC"
     echo "Username  |  IP Address  |  Connected"
     
     cat /etc/openvpn/server/openvpn-udp.log | grep -w "^CLIENT_LIST" | cut -d ',' -f 2,3,8 | sed -e 's/,/      /g' >/tmp/vpn-login-udp.txt
