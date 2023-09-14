@@ -54,13 +54,13 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 
   if [[ ${CLIENT_EXISTS} == '1' ]]; then
     clear
-    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo -e "$COLBG1             SSH Ovpn Account            \E[0m"
-    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
+    echo -e "$COLBG1             SSH Ovpn Account            $NC"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
     echo ""
     echo "A client with the specified name was already created, please choose another name."
     echo ""
-    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
     read -n 1 -s -r -p "Press any key to back on menu"
     menu
   fi
@@ -73,7 +73,7 @@ while [ $sec -gt 0 ]; do
     sec=$(($sec - 1))
 done
 clear 
-echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $user\e[0m\n"
+echo -e "${COLOR}INPUT DEPENDECIES ACCOUNT $user ${NC}"
 until [[ $PASSWD =~ ^[a-zA-Z0-9]+$ ]]; do
 read -p "Password : " PASSWD
 done
