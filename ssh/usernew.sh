@@ -180,3 +180,6 @@ echo -e "$COLOR1─────────────────────�
 echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "$COLOR1───────────────────────────$NC" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e ""
+read -n 1 -s -r -p "Press any key to back on menu"
+menu-ssh
