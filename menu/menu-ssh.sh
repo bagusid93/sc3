@@ -36,10 +36,10 @@ fi
 }
 checking_sc
 clear
-if [[ -e /etc/xray/ssh ]]; then
+if [[ -e /etc/ssh/.ssh.db ]]; then
 echo -ne
 else
-touch /etc/xray/ssh
+touch /etc/ssh/.ssh.db
 fi
 
 function usernew(){
@@ -70,7 +70,7 @@ echo -e "$COLOR1└────────────────────�
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 read -p "Username : " Login
 
-CLIENT_EXISTS=$(grep -w $Login /etc/xray/ssh | wc -l)
+CLIENT_EXISTS=$(grep -w $Login /etc/ssh/.ssh.db | wc -l)
 
   if [[ ${CLIENT_EXISTS} == '1' ]]; then
     clear
@@ -110,7 +110,7 @@ expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
-echo -e "### $Login $expi $Pass $batas" >> /etc/xray/ssh
+echo -e "### $Login $expi $Pass $batas" >> /etc/ssh/.ssh.db
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 TEXT="
@@ -296,7 +296,7 @@ expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
 exp="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
-echo -e "### $Login $expi $Pass" >> /etc/xray/ssh
+echo -e "### $Login $expi $Pass" >> /etc/ssh/.ssh.db
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 TEXT="
@@ -501,7 +501,7 @@ read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
 function hapus(){
-NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/ssh")
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/ssh/.ssh.db")
 if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 clear
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
@@ -524,7 +524,7 @@ echo ""
 echo -e " $COLOR Pilih Nomer User Yang Akan Di Hapus ${NC}"
 echo -e " $COLOR Tekan CTRL×C Untuk Membatalkan ${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2-3 | nl -s ') '
+grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 2-3 | nl -s ') '
 until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 if [[ ${CLIENT_NUMBER} == '1' ]]; then
 read -rp "Select Number [1]: " CLIENT_NUMBER
@@ -532,9 +532,9 @@ else
 read -rp "Select Number [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 fi
 done
-Pengguna=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-Days=$(grep -E "^### " "/etc/xray/ssh" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-sed -i "/^### $Pengguna $Days/d" /etc/xray/ssh
+Pengguna=$(grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+Days=$(grep -E "^### " "/etc/ssh/.ssh.db" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+sed -i "/^### $Pengguna $Days/d" /etc/ssh/.ssh.db
 if getent passwd $Pengguna > /dev/null 2>&1; then
         userdel $Pengguna > /dev/null 2>&1
         echo -e "User $Pengguna was removed."
@@ -681,7 +681,7 @@ if getent passwd $Pengguna > /dev/null 2>&1; then
 else
         echo -e "Failure: User $Pengguna Not Exist."
 fi
-sed -i "/^### $Pengguna/d" /etc/xray/ssh
+sed -i "/^### $Pengguna/d" /etc/ssh/.ssh.db
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
@@ -986,10 +986,10 @@ echo -e "$COLOR1└────────────────────�
 echo -e ""
 echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
 case $opt in
-01 | 1) clear ; add-ssh ; exit ;;
+01 | 1) clear ; usernew ; exit ;;
 02 | 2) clear ; renew ; exit ;;
-03 | 3) clear ; del-ssh ; exit ;;
-04 | 4) clear ; sshlogin ; exit ;;
+03 | 3) clear ; hapuslama ; exit ;;
+04 | 4) clear ; cek ; exit ;;
 05 | 5) clear ; cekconfig ; exit ;;
 06 | 6) clear ; user-lock ; exit ;;
 07 | 7) clear ; user-unlock ; exit ;;
