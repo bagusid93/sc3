@@ -989,7 +989,7 @@ case $opt in
 01 | 1) clear ; usernew ; exit ;;
 02 | 2) clear ; renew ; exit ;;
 03 | 3) clear ; hapuslama ; exit ;;
-04 | 4) clear ; cek ; exit ;;
+04 | 4) clear ; login ; exit ;;
 05 | 5) clear ; cekconfig ; exit ;;
 06 | 6) clear ; user-lock ; exit ;;
 07 | 7) clear ; user-unlock ; exit ;;
