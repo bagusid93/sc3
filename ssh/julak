@@ -27,14 +27,15 @@ if [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
 <b>  ⚠️ AUTOSCRIPT INSTALLER ⚠️</b>
 <b>     ⚠️ JULAK - BANTUR ⚠️</b>
 <code>◇━━━━━━━━━━━━━━◇</code>
-<code>CLIENT    : </code><code>${Name}</code>
-<code>DOMAIN    : </code><code>$(cat /etc/xray/domain)</code>
-</code>IP         : </code><code>${IPADDR}</code>
-</code>ISP        : </code><code>${ORG}</code>
-</code>CITY       : </code><code>${CITY}</code>
-</code>RAM       : </code><code>${RAMMS}MB</code>
-</code>LINUX      : </code><code>${OS}</code>
-</code>EXP SCRIPT: </code><code>${Izin}</code>
+<code>TANGGAL INSTAL: </code><code>${DATE_EXEC}</code>
+<code>CLIENT        : </code><code>${Name}</code>
+<code>DOMAIN        : </code><code>$(cat /etc/xray/domain)</code>
+</code>IP           : </code><code>${IPADDR}</code>
+</code>ISP          : </code><code>${ORG}</code>
+</code>CITY         : </code><code>${CITY}</code>
+</code>RAM          : </code><code>${RAMMS}MB</code>
+</code>LINUX        : </code><code>${OS}</code>
+</code>EXP SCRIPT   : </code><code>${Izin}</code>
 <code>◇━━━━━━━━━━━━━━◇</code>"
 	curl -s --max-time $TIMEOUT -d "chat_id=$USERID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
 	rm $TMPFILE
