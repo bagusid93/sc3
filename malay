@@ -23,20 +23,20 @@ if [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
         COUNTRY=$(cat $TMPFILE | sed -n 's/^  "country":[[:space:]]*//p' | sed 's/"//g')
         ORG=$(cat $TMPFILE | sed -n 's/^  "org":[[:space:]]*//p' | sed 's/"//g')
 	TEXT="
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>  ⚠️ AUTOSCRIPT INSTALLER ⚠️</b>
-<b>     ⚠️ JULAK - BANTUR ⚠️</b>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<code>TANGGAL INSTAL: </code><code>${DATE_EXEC}</code>
-<code>CLIENT        : </code><code>${Name}</code>
-<code>DOMAIN        : </code><code>$(cat /etc/xray/domain)</code>
-<code>IP            : </code><code>${IPADDR}</code>
-<code>ISP           : </code><code>${ORG}</code>
-<code>CITY          : </code><code>${CITY}</code>
-<code>RAM           : </code><code>${RAMMS}MB</code>
-<code>LINUX         : </code><code>${OS}</code>
-<code>EXP SCRIPT    : </code><code>${Izin}</code>
-<code>◇━━━━━━━━━━━━━━◇</code>"
+◇━━━━━━━━━━━━━━◇
+  ⚠️ AUTOSCRIPT INSTALLER ⚠️
+     ⚠️ JULAK - BANTUR ⚠️
+◇━━━━━━━━━━━━━━◇</code>
+TANGGAL INSTAL: ${DATE_EXEC}
+CLIENT        : ${Name}
+DOMAIN        : $(cat /etc/xray/domain)
+IP            : ${IPADDR}
+ISP           : ${ORG}
+CITY          : ${CITY}
+RAM           : ${RAMMS} MB
+LINUX         : ${OS}
+EXP SCRIPT    : ${Izin}
+◇━━━━━━━━━━━━━━◇"
 	curl -s --max-time $TIMEOUT -d "chat_id=$USERID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
 	rm $TMPFILE
 fi
