@@ -3,7 +3,7 @@
 ######################
 
 clear
-MAX=1
+max=1
 if [ -e "/var/log/auth.log" ]; then
         OS=1;
         LOG="/var/log/auth.log";
@@ -22,7 +22,7 @@ fi
 	service dropbear restart > /dev/null 2>&1;
 				
 if [[ ${1+x} ]]; then
-        MAX=$1;
+        max=$1;
 fi
 
         cat /etc/passwd | grep "/home/" | cut -d":" -f1 > /root/user.txt
@@ -77,7 +77,7 @@ fi
         j="0";
         for i in ${!username[*]}
 			do
-                if [ ${jumlah[$i]} -gt $MAX ]; then
+                if [ ${jumlah[$i]} -gt $max ]; then
                         date=`date +"%Y-%m-%d %X"`;
                         echo "$date - ${username[$i]} - ${jumlah[$i]}";
                         echo "$date - ${username[$i]} - ${jumlah[$i]}" >> /root/log-limit.txt;
