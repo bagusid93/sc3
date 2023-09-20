@@ -4,7 +4,7 @@ biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 
 
 clear
-USERID=2118266757"
+USERID=2118266757
 KEY="6560040848:AAGSiQw_SO-wML_vbY8AYUFIvKrF_iC_Reo"
 TIMEOUT="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
@@ -39,7 +39,7 @@ RAMMS=$(free -m | awk 'NR==2 {print $2}')
 NAMECOM=$(wget -qO- ipinfo.io/ip)
 OS=$(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')
 
-message="
+TEXT="
 <code>◇━━━━━━━━━━━━━━◇</code>
 <b>  ⚠️ AUTOSCRIPT INSTALLER ⚠️</b>
 <b>     ⚠️ JULAK - BANTUR ⚠️</b>
