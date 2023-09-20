@@ -59,9 +59,9 @@ read -p "Username : " Login
 read -p "Password : " Pass
 read -p "Expired (Days): " masaaktif
 read -p "limit IP: " max
-echo > /etc/cron.d/tendang
-                echo "# $Login" >>/etc/cron.d/tendang
-                echo "*/120 * * * *  root /usr/bin/tendang $max" >>/etc/cron.d/tendang
+echo > /etc/cron.d/lock
+                echo "# $Login" >>/etc/cron.d/lock
+                echo "*/1 * * * *  root /usr/bin/lock $max" >>/etc/cron.d/lock
                 
 
 IP=$(wget -qO- ipinfo.io/ip);
@@ -93,19 +93,21 @@ expi="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
+echo -e "### $Login $expi $Pass $max" >> /etc/ssh/.ssh.db
 clear
 echo -e ""
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
 echo -e "\E[44;1;39m                 ⇱ INFORMASI AKUN SSH ⇲            \E[0m"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
-echo -e "${LIGHT}Username: $Login"
+echo -e "Username: $Login"
 echo -e "Password: $Pass"
-echo -e "Created: $hariini"
-echo -e "Expired: $expi"
+echo -e "Created : $hariini"
+echo -e "Expired : $expi"
 echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "IP      : $IP"
-echo -e "Host SSH: $domain"
-echo -e "PubKey  : $slkey"
+echo -e "Limit Ip : $max"
+echo -e "IP       : $IP"
+echo -e "Host     : $domain"
+echo -e "PubKey   : $slkey"
 echo -e "Nameserver: $sldomain"
 echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "OpenSSH: 22"
@@ -115,14 +117,13 @@ echo -e "SlowDNS port: 53,5300,8080,443,80"
 echo -e "SSH Websocket SSL/TLS: 443,444"
 echo -e "SSH Websocket HTTP: 80"
 echo -e "SSH Websocket Direct: 80,8880"
-echo -e "OPEN VPN: 1194"
+echo -e "OPEN VPN: 1194,2200,990,2086"
 echo -e "BadVPN UDPGW: 7100,7200,7300"
 echo -e "Proxy Squid: [ON]"
 echo -e "OVPN TCP: http://$domain:81/tcp.ovpn"
 echo -e "OVPN UDP: http://$domain:81/udp.ovpn"
 echo -e "OVPN SSL: http://$domain:81/ssl.ovpn"
 echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "SNI/Server Spoof: isi dengan bug"
 echo -e "Payload Websocket SSL/TLS"
 echo -e "${LIGHT}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "GET wss://bug.com/ HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf][crlf]"
