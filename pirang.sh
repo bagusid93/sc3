@@ -43,14 +43,7 @@ else
 touch /etc/xray/ssh
 fi
 
-function usernew(){
-clear
-cekray=`cat /root/log-install.txt | grep -ow "XRAY" | sort | uniq`
-if [ "$cekray" = "XRAY" ]; then
-domen=`cat /etc/xray/domain`
-else
-domen=`cat /etc/v2ray/domain`
-fi
+
 #nameserver=`cat /root/nsdomain`
 sldomain=`cat /etc/xray/dns`
 slkey=`cat /etc/slowdns/server.pub`
