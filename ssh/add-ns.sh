@@ -132,19 +132,19 @@ echo -e   "Press [ Ctrl+C ] • To-Exit"
 echo -e   ""
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo ""
-read -p "   Please select numbers 1-2 or Any Button(Random) : " kuhing
+read -p "   Please select numbers 1-2 or Any Button(Random) : " julak
 echo ""
-if [[ $kuhing == "1" ]]; then
+if [[ $bantur == "1" ]]; then
 read -rp "Input your domain : " -e tarap
-echo $tarap > /root/domain
-echo $tarap > /etc/v2ray/domain
-echo $tarap >/etc/xray/domain
-echo "IP=$tarap" > /var/lib/ipvps.conf
+echo $julak > /root/domain
+echo $julak > /etc/v2ray/domain
+echo $julak >/etc/xray/domain
+echo "IP=$julak" > /var/lib/ipvps.conf
 cert
 echo ""
-elif [[ $kuhing == "2" ]]; then
+elif [[ $bantur == "2" ]]; then
 add-name
-elif [[ $kuhing == "3" ]]; then
+elif [[ $bantur == "3" ]]; then
 nameserver
-elif [[ $kuhing == "4" ]]; then
+elif [[ $bantur == "4" ]]; then
 cert
