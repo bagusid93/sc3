@@ -1,5 +1,5 @@
 USERID=2118266757
-KEY="6560040848:AAGSiQw_SO-wML_vbY8AYUFIvKrF_iC_Reo"
+KEY="6561892159:AAEfW_wh32WA3KzJDVrvFDDbtazjcmA2Cc4"
 TIMEOUT="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 curl -s ipinfo.io/org?token=75082b4831f909  | cut -d " " -f 2-10 >> /etc/xray/isp
