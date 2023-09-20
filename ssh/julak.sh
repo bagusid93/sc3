@@ -4,7 +4,7 @@ biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 
 
 clear
-USERID=2118266757
+USERID=2118266757"
 KEY="6560040848:AAGSiQw_SO-wML_vbY8AYUFIvKrF_iC_Reo"
 TIMEOUT="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
