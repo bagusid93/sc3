@@ -37,6 +37,12 @@ checking_sc() {
 }
 checking_sc
 clear
+cekray=`cat /root/log-install.txt | grep -ow "XRAY" | sort | uniq`
+if [ "$cekray" = "XRAY" ]; then
+domen=`cat /etc/xray/domain`
+else
+domen=`cat /etc/v2ray/domain`
+fi
 
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
   clear
@@ -57,7 +63,7 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
     echo ""
     echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
     read -n 1 -s -r -p "Press any key to back on menu"
-    menu
+    menu-ssh
   fi
 done
 sec=3
@@ -90,47 +96,14 @@ exp="$(chage -l $user | grep "Account expires" | awk -F": " '{print $2}')"
 dbexp=$(date -d "$EXPIRED days" +"%Y-%m-%d")
 echo -e "$PASSWD\n$PASSWD\n" | passwd $user &>/dev/null
 
+if [[ ${c} != "0" ]]; then
+  echo "${iplim}" >/etc/ssh/${user}
+fi
 DATADB=$(cat /etc/ssh/.ssh.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
 if [[ "${DATADB}" != '' ]]; then
   sed -i "/\b${user}\b/d" /etc/ssh/.ssh.db
 fi
 echo "### ${user} ${dbexp} ${iplim}" >>/etc/ssh/.ssh.db
-
-cat >/var/www/html/ssh-$user.txt <<END
-
----------------------
-Format SSH OVPN Account
----------------------
-
-Username         : $user
-Password         : $PASSWD
-Expired          : $exp
----------------------
-IP               : $IP
-Host             : $domain
-Host Slowdns     : ${NS}
-Pub Key          : ${PUB}
-Port OpenSSH     : 22
-Port UdpSSH      : 1-65535
-Port Dropbear    : 143, 109
-Port Dropbear WS : 80,143
-Port SSH WS      : 80
-Port SSH SSL WS  : 443
-Port SSL/TLS     : 447,8443
-Port OVPN WS SSL : 443
-Port OVPN SSL    : 990
-Port OVPN TCP    : 443, 1194
-Port OVPN UDP    : 2200
-BadVPN UDP       : 7100, 7300, 7300
----------------------
-Payload WSS: GET ws://$domain/ HTTP/1.1[crlf]Host: isi_bug_disini[crlf]Upgrade: websocket[crlf][crlf] 
----------------------
-OpenVPN SSL : http://$domain:81/ssl.ovpn
-OpenVPN TCP : http://$domain:81/tcp.ovpn
-OpenVPN UDP : http://$domain:81/udp.ovpn
----------------------
-
-END
 
 clear
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
