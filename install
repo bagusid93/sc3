@@ -80,7 +80,6 @@ echo ""
 chmod +x kimut
 chmod +x menu
 chmod +x menu-set
-clear
 sleep 2
 echo -e "\e[1;36mYES BERHASIL\e[0m"
 sleep 2
