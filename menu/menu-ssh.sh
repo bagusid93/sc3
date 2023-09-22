@@ -87,7 +87,7 @@ until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
 echo > /etc/cron.d/kills
                 echo "# $user" >>/etc/cron.d/kills
-                echo "*/1 * * * *  root /usr/bin/kills $max" >>/etc/cron.d/kills
+                echo "*/1 * * * *  root /usr/bin/kills $iplim" >>/etc/cron.d/kills
 done
 IP=$(curl -sS ifconfig.me)
 PUB=$(cat /etc/slowdns/server.pub)
