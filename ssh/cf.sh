@@ -6,11 +6,11 @@ mkdir -p /root/xray
 clear
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
 subsl=$(</dev/urandom tr -dc a-z0-9 | head -c5)
-DOMAIN=givpn.online
-SUB_DOMAIN=asx-${sub}.givpn.online
-NS_DOMAIN=slowdns-${subsl}.givpn.online
-CF_ID=givpn11@gmail.com
-CF_KEY=f881f9b79d839f0f2f7601f7a7bd18ab8ddda
+DOMAIN=bagusid.my.id
+SUB_DOMAIN=${sub}.bagusid.my.id
+NS_DOMAIN=ns.${subsl}.bagusid.my.id
+CF_ID=putrameratus2@gmail.com
+CF_KEY=69c3940d1896bc19698277104e783dab6cee4
 set -euo pipefail
 IP=$(curl -sS ifconfig.me);
 echo "Updating DNS for ${SUB_DOMAIN}..."
