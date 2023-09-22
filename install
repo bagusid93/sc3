@@ -1,4 +1,19 @@
 #!/bin/bash
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+###########- COLOR CODE -##############
+BGreen='\e[1;32m'
+NC='\e[0m'
+DEFBOLD='\e[39;1m'
+RB='\e[31;1m'
+GB='\e[32;1m'
+YB='\e[33;1m'
+BB='\e[34;1m'
+MB='\e[35;1m'
+CB='\e[35;1m'
+WB='\e[37;1m'
+###########- COLOR CODE -##############
+
 clear
 fun_bar () {
 comando[0]="$1"
@@ -31,51 +46,55 @@ echo -e "\033[1;31m════════════════════�
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "Install SlowDns" ; tput sgr0
 echo -e "\033[1;31m════════════════════════════════════════════════════\033[0m"
 echo -e ""
-echo -e "      Script ini akan menginstal"
-echo -e "   untuk mode koneksi SlowDNS."
+echo -e "          Update AutoScript "
+echo -e "      Pembaharuan Menu Autoscript"
 echo -e ""
-echo -e "         \033[1;33mPenginstal dibuat berdasarkan edisi\033[1;37m"
+echo -e "         \033[1;33mSambil Ngopi Dulu Biar Semangat\033[1;37m"
 echo -e "\033[1;31m════════════════════════════════════════════════════\033[0m"
 echo ""
-echo -e "MENGUNDUH KETERGANTUNGAN..."
+echo -e "MENGUNDUH Pembaharuan..."
 echo ""
-fun_att () {
-apt install ncurses-utils -y
-mkdir /etc/slowdns
-cd /etc/slowdns
-wget https://github.com/fisabiliyusri/Mantap/raw/main/Slowdns/dns-server; chmod +x dns-server
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/remove-slow; chmod +x remove-slow
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/slowdns-info; chmod +x slowdns-info
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/slowdns-drop; chmod +x slowdns-drop
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/slowdns-ssh; chmod +x slowdns-ssh
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/slowdns-ssl; chmod +x slowdns-ssl
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/slowdns-socks; chmod +x slowdns-socks
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/slowdns; chmod +x slowdns; cp slowdns /bin/
-wget https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/Slowdns/stopdns; chmod +x stopdns
+ibam () {
+cd /usr/bin
+wget -q -O kimut "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh"
+chmod +x kimut
 }
-fun_bar 'fun_att'
-echo -e "KONFIGURASI FIREWALL..."
+fun_bar 'ibam'
+echo -e "Mengungduh Menu Update..."
 echo ""
-fun_ports () {
-apt install firewalld -y && sudo firewall-cmd --zone=public --permanent --add-port=1153/tcp && sudo firewall-cmd --zone=public --permanent --add-port=2253/tcp && sudo firewall-cmd --zone=public --permanent --add-port=3353/tcp && sudo firewall-cmd && sudo firewall-cmd --zone=public --permanent --add-port=53/udp && sudo firewall-cmd --zone=public --permanent --add-port=5300/udp && sudo firewall-cmd && sudo firewall-cmd --zone=public --permanent --add-port=2222/tcp && sudo firewall-cmd --reload
+hancur () {
+cd /usr/bin
+wget -q -O menu "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh"
+chmod +x menu
 }
-fun_bar 'fun_ports'
-echo -e "MENGATUR DNS CLOUDFLARE..."
+fun_bar 'hancur'
+echo -e "Mengunduh Menu..."
 echo ""
-fun_dnscf () {
-sudo systemctl disable systemd-resolved.service && sudo systemctl stop systemd-resolved.service && sudo mv /etc/resolv.conf /etc/resolv.conf.bkp && echo "nameserver 1.1.1.1" > /etc/resolv.conf
-sudo systemctl enable systemd-resolved.service && sudo systemctl start systemd-resolved.service
-sleep 2
+handak () {
+cd /usr/bin
+wget -q -O menu-set "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh"
+chmod +x menu-set
 }
-fun_bar 'fun_dnscf'
+fun_bar 'handak'
+echo -e "Mengunduh Menu Setting..."
+echo ""
 clear
-echo -e "\033[1;31m════════════════════════════════════════════════════\033[0m"
-tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "Install SlowDns" ; tput sgr0
-echo -e "\033[1;31m════════════════════════════════════════════════════\033[0m"
+sleep 2
+echo -e "\e[1;36mYES BERHASIL\e[0m"
+sleep 2
+clear
 echo ""
-echo -e "          \033[1;33mPEMASANGAN SELESAI!\033[0m          "
+echo -e "\033[0;34m----------------------------------------\033[0m"
+echo -e "\E[44;1;39m            SCRIPT UPDATED              \E[0m"
+echo -e "\033[0;34m----------------------------------------\033[0m"
 echo ""
-echo -e "Untuk membuka menu, gunakan perintah: \033[1;33mslowdns\033[0m"
-cd
-rm install
-slowdns
+read -n 1 -s -r -p "Press any key to back on menu"
+menu
+;;
+x)
+clear
+menu
+;;
+*)
+;;
+esac
