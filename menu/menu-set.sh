@@ -67,6 +67,7 @@ case $opt in
 11) clear ; kimut ; exit ;;
 12) clear ; m-bot ; exit ;;
 13) clear ; m-ip ; exit ;;
+14) clear ; passwd ; exit ;;
 0) clear ; menu ; exit ;;
 x) exit ;;
 *) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; menu-set ;;
