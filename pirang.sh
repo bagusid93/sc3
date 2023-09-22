@@ -173,7 +173,9 @@ echo -e "Port OVPN UDP    : 2200" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Proxy Squid      : 3128" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "BadVPN UDP       : 7100, 7300, 7300" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Payload WSS      : GET ws://$domain/ HTTP/1.1[crlf]Host: isi_bug_disini[crlf]Upgrade: websocket[crlf][crlf]" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Ssh UDP          : $domain:1-65535@$user:$PASSWD" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Payload WS       : GET ws://$domain/ HTTP/1.1[crlf]Host: isi_bug_disini[crlf]Upgrade: websocket[crlf][crlf]" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN SSL      : https://$domain:81/ssl.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN TCP      : https://$domain:81/tcp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
@@ -211,6 +213,8 @@ echo -e "Port OVPN TCP    : 1194" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN UDP    : 2200" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Proxy Squid      : 3128" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "BadVPN UDP       : 7100, 7300, 7300" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Ssh UDP          : $domain:1-65535@$user:$PASSWD" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Payload WSS      : GET ws://$domain/ HTTP/1.1[crlf]Host: isi_bug_disini[crlf]Upgrade: websocket[crlf][crlf]" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
