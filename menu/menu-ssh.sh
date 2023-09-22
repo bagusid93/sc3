@@ -112,15 +112,15 @@ TEXT="
 <code>──────────────────</code>
 <code>    SSH OVPN Premium Account   </code>
 <code>──────────────────</code>
-<code>Username         : </code> <code>$Login</code>
-<code>Password         : </code> <code>$Pass</code>
+<code>Username         : </code> <code>$user</code>
+<code>Password         : </code> <code>$PASSWD</code>
 <code>Expired          : </code> <code>$exp</code>
 <code>──────────────────</code>
 <code>IP               : </code> <code>$IP</code>
 <code>Host             : </code> <code>$domen</code>
-<code>Limit IP             : </code> <code>$batas (Login)</code>
-<code>Host Slowdns     : </code> <code>$sldomain</code>
-<code>Pub Key          : </code> <code> $slkey</code>
+<code>Limit IP             : </code> <code>$iplim (Login)</code>
+<code>Host Slowdns     : </code> <code>${NS}</code>
+<code>Pub Key          : </code> <code> ${PUB}</code>
 <code>Port OpenSSH     : </code> <code>22</code>
 <code>Port Dropbear    : </code> <code>109,110,143</code>
 <code>Port DNS         : </code> <code>80, 443,53</code> 
@@ -129,8 +129,8 @@ TEXT="
 <code>Port SSL/TLS     : </code> <code>447,8443</code>
 <code>Port OVPN WS SSL : </code> <code>2086</code>
 <code>Port OVPN SSL    : </code> <code>990</code>
-<code>Port OVPN TCP    : </code> <code>$ovpn</code>
-<code>Port OVPN UDP    : </code> <code>$ovpn2</code>
+<code>Port OVPN TCP    : </code> <code>1194</code>
+<code>Port OVPN UDP    : </code> <code>2200</code>
 <code>Proxy Squid      : </code> <code>3128</code>
 <code>BadVPN UDP       : </code> <code>7100, 7300, 7300</code>
 <code>───────────────────</code>
