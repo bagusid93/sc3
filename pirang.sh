@@ -83,7 +83,7 @@ done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
 echo > /etc/cron.d/kills
-                echo "# $Login" >>/etc/cron.d/kills
+                echo "# $user" >>/etc/cron.d/kills
                 echo "*/1 * * * *  root /usr/bin/kills $max" >>/etc/cron.d/kills
 done
 IP=$(curl -sS ifconfig.me)
@@ -179,9 +179,9 @@ echo -e "OpenVPN SSL      : https://$domain:81/ssl.ovpn" | tee -a /etc/xray/log-
 echo -e "OpenVPN TCP      : https://$domain:81/tcp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN UDP      : https://$domain:81/udp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Save Link Account: https://$domain:81/ssh-$user.txt"
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\e[42m      $author     \E[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 
 else
@@ -218,9 +218,9 @@ echo -e "OpenVPN SSL      : https://$domain:81/ssl.ovpn" | tee -a /etc/xray/log-
 echo -e "OpenVPN TCP      : https://$domain:81/tcp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "OpenVPN UDP      : https://$domain:81/udp.ovpn" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Save Link Account: https://$domain:81/ssh-$user.txt"
-echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\e[42m      $author     \E[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 fi
 echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
