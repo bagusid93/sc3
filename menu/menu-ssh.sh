@@ -91,7 +91,7 @@ echo > /etc/cron.d/kills
 done
 IP=$(curl -sS ifconfig.me)
 PUB=$(cat /etc/slowdns/server.pub)
-NS=$(cat /etc/xray/nsdomain)
+NS=$(cat /etc/xray/dns)
 domain=$(cat /etc/xray/domain)
 useradd -e $(date -d "$EXPIRED days" +"%Y-%m-%d") -s /bin/false -M $user
 exp="$(chage -l $user | grep "Account expires" | awk -F": " '{print $2}')"
@@ -243,7 +243,7 @@ else
 domen=`cat /etc/v2ray/domain`
 fi
 #nameserver=`cat /root/nsdomain`
-sldomain=`cat /etc/xray/nsdomain`
+sldomain=`cat /etc/xray/dns`
 slkey=`cat /etc/slowdns/server.pub`
 #nameserver1=`cat /etc/slowdns/infons`
 #slkey1=`cat /root/server.pub`
@@ -546,7 +546,7 @@ sqd="$(cat ~/log-install.txt | grep -w "Squid" | cut -d: -f2)"
 ovpn="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 ovpn2="$(netstat -nlpu | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 domain=`cat /etc/v2ray/domain`
-NS=`cat /etc/xray/nsdomain`
+NS=`cat /etc/xray/dns`
 PUB=`cat /etc/slowdns/server.pub`
 OhpSSH=`cat /root/log-install.txt | grep -w "OHP SSH" | cut -d: -f2 | awk '{print $1}'`
 OhpDB=`cat /root/log-install.txt | grep -w "OHP DBear" | cut -d: -f2 | awk '{print $1}'`
