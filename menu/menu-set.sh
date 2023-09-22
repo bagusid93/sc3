@@ -46,6 +46,7 @@ echo -e "$COLOR1 $NC   ${BICyan}[${WH}08${BICyan}]${NC} ${WH}• ${COLOR1}Change
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}09${BICyan}]${NC} ${WH}• ${COLOR1}Cek Bandwith ${NC}     $COLOR1 $NC"
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}10${BICyan}]${NC} ${WH}• ${COLOR1}Menu Bot ${NC}     $COLOR1 $NC"
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}11${BICyan}]${NC} ${WH}• ${COLOR1}Update AutoScript ${NC}     $COLOR1 $NC"
+echo -e "$COLOR1 $NC   ${BICyan}[${WH}12${BICyan}]${NC} ${WH}• ${COLOR1}Ganti Password VPS ${NC}     $COLOR1 $NC"
 echo -e "$COLOR1 $NC   ${BICyan}[${WH}00${BICyan}]${NC} ${WH}• ${COLOR1}Back To Menu ${NC}     $COLOR1 $NC"
 echo -e ""
 echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}"
@@ -65,9 +66,7 @@ case $opt in
 9) clear ; bw ; exit ;;
 10) clear ; m-bot ; exit ;;
 11) clear ; kimut ; exit ;;
-12) clear ; m-bot ; exit ;;
-13) clear ; m-ip ; exit ;;
-14) clear ; passwd ; exit ;;
+12) clear ; passwd ; exit ;;
 0) clear ; menu ; exit ;;
 x) exit ;;
 *) echo -e "" ; echo "salah tekan sayang" ; sleep 1 ; menu-set ;;
