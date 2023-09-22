@@ -2,91 +2,78 @@
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 ###########- COLOR CODE -##############
+colornow=$(cat /etc/julak/theme/color.conf)
+NC="\e[0m"
+RED="\033[0;31m"
+COLOR1="$(cat /etc/julak/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+WH='\033[1;37m'
+###########- END COLOR CODE -##########
 
-red='\e[1;31m'
-green='\e[0;32m'
-NC='\e[0m'
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-TIMES="10"
-CHATID="2118266757"
-KEY="6560040848:AAGSiQw_SO-wML_vbY8AYUFIvKrF_iC_Reo"
-URL="https://api.telegram.org/bot$KEY/sendMessage"
+clear
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-%m-%d -d "$data_server")
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
 data_ip="https://raw.githubusercontent.com/bagusid93/hss/main/sc3"
 checking_sc() {
-  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
-  if [[ $date_list < $useexp ]]; then
-    echo -ne
-  else
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    echo -e ""
-    echo -e "            ${RED}PERMISSION DENIED !${NC}"
-    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
-    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
-    echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/Cibut2d"
-    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6281250851741"
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    exit
-  fi
+useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
+if [[ $date_list < $useexp ]]; then
+echo -ne
+else
+echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
+echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+echo -e ""
+echo -e "            ${RED}AKSES DITOLAK !${NC}"
+echo -e "   \033[0;33mIPVPS KAMU${NC} $MYIP \033[0;33mTidak Terdaftar${NC}"
+echo -e "   \033[0;33mHubungi Admin Untuk Buy AutoScript${NC}"
+echo -e "           ${RED}KONTAK ADMIN !${NC}"
+echo -e "   \033[0;36mTelegram${NC}: https://t.me/Cibut2d"
+echo -e "   \033[0;36mWhatsApp${NC}: https://wa.me/6281250851741"
+echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+exit
+fi
 }
 checking_sc
 clear
-if [[ -e /etc/xray/ssh ]]; then
-echo -ne
-else
-touch /etc/xray/ssh
-fi
 
-
-#nameserver=`cat /root/nsdomain`
-sldomain=`cat /etc/xray/dns`
-slkey=`cat /etc/slowdns/server.pub`
-#nameserver1=`cat /etc/slowdns/infons`
-#slkey1=`cat /root/server.pub`
 TIMES="10"
 CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-portsshws=`cat ~/log-install.txt | grep -w "SSH Websocket" | cut -d: -f2 | awk '{print $1}'`
-wsssl=`cat /root/log-install.txt | grep -w "SSH SSL Websocket" | cut -d: -f2 | awk '{print $1}'`
+author=$(cat /etc/profil)
 
+until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+  clear
+  echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
+  echo -e "$COLBG1             SSH Ovpn Account            $NC"
+  echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
+  read -p "Username : " user
 
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC} ${COLBG1}               ${WH}• SSH PANEL MENU •              ${NC} $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-read -p "Username : " user
-
-CLIENT_EXISTS=$(grep -w $Login /etc/xray/ssh | wc -l)
+  CLIENT_EXISTS=$(grep -w $user /etc/ssh/.ssh.db | wc -l)
 
   if [[ ${CLIENT_EXISTS} == '1' ]]; then
     clear
-    echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-    echo -e "$COLOR1 ${NC} ${COLBG1}               ${WH}• SSH PANEL MENU •              ${NC} $COLOR1 $NC"
-    echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-    echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
+    echo -e "$COLBG1             SSH Ovpn Account           $NC"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
     echo ""
-    echo -e "$COLOR1 Username Sudah Terdaftar, Silahkan Buat Dengan Username Lain ${NC}"
+    echo "A client with the specified name was already created, please choose another name."
     echo ""
-    echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
     read -n 1 -s -r -p "Press any key to back on menu"
     menu-ssh
   fi
+done
 sec=3
 spinner=(⣻ ⢿ ⡿ ⣟ ⣯ ⣷)
 while [ $sec -gt 0 ]; do
-    echo -ne "\e[33m ${spinner[sec]} Setting up a Premium Account $sec seconds...\r"
+    echo -ne "\033[1;37m ${spinner[sec]} Setting up a Premium Account $sec seconds...\r"
     sleep 1
     sec=$(($sec - 1))
 done
 clear 
-echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $user\e[0m\n"
+echo -e "${WH}INPUT DEPENDECIES ACCOUNT $user ${NC}"
 until [[ $PASSWD =~ ^[a-zA-Z0-9]+$ ]]; do
 read -p "Password : " PASSWD
 done
@@ -97,22 +84,25 @@ until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
 echo > /etc/cron.d/kills
                 echo "# $Login" >>/etc/cron.d/kills
-                echo "*/5 * * * *  root /usr/bin/kills $iplim" >>/etc/cron.d/kills
-
+                echo "*/1 * * * *  root /usr/bin/kills $max" >>/etc/cron.d/kills
+done
 IP=$(curl -sS ifconfig.me)
 PUB=$(cat /etc/slowdns/server.pub)
 NS=$(cat /etc/xray/dns)
 domain=$(cat /etc/xray/domain)
-sleep 1
-clear
-clear
-clear
-clear
 useradd -e $(date -d "$EXPIRED days" +"%Y-%m-%d") -s /bin/false -M $user
 exp="$(chage -l $user | grep "Account expires" | awk -F": " '{print $2}')"
 dbexp=$(date -d "$EXPIRED days" +"%Y-%m-%d")
 echo -e "$PASSWD\n$PASSWD\n" | passwd $user &>/dev/null
-echo -e "### $user $dbexp $PASSWD $iplim" >> /etc/ssh/.ssh.db
+
+if [[ ${c} != "0" ]]; then
+  echo "${iplim}" >/etc/ssh/${user}
+fi
+DATADB=$(cat /etc/ssh/.ssh.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
+if [[ "${DATADB}" != '' ]]; then
+  sed -i "/\b${user}\b/d" /etc/ssh/.ssh.db
+fi
+echo "### ${user} ${dbexp} ${PASSWD} ${iplim}" >>/etc/ssh/.ssh.db
 PID=`ps -ef |grep -v grep | grep sshws |awk '{print $2}'`
 
 TEXT="
@@ -157,7 +147,6 @@ curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$T
 
 if [[ ! -z "${PID}" ]]; then
 
-clear
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\e[42m      SSH OVPN Account     \E[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
@@ -171,14 +160,14 @@ echo -e "Host Slowdns     : ${NS}" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Pub Key          : ${PUB}" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OpenSSH     : 22" | tee -a /etc/xray/log-createssh-${user}.log 
 echo -e "Port UdpSSH      : 1-65535" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port DNS         : 443, 53 ,22 " | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port DNS         : 53 ,22, 80 " | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port Dropbear    : 143, 109" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port Dropbear WS : 80, 143" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port SSH WS      : 80" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port SSH SSL WS  : 443" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port SSH SSL WS  : 443, 444" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port SSL/TLS     : 447,8443" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN WS SSL : 443" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port OVPN SSL    : 443" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port OVPN SSL    : 990" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN TCP    : 1194" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN UDP    : 2200" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Proxy Squid      : 3128" | tee -a /etc/xray/log-createssh-${user}.log
@@ -193,7 +182,8 @@ echo -e "\033[1;93m────────────────────�
 echo -e "Save Link Account: https://$domain:81/ssh-$user.txt"
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
+
 else
 
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
@@ -209,14 +199,14 @@ echo -e "Host Slowdns     : ${NS}" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Pub Key          : ${PUB}" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OpenSSH     : 22" | tee -a /etc/xray/log-createssh-${user}.log 
 echo -e "Port UdpSSH      : 1-65535" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port DNS         : 443, 53 ,22 " | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port DNS         : 53 ,22, 80 " | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port Dropbear    : 143, 109" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port Dropbear WS : 80, 143" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port SSH WS      : 80" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port SSH SSL WS  : 443" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port SSH SSL WS  : 443, 444" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port SSL/TLS     : 447,8443" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN WS SSL : 443" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "Port OVPN SSL    : 443" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "Port OVPN SSL    : 990" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN TCP    : 1194" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Port OVPN UDP    : 2200" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Proxy Squid      : 3128" | tee -a /etc/xray/log-createssh-${user}.log
@@ -231,7 +221,8 @@ echo -e "\033[1;93m────────────────────�
 echo -e "Save Link Account: https://$domain:81/ssh-$user.txt"
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
-echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 fi
+echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
