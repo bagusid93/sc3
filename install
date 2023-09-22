@@ -54,30 +54,32 @@ echo -e "\033[1;31m════════════════════�
 echo ""
 echo -e "MENGUNDUH Pembaharuan..."
 echo ""
-ibam () {
+rm -rf kimut
+rm -rf menu
+rm -rf menu-set
+
 cd /usr/bin
+ibam () {
 wget -q -O kimut "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/kimut.sh"
-chmod +x kimut
 }
 fun_bar 'ibam'
 echo -e "Mengungduh Menu Update..."
 echo ""
 hancur () {
-cd /usr/bin
 wget -q -O menu "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu3.sh"
-chmod +x menu
 }
 fun_bar 'hancur'
 echo -e "Mengunduh Menu..."
 echo ""
 handak () {
-cd /usr/bin
 wget -q -O menu-set "https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu-set.sh"
-chmod +x menu-set
 }
 fun_bar 'handak'
 echo -e "Mengunduh Menu Setting..."
 echo ""
+chmod +x kimut
+chmod +x menu
+chmod +x menu-set
 clear
 sleep 2
 echo -e "\e[1;36mYES BERHASIL\e[0m"
