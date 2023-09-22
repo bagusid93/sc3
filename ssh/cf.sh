@@ -63,7 +63,7 @@ echo "$NS_DOMAIN" > /root/nsdomain
 echo "$SUB_DOMAIN" > /etc/xray/domain
 echo "$SUB_DOMAIN" > /etc/v2ray/domain
 echo "$SUB_DOMAIN" > /root/scdomain
-echo "$SUB_DOMAIN" > /root/xray/scdomain
+echo "$SUB_DOMAIN" > /root/xray/dns
 echo -e "Done Record Domain= ${SUB_DOMAIN} For VPS"
-rm -rf cf
+rm -rf cf.sh
 sleep 1
