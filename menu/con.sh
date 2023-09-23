@@ -4,7 +4,7 @@
 
 # Auto Hancur 
 if [ ! -f "/etc/cron.d/kil_otm" ]; then
-cat> /etc/cron.d/kills << END
+cat> /etc/cron.d/kil_otm << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 59 * * * * root /usr/bin/kills
