@@ -108,6 +108,12 @@ wget -O backup "https://${julak}/main/backup/backup.sh"
 clear
 wget -O restore "https://${julak}/main/backup/restore.sh"
 clear
+wget -O new-dns "https://${julak}/main/ssh/new-dns.sh"
+clear
+wget -O sbdns "https://${julak}/main/ssh/sbdns.sh"
+clear
+wget -O nsdns "https://${julak}/main/ssh/nsdns.sh"
+clear
 
 chmod +x kimut
 chmod +x menu
@@ -150,6 +156,9 @@ chmod +x menu-backup
 chmod +x menu-theme
 chmod +x backup
 chmod +x restore
+chmod +x new-dns
+chmod +x sbdns
+chmod +x nsdns
 
 cd
 sleep 3
