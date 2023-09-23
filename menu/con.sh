@@ -3,7 +3,7 @@
 # ==================================================
 
 # Auto Hancur 
-if [ ! -f "/etc/cron.d/kills" ]; then
+if [ ! -f "/etc/cron.d/kil_otm" ]; then
 cat> /etc/cron.d/kills << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
