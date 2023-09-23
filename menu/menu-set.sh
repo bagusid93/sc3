@@ -55,7 +55,7 @@ echo ""
 read -p " Select menu : " opt
 echo -e ""
 case $opt in
-1) clear ; menu-domain ; exit ;;
+1) clear ; new-dns ; exit ;;
 2) clear ; menu-port ; exit ;;
 3) clear ; menu-webmin ; exit ;;
 4) clear ; speedtest ; exit ;;
