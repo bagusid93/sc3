@@ -10,31 +10,65 @@ COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //
 WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 
-clear
-ipsaya=$(wget -qO- ipinfo.io/ip)
-data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-%m-%d" -d "$data_server")
-data_ip="https://raw.githubusercontent.com/bagusid93/hss/main/sc3"
-checking_sc() {
-useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
-if [[ $date_list < $useexp ]]; then
-echo -ne
+BURIQ () {
+    curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
+    data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
+    for user in "${data[@]}"
+    do
+    exp=( `grep -E "^### $user" "/root/tmp" | awk '{print $3}'` )
+    d1=(`date -d "$exp" +%s`)
+    d2=(`date -d "$biji" +%s`)
+    exp2=$(( (d1 - d2) / 86400 ))
+    if [[ "$exp2" -le "0" ]]; then
+    echo $user > /etc/.$user.ini
+    else
+    rm -f /etc/.$user.ini > /dev/null 2>&1
+    fi
+    done
+    rm -f /root/tmp
+}
+
+MYIP=$(curl -sS ipv4.icanhazip.com)
+Name=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | grep $MYIP | awk '{print $2}')
+echo $Name > /usr/local/etc/.$Name.ini
+CekOne=$(cat /usr/local/etc/.$Name.ini)
+
+Bloman () {
+if [ -f "/etc/.$Name.ini" ]; then
+CekTwo=$(cat /etc/.$Name.ini)
+    if [ "$CekOne" = "$CekTwo" ]; then
+        res="Expired"
+    fi
 else
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e ""
-echo -e "            ${RED}AKSES DITOLAK !${NC}"
-echo -e "   \033[0;33mIPVPS KAMU${NC} $MYIP \033[0;33mTidak Terdaftar${NC}"
-echo -e "   \033[0;33mHubungi Admin Untuk Buy AutoScript${NC}"
-echo -e "           ${RED}KONTAK ADMIN !${NC}"
-echo -e "   \033[0;36mTelegram${NC}: https://t.me/Cibut2d"
-echo -e "   \033[0;36mWhatsApp${NC}: https://wa.me/6281250851741"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-exit
+res="Permission Accepted..."
 fi
 }
-checking_sc
+
+PERMISSION () {
+    MYIP=$(curl -sS ipv4.icanhazip.com)
+    IZIN=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | awk '{print $4}' | grep $MYIP)
+    if [ "$MYIP" = "$IZIN" ]; then
+    Bloman
+    else
+    res="Permission Denied!"
+    fi
+    BURIQ
+}
+red='\e[1;31m'
+green='\e[1;32m'
+NC='\e[0m'
+green() { echo -e "\\033[32;1m${*}\\033[0m"; }
+red() { echo -e "\\033[31;1m${*}\\033[0m"; }
+PERMISSION
+if [ -f /home/needupdate ]; then
+red "Your script need to update first !"
+exit 0
+elif [ "$res" = "Permission Accepted..." ]; then
+echo -ne
+else
+red "Permission Denied!"
+exit 0
+fi
 clear
 if [[ -e /etc/ssh/.ssh.db ]]; then
 echo -ne
@@ -85,9 +119,6 @@ read -p "Expired (days): " EXPIRED
 done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
-echo > /etc/cron.d/kills
-                echo "# $user" >>/etc/cron.d/kills
-                echo "*/1 * * * *  root /usr/bin/kills $iplim" >>/etc/cron.d/kills
 done
 IP=$(curl -sS ifconfig.me)
 PUB=$(cat /etc/slowdns/server.pub)
