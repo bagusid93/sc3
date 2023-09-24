@@ -1,30 +1,48 @@
 #!/bin/bash
+ns_domain_cloudflare() {
+	DOMAIN=hss.biz.id
+	DOMAIN_PATH=$(cat /etc/xray/domain)
+	SUB=$(tr </dev/urandom -dc a-z0-9 | head -c7)
+	SUB_DOMAIN=${SUB}.hss.biz.id
+	NS_DOMAIN=ns.${SUB_DOMAIN}
+	CF_ID=putrameratus2@gmail.com
+        CF_KEY=69c3940d1896bc19698277104e783dab6cee4
+	set -euo pipefail
+	IP=$(wget -qO- ipinfo.io/ip)
+	echo "Updating DNS NS for ${NS_DOMAIN}..."
+	ZONE=$(
+		curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+		-H "X-Auth-Email: ${CF_ID}" \
+		-H "X-Auth-Key: ${CF_KEY}" \
+		-H "Content-Type: application/json" | jq -r .result[0].id
+	)
 
-clear
-yellow "Add Nsdomain for Slowdns"
-echo " "
-echo -e "$green      Please select a Nsdomain type below               $NC"
-echo  ""
-tyblue "    1 : Enter your Nsdomain"
-tyblue "    2 : Use a random Nsdomain"
-echo ""
-read -p "   Please select numbers 1-2 or Any Button(Random) : " host
-echo ""
-if [[ $host == "1" ]]; then
-read -rp "Input ur ns-domain : " -e bantur
-echo "$bantur" > /etc/xray/dns
-echo "$bantur" > /root/nsdomain
-echo ""
-elif [[ $host == "2" ]]; then
-#install NameServer
-wget https://raw.githubusercontent.com/bagusid93/sc3/main/slowdns/ns-domain.sh && chmod +x ns-domain.sh && ./ns-domain.sh
-rm -f /root/ns-domain.sh
-clear
-else
-echo -e "Random Nsdomain/Nsdomain is used"
-wget https://raw.githubusercontent.com/bagusid93/sc3/main/slowdns/ns-domain.sh && chmod +x ns-domain.sh && ./ns-domain.sh
-rm -f /root/ns-domain.sh
-fi
+	RECORD=$(
+		curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+		-H "X-Auth-Email: ${CF_ID}" \
+		-H "X-Auth-Key: ${CF_KEY}" \
+		-H "Content-Type: application/json" | jq -r .result[0].id
+	)
+
+	if [[ "${#RECORD}" -le 10 ]]; then
+		RECORD=$(
+			curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+			-H "X-Auth-Email: ${CF_ID}" \
+			-H "X-Auth-Key: ${CF_KEY}" \
+			-H "Content-Type: application/json" \
+			--data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${DOMAIN_PATH}'","proxied":false}' | jq -r .result.id
+		)
+	fi
+
+	RESULT=$(
+		curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+		-H "X-Auth-Email: ${CF_ID}" \
+		-H "X-Auth-Key: ${CF_KEY}" \
+		-H "Content-Type: application/json" \
+		--data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${DOMAIN_PATH}'","proxied":false}'
+	)
+	echo $NS_DOMAIN >/etc/xray/dns
+}
 
 setup_dnstt() {
 	cd
@@ -41,4 +59,5 @@ setup_dnstt() {
 	sed -i "s/xxxx/$NS_DOMAIN/g" /etc/systemd/system/client.service 
 	sed -i "s/xxxx/$NS_DOMAIN/g" /etc/systemd/system/server.service 
 }
+ns_domain_cloudflare
 setup_dnstt
