@@ -1,89 +1,51 @@
 #!/bin/bash
-dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+# //====================================================
+# //	System Request:Debian 9+/Ubuntu 18.04+/20+
+# //	Author:	Julak Bantur
+# //	Dscription: Xray Management
+# //	email: putrameratus2@gmail.com
+# //  telegram: https://t.me/Cibut2d
+# //====================================================
+# // font color configuration | JULAK BANTUR AUTOSCRIPT
 ###########- COLOR CODE -##############
 colornow=$(cat /etc/julak/theme/color.conf)
 NC="\e[0m"
 RED="\033[0;31m"
+Green="\e[92;1m"
 COLOR1="$(cat /etc/julak/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
 COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
 WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 
-BURIQ () {
-    curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 > /root/tmp
-    data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
-    for user in "${data[@]}"
-    do
-    exp=( `grep -E "^### $user" "/root/tmp" | awk '{print $3}'` )
-    d1=(`date -d "$exp" +%s`)
-    d2=(`date -d "$biji" +%s`)
-    exp2=$(( (d1 - d2) / 86400 ))
-    if [[ "$exp2" -le "0" ]]; then
-    echo $user > /etc/.$user.ini
+clear
+ipsaya=$(wget -qO- ipinfo.io/ip)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="https://raw.githubusercontent.com/bagusid93/hss/main/sc3"
+checking_sc() {
+    useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
+    if [[ $date_list < $useexp ]]; then
+        echo -ne
     else
-    rm -f /etc/.$user.ini > /dev/null 2>&1
+        echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+        echo -e "\033[42m          FIGHTERTUNNEL AUTOSCRIPT          \033[0m"
+        echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+        echo -e ""
+        echo -e "            ${RED}PERMISSION DENIED !${NC}"
+        echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
+        echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
+        echo -e "             \033[0;33mContact Admin :${NC}"
+        echo -e "      \033[0;36mTelegram${NC} t.me/Cibut2d"
+        echo -e "      ${GREEN}WhatsApp${NC} wa.me/6281250851741"
+        echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+        exit
     fi
-    done
-    rm -f /root/tmp
 }
-
-MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | grep $MYIP | awk '{print $2}')
-echo $Name > /usr/local/etc/.$Name.ini
-CekOne=$(cat /usr/local/etc/.$Name.ini)
-
-Bloman () {
-if [ -f "/etc/.$Name.ini" ]; then
-CekTwo=$(cat /etc/.$Name.ini)
-    if [ "$CekOne" = "$CekTwo" ]; then
-        res="Expired"
-    fi
-else
-res="Permission Accepted..."
-fi
-}
-
-PERMISSION () {
-    MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | awk '{print $4}' | grep $MYIP)
-    if [ "$MYIP" = "$IZIN" ]; then
-    Bloman
-    else
-    res="Permission Denied!"
-    fi
-    BURIQ
-}
-red='\e[1;31m'
-green='\e[1;32m'
-NC='\e[0m'
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-PERMISSION
-if [ -f /home/needupdate ]; then
-red "Your script need to update first !"
-exit 0
-elif [ "$res" = "Permission Accepted..." ]; then
-echo -ne
-else
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e ""
-echo -e "            ${RED}AKSES DITOLAK !${NC}"
-echo -e "   \033[0;33mIPVPS KAMU${NC} $MYIP \033[0;33mTidak Terdaftar${NC}"
-echo -e "   \033[0;33mHubungi Admin Untuk Buy AutoScript${NC}"
-echo -e "           ${RED}KONTAK ADMIN !${NC}"
-echo -e "   \033[0;36mTelegram${NC}: https://t.me/Cibut2d"
-echo -e "   \033[0;36mWhatsApp${NC}: https://wa.me/6281250851741"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-exit 0
-fi
-
+checking_sc
+clear
 function add-vless(){
 clear
 author=$(cat /etc/profil)
-
 TIMES="10"
 CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
@@ -119,12 +81,30 @@ clear
 #read -p "   Bug SNI/Host : " sni
 BACA="&"
 uuid=$(cat /proc/sys/kernel/random/uuid)
+sec=3
+spinner=(⣻ ⢿ ⡿ ⣟ ⣯ ⣷)
+while [ $sec -gt 0 ]; do
+    echo -ne "${RED} ${spinner[sec]} Setting up a Premium Account $sec seconds...\r${NC}"
+    sleep 1
+    sec=$(($sec - 1))
+done
+clear 
+echo -e "${COLOR1}INPUT DEPENDECIES ACCOUNT $user ${NC}"
+until [[ $masaaktif =~ ^[0-9]+$ ]]; do
 read -p "Expired (days): " masaaktif
-exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
-sed -i '/#vless$/a\#vl '"$user $exp $uuid"'\
+done
+until [[ $Quota =~ ^[0-9]+$ ]]; do
+read -p "Limit User (GB): " Quota
+done
+until [[ $iplim =~ ^[0-9]+$ ]]; do
+read -p "Limit User (IP): " iplim
+done
+exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
+sed -i '/#vless$/a\#vl '"$user $exp"'\
 },{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
 sed -i '/#vlessgrpc$/a\#vlg '"$user $exp"'\
 },{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
+
 vlesslink1="vless://${uuid}@${domain}:$tls?path=/vless&security=tls&encryption=none&host=${domain}&type=ws&sni=bug.mu#${user}"
 vlesslink2="vless://${uuid}@${domain}:80?path=/vless&security=none&encryption=none&host=${domain}&type=ws#${user}"
 vlesslink3="vless://${uuid}@${domain}:$tls?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=${domain}#${user}"
@@ -139,6 +119,7 @@ TEXT="
 <code>──────────────────────</code>
 <code>Remarks      : </code> <code>${user}</code>
 <code>Domain       : </code> <code>${domain}</code>
+<code>Limit Ip       : </code> <code>${iplim}</code>
 <code>Port TLS     : 443</code>
 <code>Port NTLS    : 80</code>
 <code>Port GRPC    : 443</code>
@@ -161,44 +142,62 @@ TEXT="
 <code>Expired On : $exp</code>
 <code>──────────────────────</code>
 "
-
+systemctl restart xray > /dev/null 2>&1
+if [ ! -e /etc/vless ]; then
+  mkdir -p /etc/vless
+fi
+if [ -z ${iplim} ]; then
+  iplim="0"
+fi
+if [ -z ${Quota} ]; then
+  Quota="0"
+fi
+c=$(echo "${Quota}" | sed 's/[^0-9]*//g')
+d=$((${c} * 1024 * 1024 * 1024))
+if [[ ${c} != "0" ]]; then
+  echo "${d}" >/etc/vless/${user}
+  echo "${iplim}" >/etc/vless/${user}IP
+fi
+DATADB=$(cat /etc/vless/.vless.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
+if [[ "${DATADB}" != '' ]]; then
+  sed -i "/\b${user}\b/d" /etc/vless/.vless.db
+fi
+echo "### ${user} ${exp} ${uuid} ${iplim}" >>/etc/vless/.vless.db
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 
 clear
-clear
-clear
-clear
-systemctl restart xray > /dev/null 2>&1
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• XRAY VLESS •    ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Remarks         ${COLOR1}: ${WH}${user}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Domain          ${COLOR1}: ${WH}${domain}" | tee -a /etc/log-create-user.log
-#echo -e "$COLOR1 ${NC} ${WH}Wildcard       ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port TLS        ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port none TLS   ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port gRPC       ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}id              ${COLOR1}: ${WH}${uuid}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Encryption      ${COLOR1}: ${WH}none" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Network         ${COLOR1}: ${WH}ws" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Path            ${COLOR1}: ${WH}/vless" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}ServiceName     ${COLOR1}: ${WH}vless-grpc" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink1}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket non TLS  ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink2}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link gRPC               ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink3}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC}${WH}Expired On ${COLOR1}: ${WH}$exp" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• XRAY VLESS •    ${NC} $COLOR1 $NC" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Remarks         ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Domain          ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Limit Qouta   ${COLOR1}: ${WH}${Qouta}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Limit Ip          ${COLOR1}: ${WH}${iplim}" | tee -a /etc/xray/log-create-${user}.log
+#echo -e "$COLOR1 ${NC} ${WH}Wildcard       ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port TLS        ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port none TLS   ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port gRPC       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}id              ${COLOR1}: ${WH}${uuid}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Encryption      ${COLOR1}: ${WH}none" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Network         ${COLOR1}: ${WH}ws" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Path            ${COLOR1}: ${WH}/vless" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}ServiceName     ${COLOR1}: ${WH}vless-grpc" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink1}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket non TLS  ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink2}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link gRPC               ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink3}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC}${WH}Expired On ${COLOR1}: ${WH}$exp" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC}"
-echo -e "$COLOR1┌──────────────────┐${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1┌──────────────────┐${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}• $author •${NC} $COLOR1 $NC"
-echo -e "$COLOR1└──────────────────┘${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1└──────────────────┘${NC}" | tee -a /etc/xray/log-create-${user}.log
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-vless
 }
@@ -262,36 +261,36 @@ curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$T
 
 clear
 systemctl restart xray > /dev/null 2>&1
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• XRAY VLESS •    ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Remarks         ${COLOR1}: ${WH}${user}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Domain          ${COLOR1}: ${WH}${domain}" | tee -a /etc/log-create-user.log
-#echo -e "$COLOR1 ${NC} ${WH}Wildcard       ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port TLS        ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port none TLS   ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port gRPC       ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}id              ${COLOR1}: ${WH}${uuid}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Encryption      ${COLOR1}: ${WH}none" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Network         ${COLOR1}: ${WH}ws" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Path            ${COLOR1}: ${WH}/vless" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}ServiceName     ${COLOR1}: ${WH}vless-grpc" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink1}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket non TLS  ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink2}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link gRPC               ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink3}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC}${WH}Expired On ${COLOR1}: ${WH}$exp" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• XRAY VLESS •    ${NC} $COLOR1 $NC" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Remarks         ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Domain          ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
+#echo -e "$COLOR1 ${NC} ${WH}Wildcard       ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port TLS        ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port none TLS   ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port gRPC       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}id              ${COLOR1}: ${WH}${uuid}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Encryption      ${COLOR1}: ${WH}none" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Network         ${COLOR1}: ${WH}ws" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Path            ${COLOR1}: ${WH}/vless" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}ServiceName     ${COLOR1}: ${WH}vless-grpc" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink1}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket non TLS  ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink2}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link gRPC               ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink3}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC}${WH}Expired On ${COLOR1}: ${WH}$exp" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC}"
-echo -e "$COLOR1┌──────────────────┐${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1┌──────────────────┐${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}• $author •${NC} $COLOR1 $NC"
-echo -e "$COLOR1└──────────────────┘${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1└──────────────────┘${NC}" | tee -a /etc/xray/log-create-${user}.log
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-vless
 }
@@ -535,38 +534,101 @@ clear
 clear
 clear
 clear
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• XRAY VLESS •    ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Remarks         ${COLOR1}: ${WH}${user}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Domain          ${COLOR1}: ${WH}${domain}" | tee -a /etc/log-create-user.log
-#echo -e "$COLOR1 ${NC} ${WH}Wildcard       ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port TLS        ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port none TLS   ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Port gRPC       ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}id              ${COLOR1}: ${WH}${uuid}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Encryption      ${COLOR1}: ${WH}none" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Network         ${COLOR1}: ${WH}ws" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}Path            ${COLOR1}: ${WH}/vless" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${WH}ServiceName     ${COLOR1}: ${WH}vless-grpc" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink1}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket non TLS  ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink2}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link gRPC               ${WH}:${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1${NC}${WH}${vlesslink3}${NC}"  | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1 ${NC}${WH}Expired On ${COLOR1}: ${WH}$exp" | tee -a /etc/log-create-user.log
-echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC}${COLBG1}    ${WH}• XRAY VLESS •    ${NC} $COLOR1 $NC" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Remarks         ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Domain          ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
+#echo -e "$COLOR1 ${NC} ${WH}Wildcard       ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port TLS        ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port none TLS   ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Port gRPC       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}id              ${COLOR1}: ${WH}${uuid}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Encryption      ${COLOR1}: ${WH}none" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Network         ${COLOR1}: ${WH}ws" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Path            ${COLOR1}: ${WH}/vless" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}ServiceName     ${COLOR1}: ${WH}vless-grpc" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink1}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket non TLS  ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink2}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link gRPC               ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1${NC}${WH}${vlesslink3}${NC}"  | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC}${WH}Expired On ${COLOR1}: ${WH}$exp" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC}"
-echo -e "$COLOR1┌──────────────────┐${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1┌──────────────────┐${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}• $author •${NC} $COLOR1 $NC"
-echo -e "$COLOR1└──────────────────┘${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1└──────────────────┘${NC}" | tee -a /etc/xray/log-create-${user}.log
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-vless
+}
+function chngelimit() {
+    clear
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "$COLBG1        Chnge Xray/vless Account         ${NC}"
+    echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    NUMBER_OF_CLIENTS=$(grep -c -E "^#vl " "/etc/xray/config.json")
+    if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
+        echo ""
+        echo "   You have no existing clients!"
+        echo ""
+        exit 0
+    fi
+    echo ""
+    until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '1' ]]; do
+        echo -e " "
+        read -rp "Input Username : " user
+        CLIENT_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
+
+        if [[ ${CLIENT_EXISTS} == '0' ]]; then
+            echo "No customer name available"
+        else
+            sec=3
+            spinner=(⣻ ⢿ ⡿ ⣟ ⣯ ⣷)
+            while [ $sec -gt 0 ]; do
+                echo -ne "${RED} ${spinner[sec]} Setting up a Premium Account $sec seconds...\r ${NC}"
+                sleep 1
+                sec=$(($sec - 1))
+            done
+            clear
+            echo -e "${COLOR1}INPUT DEPENDECIES ACCOUNT $user ${NC}"
+            until [[ $Quota =~ ^[0-9]+$ ]]; do
+                read -p "Limit User (GB): " Quota
+            done
+            until [[ $iplim =~ ^[0-9]+$ ]]; do
+                read -p "Limit User (IP): " iplim
+            done
+
+            if [ ! -e /etc/vless ]; then
+                mkdir -p /etc/vless
+            fi
+            if [ -z ${iplim} ]; then
+                iplim="0"
+            fi
+            if [ -z ${Quota} ]; then
+                Quota="0"
+            fi
+            c=$(echo "${Quota}" | sed 's/[^0-9]*//g')
+            d=$((${c} * 1024 * 1024 * 1024))
+            if [[ ${c} != "0" ]]; then
+                echo "${d}" >/etc/vless/${user}
+                echo "${iplim}" >/etc/vless/${user}IP
+            fi
+            clear
+            echo "-----------------------------------------------"
+            echo -e "Chnge vless Account Username ${grenbo}$user${NC} Successfully"
+            echo -e "limit Quota $Quota GB limit Login IP $iplim Device"
+            echo "-----------------------------------------------"
+            echo ""
+            exit
+        fi
+    done
+
 }
 clear
 author=$(cat /etc/profil)
@@ -574,13 +636,13 @@ echo -e "$COLOR1┌────────────────────�
 echo -e "$COLOR1 ${NC} ${COLBG1}               • MENU VLESS •                  ${NC} $COLOR1 $NC"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e " $COLOR1┌───────────────────────────────────────────────┐${NC}"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}01${WH}]${NC} ${COLOR1}• ${WH}ADD VLESS${NC}    ${WH}[${COLOR1}05${WH}]${NC} ${COLOR1}• ${WH}CEK CONFIG${NC}   $COLOR1 $NC"
+echo -e " $COLOR1 $NC   ${WH}[${COLOR1}01${WH}]${NC} ${COLOR1}• ${WH}ADD VLESS${NC}     ${WH}[${COLOR1}05${WH}]${NC} ${COLOR1}• ${WH}CEK CONFIG${NC}   $COLOR1 $NC"
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}02${WH}]${NC} ${COLOR1}• ${WH}RENEW VLESS${NC}  ${WH}[${COLOR1}06${WH}]${NC} ${COLOR1}• ${WH}TRIAL VLESS${NC}     $COLOR1 $NC"
+echo -e " $COLOR1 $NC   ${WH}[${COLOR1}02${WH}]${NC} ${COLOR1}• ${WH}RENEW VLESS${NC}   ${WH}[${COLOR1}06${WH}]${NC} ${COLOR1}• ${WH}TRIAL VLESS${NC}     $COLOR1 $NC"
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
 echo -e " $COLOR1 $NC   ${WH}[${COLOR1}03${WH}]${NC} ${COLOR1}• ${WH}DELETE VLESS${NC}  ${WH}[${COLOR1}07${WH}]${NC} ${COLOR1}• ${WH}UUID VLESS${NC}     $COLOR1 $NC" 
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}04${WH}]${NC} ${COLOR1}• ${WH}USER ONLINE${NC}                              $COLOR1 $NC"
+echo -e " $COLOR1 $NC   ${WH}[${COLOR1}04${WH}]${NC} ${COLOR1}• ${WH}USER ONLINE${NC}   ${WH}[${COLOR1}08${WH}]${NC} ${COLOR1}• ${WH}EDIT LIMIT VLESS${NC}     $COLOR1 $NC" 
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
 echo -e " $COLOR1 $NC   ${WH}[${COLOR1}00${WH}]${NC} ${COLOR1}• ${WH}GO BACK${NC}                              $COLOR1 $NC"
 echo -e " $COLOR1└───────────────────────────────────────────────┘${NC}"
@@ -597,6 +659,7 @@ case $opt in
 5) clear ; list-vless ; exit ;;
 6) clear ; trial-vless ; exit ;;
 7) clear ; add-vls ; exit ;;
+8) clear ; chngelimit ; exit ;;
 0) clear ; menu ; exit ;;
 x) exit ;;
 *) echo "salah tekan sayang " ; sleep 1 ; menu-vless ;;
