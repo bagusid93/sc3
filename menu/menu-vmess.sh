@@ -521,78 +521,105 @@ systemctl restart xray > /dev/null 2>&1
 }
 
 function cek-vmess(){
-TIMES="10"
-CHATID=$(cat /etc/per/id)
-KEY=$(cat /etc/per/token)
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-domain=$(cat /etc/xray/domain)
-author=$(cat /etc/profil)
-#systemctl restart xray
-#sleep 1
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+plain='\033[0m'
+blue='\033[0;34m'
+ungu='\033[0;35m'
+Green="\033[32m"
+Red="\033[31m"
+WhiteB="\e[5;37m"
+BlueCyan="\e[5;36m"
+MYIP=$(wget -qO- ipv4.icanhazip.com)
+Green_background="\033[42;37m"
+Red_background="\033[41;37m"
+Suffix="\033[0m"
+NC='\e[0m'
+timenow=$(date +%T)
+function convert() {
+    local -i bytes=$1
+    if [[ $bytes -lt 1024 ]]; then
+        echo "${bytes}B"
+    elif [[ $bytes -lt 1048576 ]]; then
+        echo "$(((bytes + 1023) / 1024))KB"
+    elif [[ $bytes -lt 1073741824 ]]; then
+        echo "$(((bytes + 1048575) / 1048576))MB"
+    else
+        echo "$(((bytes + 1073741823) / 1073741824))GB"
+    fi
+}
+tim2sec() {
+    mult=1
+    arg="$1"
+    res=0
+    while [ ${#arg} -gt 0 ]; do
+        prev="${arg%:*}"
+        if [ "$prev" = "$arg" ]; then
+            curr="${arg#0}"
+            prev=""
+        else
+            curr="${arg##*:}"
+            curr="${curr#0}"
+        fi
+        curr="${curr%.*}"
+        res=$((res + curr * mult))
+        mult=$((mult * 60))
+        arg="$prev"
+    done
+    echo "$res"
+}
 clear
-echo -n > /tmp/other.txt
-data=( `cat /etc/xray/config.json | grep '^#vm' | cut -d ' ' -f 2 | sort | uniq`);
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC} ${COLBG1}            ${WH}• USER ONLINE •                 ${NC} $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-
-for akun in "${data[@]}"
-do
-if [[ -z "$akun" ]]; then
-akun="tidakada"
-fi
-
-echo -n > /tmp/ipvmess.txt
-data2=( `cat /var/log/xray/access.log | tail -n 500 | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq`);
-for ip in "${data2[@]}"
-do
-
-jum=$(cat /var/log/xray/access.log | grep -w "$akun" | tail -n 500 | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | grep -w "$ip" | sort | uniq)
-if [[ "$jum" = "$ip" ]]; then
-echo "$jum" >> /tmp/ipvmess.txt
-else
-echo "$ip" >> /tmp/other.txt
-fi
-jum2=$(cat /tmp/ipvmess.txt)
-sed -i "/$jum2/d" /tmp/other.txt > /dev/null 2>&1
+echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+echo -e "\e[42m        Vmess User Login Account         \E[0m"
+echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+marimakan=($(cat /etc/vmess/.vmess.db | grep '^###' | cut -d ' ' -f 2 | sort | uniq))
+echo -n >/tmp/rotate
+for db in ${marimakan[@]}; do
+    logFile=$(cat /var/log/xray/access.log | grep -w "email: ${db}" | tail -n 150)
+    while read a; do
+        if [[ -n ${a} ]]; then
+            set -- ${a}
+            my="${7}"
+            res="${2}"
+            makansate="${3}"
+            ult=$(echo "${makansate}" | sed 's/tcp://g' | sed '/^$/d' | cut -d. -f1,2,3)
+            now=$(tim2sec ${timenow})
+            sateeeee=$(tim2sec ${res})
+            nowt=$(((${now} - ${sateeeee})))
+            if [[ ${nowt} -lt 40 ]]; then
+                cat /tmp/rotate | grep -w "${my}" | grep -w "${ult}" >/dev/null
+                if [[ $? -eq 1 ]]; then
+                    echo "${my} ${res} ${ult}" >>/tmp/rotate
+                    split=$(cat /tmp/rotate)
+                fi
+            fi
+        fi
+    done <<<"${logFile}"
 done
-
-jum=$(cat /tmp/ipvmess.txt)
-if [[ -z "$jum" ]]; then
-echo > /dev/null
-else
-jum2=$(cat /tmp/ipvmess.txt | wc -l)
-echo -e "$COLOR1${NC} USERNAME : \033[0;33m$akun";
-echo -e "$COLOR1${NC} IP LOGIN : \033[0;33m$jum2";
-echo -e ""
-
-
-TEXT="
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>  ⚠️ XRAY VMESS NOTIF ⚠️</b>
-<b>      User Login</b>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>DOMAIN    :</b> <code>${domain} </code>
-<b>USERNAME  :</b> <code>$akun </code>
-<b>TOTAL IP  :</b> <code>${jum2} </code>
-<code>◇━━━━━━━━━━━━━━◇</code>
-"
-
-curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-
+if [[ ${split} != "" ]]; then
+    for user in ${marimakan[@]}; do
+        result=$(cat /tmp/rotate | grep -w "${user}" | wc -l)
+        if [[ ${result} -gt 0 ]]; then
+            if [[ -e /etc/limit/vmess/${user} ]]; then
+                byt=$(cat /etc/limit/vmess/${user})
+                gb=$(convert ${byt})
+            else
+                gb=""
+            fi
+            if [[ -e /etc/vmess/${user} ]]; then
+                byte=$(cat /etc/vmess/${user})
+                lim=$(convert ${byte})
+                echo -e " \e[032;1mAccount\e[0m   : ${yellow}$user${NC}"
+                echo -e " \e[032;1mUsage\e[0m     : ${yellow}${gb}${NC}"
+                echo -e " \e[032;1mLimit\e[0m     : ${yellow}${lim}${NC}"
+                echo -e " \e[032;1mIP Login\e[0m  : ${yellow}${result}${NC}"
+                echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+            fi
+        fi
+    done
 fi
-rm -rf /tmp/ipvmess.txt
-done
-
-rm -rf /tmp/other.txt
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌────────────────────── ${WH}BY${NC} ${COLOR1}───────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC}                  ${WH}• $author  •                   $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo ""
-read -n 1 -s -r -p "   Press any key to back on menu"
-menu-vmess
 }
 function list-vmess(){
 clear
