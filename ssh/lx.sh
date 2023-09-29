@@ -74,8 +74,9 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 <code>NO MULTI LOGINS!</code>
 "
         curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-         exp=$(grep -wE "^### $vmuser" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-         sed -i "/^### $vmuser $exp/,/^},{/d" /etc/xray/config.json
+         exp=$(grep -wE "^#vm $vmuser" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+         sed -i "/^#vm $vmuser $exp/,/^},{/d" /etc/xray/config.json
+         sed -i "/^#vmg $vmuser $exp/,/^},{/d" /etc/xray/config.json
          sed -i "/^### $vmuser $exp/d" /etc/vmess/.vmess.db
          systemctl restart xray
       fi
