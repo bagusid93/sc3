@@ -51,7 +51,6 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '1' ]]; do
         sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
         rm /etc/xray/log-create-${user}.log
         systemctl restart xray >/dev/null 2>&1
-        fi
         clear
         echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
         echo " Vmess Account Deleted Successfully"
@@ -62,3 +61,4 @@ until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '1' ]]; do
         echo ""
         read -n 1 -s -r -p "Press any key to back on menu"
         menu-vmess
+        fi
