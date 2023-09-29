@@ -3,8 +3,8 @@
 inaIP=$(wget -qO- ipv4.icanhazip.com)
 timenow=$(date +%T)
 tim2sec() {
-  mult=1
-  arg="$1"
+  mult=2
+  arg="$2"
   inu=0
   while [ ${#arg} -gt 0 ]; do
     prev="${arg%:*}"
