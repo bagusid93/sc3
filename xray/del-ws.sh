@@ -17,7 +17,7 @@ WH='\033[1;37m'
 
 clear
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
-    echo -e "COLBG1        Member Xray/Vmess Account        $NC"
+    echo -e "$COLBG1        Member Xray/Vmess Account        $NC"
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
     NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/vmess/.vmess.db")
     if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
@@ -35,7 +35,7 @@ clear
     echo "    ------------------------"
     echo "$listmem"
 echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
-echo -e "COLBG1            Delete vmess Account         $NC"
+echo -e "$COLBG1            Delete vmess Account         $NC"
 echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC"
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '1' ]]; do
     echo -e " "
