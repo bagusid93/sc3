@@ -83,12 +83,12 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 sec=3
 spinner=(⣻ ⢿ ⡿ ⣟ ⣯ ⣷)
 while [ $sec -gt 0 ]; do
-  echo -ne "\e[33m ${spinner[sec]} Setting up a Premium Account $sec seconds...\r"
+  echo -ne "${RED} ${spinner[sec]} Setting up a Premium Account $sec seconds...\r${NC}"
   sleep 1
   sec=$(($sec - 1))
 done
 clear
-echo -e "\e[1;32mINPUT DEPENDECIES ACCOUNT $user\e[0m\n"
+echo -e "${COLOR1}INPUT DEPENDECIES ACCOUNT $user ${NC}"
 until [[ $masaaktif =~ ^[0-9]+$ ]]; do
   read -p "Expired (days): " masaaktif
 done
@@ -159,7 +159,7 @@ DATADB=$(cat /etc/trojan/.trojan.db | grep "^###" | grep -w "${user}" | awk '{pr
 if [[ "${DATADB}" != '' ]]; then
   sed -i "/\b${user}\b/d" /etc/trojan/.trojan.db
 fi
-echo "### ${user} ${exp} ${uuid}" >>/etc/trojan/.trojan.db
+echo "### ${user} ${exp} ${uuid} ${iplim}" >>/etc/trojan/.trojan.db
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 
 clear
@@ -168,8 +168,8 @@ echo -e "$COLOR1 ${NC}${COLBG1}${WH}• XRAY TROJAN •  ${NC} $COLOR1 $NC" | te
 echo -e "$COLOR1───────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Remarks        ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Host           ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}User Qouta  ${COLOR1}: ${WH}${Quota}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Limit Ip     ${COLOR1}: ${WH}${iplim} (Login)" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}User Qouta     ${COLOR1}: ${WH}${Quota}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Limit Ip       ${COLOR1}: ${WH}${iplim} (Login)" | tee -a /etc/xray/log-create-${user}.log
 #echo -e "$COLOR1 ${NC} ${WH}Wildcard     ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port TLS       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port none TLS  ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
@@ -655,7 +655,7 @@ echo -e ""
 echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
 case $opt in
 01 | 1) clear ; add-tr ;;
-02 | 2) clear ; renew-trojan ;;
+02 | 2) clear ; renew-tr ;;
 03 | 3) clear ; del-tr ;;
 04 | 4) clear ; cek-tr ;;
 05 | 5) clear ; list-trojan ;;
