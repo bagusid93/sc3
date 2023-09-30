@@ -142,24 +142,28 @@ if [ ! -e /etc/trojan ]; then
   mkdir -p /etc/trojan
 fi
 
+if [[ $iplim -gt 0 ]]; then
+mkdir -p /etc/jb/limit/trojan/ip
+echo -e "$iplim" > /etc/jb/limit/trojan/ip/$user
+else
+echo > /dev/null
+fi
+
 if [ -z ${Quota} ]; then
   Quota="0"
 fi
-if [ -z ${iplim} ]; then
-  iplim="0"
-fi
+
 c=$(echo "${Quota}" | sed 's/[^0-9]*//g')
 d=$((${c} * 1024 * 1024 * 1024))
 
 if [[ ${c} != "0" ]]; then
   echo "${d}" >/etc/trojan/${user}
-  echo "${iplim}" >/etc/trojan/${user}IP
 fi
 DATADB=$(cat /etc/trojan/.trojan.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
 if [[ "${DATADB}" != '' ]]; then
   sed -i "/\b${user}\b/d" /etc/trojan/.trojan.db
 fi
-echo "### ${user} ${exp} ${uuid} ${iplim}" >>/etc/trojan/.trojan.db
+echo "### ${user} ${exp} ${uuid} ${Quota} ${iplim}" >>/etc/trojan/.trojan.db
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 
 clear
@@ -602,15 +606,15 @@ function chngelimit() {
             until [[ $Quota =~ ^[0-9]+$ ]]; do
                 read -p "Limit User (GB): " Quota
             done
-            until [[ $iplim =~ ^[0-9]+$ ]]; do
-                read -p "Limit User (IP): " iplim
+            until [[ $iplimit =~ ^[0-9]+$ ]]; do
+                read -p "Limit User (IP): " iplimit
             done
 
             if [ ! -e /etc/trojan ]; then
                 mkdir -p /etc/trojan
             fi
-            if [ -z ${iplim} ]; then
-                iplim="0"
+            if [ -z ${iplimit} ]; then
+                iplimit="0"
             fi
             if [ -z ${Quota} ]; then
                 Quota="0"
@@ -619,7 +623,7 @@ function chngelimit() {
             d=$((${c} * 1024 * 1024 * 1024))
             if [[ ${c} != "0" ]]; then
                 echo "${d}" >/etc/trojan/${user}
-                echo "${iplim}" >/etc/trojan/${user}IP
+                echo "${iplimit}" >/etc/trojan/${user}IP
             fi
             clear
             echo "-----------------------------------------------"
