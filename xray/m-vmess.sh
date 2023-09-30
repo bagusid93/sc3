@@ -108,7 +108,7 @@ done
 until [[ $Quota =~ ^[0-9]+$ ]]; do
 read -p "Limit User (GB): " Quota
 done
-until [[ $iplim =~ ^[0-9]+$ ]]; do
+until [[ $iplimit =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplimit
 done
 exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
@@ -238,7 +238,7 @@ echo -e "$COLOR1─────────────────────�
 echo -e "$COLOR1 ${NC} ${WH}Remarks        ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Domain         ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Quota          ${COLOR1}: ${WH}${Quota}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Limit Ip         ${COLOR1}: ${WH}${iplimit}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Limit Ip       ${COLOR1}: ${WH}${iplimit}" | tee -a /etc/xray/log-create-${user}.log
 #echo -e "$COLOR1 ${NC} ${WH}Wildcard      ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port TLS       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port none TLS  ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
