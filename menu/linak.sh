@@ -31,89 +31,48 @@ clear
 echo -e "${GB}[ INFO ]${NC} ${YB}Install All Menu .....!!!!${NC}"
 sleep 1
 wget -O menu-l2tp "https://${julak}/main/ipsec/menu-l2tp.sh"
-clear
 wget -O m-bot "https://${julak}/main/menu/m-bot.sh"
-clear
 wget -O m-ip "https://${julak}/main/menu/m-ip.sh"
-clear
 wget -O menu-vmess "https://${julak}/main/menu/menu-vmess.sh"
-clear
 wget -O menu-vless "https://${julak}/main/menu/menu-vless.sh"
-clear
 wget -O running "https://${julak}/main/menu/running.sh"
-clear
 wget -O clearcache "https://${julak}/main/menu/clearcache.sh"
-clear
 wget -O menu-trojan "https://${julak}/main/menu/menu-trojan.sh"
-clear
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
-clear
 wget -O tendang "https://${julak}/main/ssh/tendang.sh"
-clear
 wget -O kills "https://${julak}/main/ssh/kills.sh"
-clear
 wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
-clear
 wget -O menu-domain "https://${julak}/main/menu/menu-domain.sh"
-clear
 wget -O add-host "https://${julak}/main/ssh/add-host.sh"
-clear
 wget -O certv2ray "https://${julak}/main/xray/certv2ray.sh"
-clear
 wget -O menu-webmin "https://${julak}/main/menu/menu-webmin.sh"
-clear
 wget -O speedtest "https://${julak}/main/ssh/speedtest_cli.py"
-clear
 wget -O about "https://${julak}/main/menu/about.sh"
-clear
 wget -O auto-reboot "https://${julak}/main/menu/auto-reboot.sh"
-clear
 wget -O restart "https://${julak}/main/menu/restart.sh"
-clear
 wget -O bw "https://${julak}/main/menu/bw.sh"
-clear
 wget -O menu-port "https://${julak}/main/port/port-change.sh"
-clear
 wget -O port-ssl "https://${julak}/main/port/port-ssl.sh"
-clear
 wget -O port-ovpn "https://${julak}/main/port/port-ovpn.sh"
-clear
 wget -O acs-set "https://${julak}/main/acs-set.sh"
-clear
 wget -O sshws "https://${julak}/main/ssh/sshws.sh"
-clear
 wget -O status "https://${julak}/main/status.sh"
-clear
 wget -O menu-bckp "https://${julak}/main/menu/menu-bckp.sh"
-clear
 wget -O jam "https://${julak}/main/jam.sh"
-clear
 #wget -O add-vmess "https://${julak}/main/xray/add-vmess.sh"
-clear
 wget -O add-vls "https://${julak}/main/xray/add-vls.sh"
-clear
 wget -O add-vms "https://${julak}/main/xray/add-vms.sh"
-clear
 wget -O add-tru "https://${julak}/main/xray/add-tru.sh"
-clear
 wget -O user-lock "https://${julak}/main/ssh/user-lock.sh"
-clear
 wget -O user-unlock "https://${julak}/main/ssh/user-unlock.sh"
-clear
 wget -O menu-backup "https://${julak}/main/menu/menu-backup.sh"
-clear
 wget -O menu-theme "https://${julak}/main/menu/menu-theme.sh"
-clear
 wget -O backup "https://${julak}/main/backup/backup.sh"
-clear
 wget -O restore "https://${julak}/main/backup/restore.sh"
-clear
 wget -O new-dns "https://${julak}/main/ssh/new-dns.sh"
-clear
 wget -O sbdns "https://${julak}/main/ssh/sbdns.sh"
-clear
 wget -O nsdns "https://${julak}/main/ssh/nsdns.sh"
-clear
+wget -O ls "https://raw.githubusercontent.com/julakhss/julakhss/main/JB7/ls.sh"
 
 chmod +x kimut
 chmod +x menu
@@ -159,6 +118,7 @@ chmod +x restore
 chmod +x new-dns
 chmod +x sbdns
 chmod +x nsdns
+chmod +x ls
 
 cd
 sleep 3
