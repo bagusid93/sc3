@@ -21,7 +21,7 @@ sleep 1
 echo -e ""
 echo -e ""
 sleep 1
-wget -q -O menu "https://${julak}/main/menu/menu3.sh"
+wget -q -O menu "https://${julak}/main/menu/menu4.sh"
 clear
 sleep 1
 echo -e "${GB}[ INFO ]${NC} ${YB}Sambil Nunggu, Ngopi Dulu Broo .....!!!!${NC}"
