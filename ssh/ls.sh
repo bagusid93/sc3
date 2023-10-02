@@ -77,7 +77,7 @@ for i in ${!username[*]}; do
 "
         kill ${username[$i]}
         userdel -f ${username[$i]}
-        sed -i "/^### ${username[$i]}/d" /etc/ssh/.ssh.db
+        sed -i "/^#ssh# ${username[$i]}/d" /etc/ssh/.ssh.db
         rm /etc/xray/log-createssh-${username[$i]}.log
         curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
     fi
