@@ -246,9 +246,9 @@ export sem=$( curl -s https://raw.githubusercontent.com/bagusid93/sc3/main/versi
 IPVPS=$(curl -s ipinfo.io/ip )
 
 # IBAM
-ISP=$(curl -s ipinfo.io/org?token=ce3da57536810d | cut -d " " -f 2-10 )
-CITY=$(curl -s ipinfo.io/city?token=ce3da57536810d )
-WKT=$(curl -s ipinfo.io/timezone?token=ce3da57536810d )
+ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
+CITY=$(curl -s ipinfo.io/city )
+WKT=$(curl -s ipinfo.io/timezone )
 
 # CERTIFICATE STATUS
 d1=$(date -d "$exp" +%s)
