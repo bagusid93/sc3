@@ -135,8 +135,9 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 <code>NO MULTI LOGINS!</code>
 "
         curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-         expvl=$(grep -wE "^#& $vlus" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-         sed -i "/^#& $vlus $expvl/,/^},{/d" /etc/xray/config.json
+         expvl=$(grep -wE "^#vl $vlus" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+         sed -i "/^#vl $vlus $expvl/,/^},{/d" /etc/xray/config.json
+         sed -i "/^#vlg $vlus $expvl/,/^},{/d" /etc/xray/config.json
          sed -i "/^### $vlus $expvl/d" /etc/vless/.vless.db
          rm /etc/xray/log-create-${vlus}.log
         systemctl restart xray
@@ -196,8 +197,9 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 <code>NO MULTI LOGINS!</code>
 "
         curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-         xptr=$(grep -wE "^#! $usrtr" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-         sed -i "/^#! $usrtr $xptr/,/^},{/d" /etc/xray/config.json
+         xptr=$(grep -wE "^#tr $usrtr" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+         sed -i "/^#tr $usrtr $xptr/,/^},{/d" /etc/xray/config.json
+         sed -i "/^#trg $usrtr $xptr/,/^},{/d" /etc/xray/config.json
          sed -i "/^### $usrtr $xptr/d" /etc/trojan/.trojan.db
          rm /etc/xray/log-create-${usrtr}.log
          systemctl restart xray >/dev/null 2>&1
@@ -241,10 +243,8 @@ function shdwsk() {
         sdsrr=$(cat /etc/shadowsocks/${decv}IP)
       fi
       if [[ ${decv} -gt $sdsrr ]]; then
-TIMES="10"
-CHATID=$(cat /etc/per/id)
-KEY=$(cat /etc/per/token)
-URL="https://api.telegram.org/bot$KEY/sendMessage"
+        TIME="10"
+        URL="https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
         TEXT="
 <code>◇━━━━━━━━━━━━━━◇</code>
 <b>  ⚠️SHDWSCK NOTIF⚠️</b>
@@ -256,12 +256,12 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 <code>I REMOVE ACCOUNT</code>
 <code>NO MULTI LOGINS!</code>
 "
-        #curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-         xpss=$(grep -wE "^###& $sdfe" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-         sed -i "/^###& $sdfe $xpss/,/^},{/d" /etc/xray/config.json
-         sed -i "/^### $sdfe $xpss/d" /etc/shadowsocks/.shadowsocks.db
-         rm /etc/xray/log-create-${sdfe}.log
-         systemctl restart xray >/dev/null 2>&1
+        curl -s --max-time $TIME -d "chat_id=$ADMIN&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+#         xpss=$(grep -wE "^###& $sdfe" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+#         sed -i "/^###& $sdfe $xpss/,/^},{/d" /etc/xray/config.json
+#         sed -i "/^### $sdfe $xpss/d" /etc/shadowsocks/.shadowsocks.db
+#         rm /etc/xray/log-create-${sdfe}.log
+#         systemctl restart xray >/dev/null 2>&1
       fi
     done
   fi
@@ -270,3 +270,4 @@ vmess
 vless
 trojan
 shdwsk
+
