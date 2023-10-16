@@ -214,7 +214,7 @@ dayleft=$(( ($d1 - $d2) / 86400 ))
 
 clear
 echo -e " "
-figlet  JulakBantur  | lolcat
+figlet  Julak Bantur  | lolcat
 echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "♣${BIYellow} Server Uptime       👉 ${COLOR1}$( uptime -p  | cut -d " " -f 2-10000 ) ${NC}"
 echo -e "♣${BIYellow} Current Time        👉 ${COLOR1}$( date -d "0 days" +"%d-%m-%Y | %X" )${NC}"
