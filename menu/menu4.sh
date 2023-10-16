@@ -16,8 +16,6 @@ COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //
 GREEN='\033[0;32m'
 RED="\033[0;31m"
 ###########- END COLOR CODE -##########
-BOT="https://raw.githubusercontent.com/rehanvip/bb/main/"
-UPDATE="https://raw.githubusercontent.com/rehanvip/wlx/main/kimut.sh"
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
@@ -54,9 +52,9 @@ Exp=$(curl -sS https://raw.githubusercontent.com/bagusid93/hss/main/sc3 | grep $
 fi
 
 # =========================================
-vmc=$(grep -c -E "^#vmg " "/etc/xray/config.json")
+vmc=$(grep -c -E "^#vm " "/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS WS
-vlx=$(grep -c -E "^#vlg " "/etc/xray/config.json")
+vlx=$(grep -c -E "^#vl " "/etc/xray/config.json")
 # TOTAL ACC CREATE  TROJAN
 trx=$(grep -c -E "^#tr " "/etc/xray/config.json")
 # TOTAL ACC CREATE OVPN SSH
@@ -215,10 +213,9 @@ d1=$(date -d "$Exp" +"+%s")
 dayleft=$(( ($d1 - $d2) / 86400 ))
 
 clear
-echo -e "${COLOR1}░█▀█░█▀█░█▀█░█▀█░█▀▄░█▀█░▀░█▀█░█▀█░░░░░░░█▀▀░▀█▀░█▀█░█▀▄░█▀▀${NC}"
-echo -e "${COLOR1}░█▀▀░█▀█░█▀▀░█▀█░█░█░█▀█░░░█▀█░█░█░░░░░░░▀▀█░░█░░█░█░█▀▄░█▀▀${NC}"
-echo -e "${COLOR1}░▀░░░▀░▀░▀░░░▀░▀░▀▀░░▀░▀░░░▀░▀░▀░▀░░░░░░░▀▀▀░░▀░░▀▀▀░▀░▀░▀▀▀${NC}"
-echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+echo -e " "
+figlet  JulakBantur  | lolcat
+echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "♣${BIYellow} Server Uptime       👉 ${COLOR1}$( uptime -p  | cut -d " " -f 2-10000 ) ${NC}"
 echo -e "♣${BIYellow} Current Time        👉 ${COLOR1}$( date -d "0 days" +"%d-%m-%Y | %X" )${NC}"
 echo -e "♣${BIYellow} Operating System    👉 ${COLOR1}$( cat /etc/os-release | grep -w PRETTY_NAME | sed 's/PRETTY_NAME//g' | sed 's/=//g' | sed 's/"//g' ) ( $( uname -m) )${NC}"
@@ -229,8 +226,8 @@ echo -e "♣${BIYellow} Current Domain      👉 ${COLOR1}$( cat /etc/xray/domai
 echo -e "♣${BIYellow} NS Domain           👉 ${COLOR1}$( cat /etc/xray/dns )${NC}"
 echo -e "♣${BIYellow} Jumlah Ram          👉 ${COLOR1}${totalram} MB"
 echo -e "♣${BIYellow} CPU Usage           👉 ${COLOR1}$cpu_usage"
-echo -e "♣${BIYellow} Whatsapp            👉 ${BOLD}${BICyan}081250851741${NC}"
-echo -e "♣${BIYellow} AutoScript By       👉 ${BOLD}${BICyan}PAPADA'AN STORE${NC}"
+echo -e "♣${BIYellow} Whatsapp            👉 ${COLOR1}081250851741${NC}"
+echo -e "♣${BIYellow} AutoScript By       👉 ${COLOR1}PAPADA'AN STORE${NC}"
 echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
   echo -e "     ${BICyan} SSH ${NC}: $ressh"" ${BICyan} NGINX ${NC}: $resngx"" ${BICyan}  XRAY ${NC}: $resv2r"" ${BICyan} TROJAN ${NC}: $resv2r"
 echo -e "   ${BICyan}     STUNNEL ${NC}: $resst" "${BICyan} DROPBEAR ${NC}: $resdbr" "${BICyan} SSH-WS ${NC}: $ressshws"
