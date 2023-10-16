@@ -17,6 +17,7 @@ exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
 sed -i "/^#vm $user $exp/,/^},{/d" /etc/xray/config.json
 sed -i "/^#vmg $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^### $user $exp/,/^},{/d" /etc/vmess/.vmess.db
 rm -f /etc/xray/$user-tls.json /etc/xray/$user-none.json /etc/xray/$user-grpc.json
 fi
 done
@@ -33,6 +34,7 @@ exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
 sed -i "/^#vl $user $exp/,/^},{/d" /etc/xray/config.json
 sed -i "/^#vlg $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^### $user $exp/,/^},{/d" /etc/vless/.vless.db
 fi
 done
 
@@ -48,6 +50,7 @@ exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
 sed -i "/^#tr $user $exp/,/^},{/d" /etc/xray/config.json
 sed -i "/^#trg $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^### $user $exp/,/^},{/d" /etc/trojan/.trojan.db
 fi
 done
 systemctl restart xray
