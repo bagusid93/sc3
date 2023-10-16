@@ -1,7 +1,9 @@
 #!/bin/bash
 
-clear
-function bukit() {
+TIMES="10"
+CHATID=$(cat /etc/per/id)
+KEY=$(cat /etc/per/token)
+URL="https://api.telegram.org/bot$KEY/sendMessage"
 cat /etc/passwd | grep "/home/" | cut -d":" -f1 >/root/user.txt
 username1=($(cat "/root/user.txt"))
 i="0"
@@ -60,10 +62,6 @@ for i in ${!username[*]}; do
         date=$(date +"%Y-%m-%d")
         echo "$date - ${username[$i]} - ${jumlah[$i]}"
         echo "$date - ${username[$i]} - ${jumlah[$i]}" >>/root/log-limit.txt
-        TIMES="10"
-        CHATID=$(cat /etc/per/id)
-        KEY=$(cat /etc/per/token)
-        URL="https://api.telegram.org/bot$KEY/sendMessage"
         TEXT="
 <code>◇━━━━━━━━━━━━━━◇</code>
 <b>  ⚠️SSH OVPN NOTIF⚠️</b>
@@ -77,10 +75,10 @@ for i in ${!username[*]}; do
 "
         kill ${username[$i]}
         userdel -f ${username[$i]}
-        sed -i "/^#ssh# ${username[$i]}/d" /etc/ssh/.ssh.db
+        sed -i "/^### ${username[$i]}/d" /etc/ssh/.ssh.db
         rm /etc/xray/log-createssh-${username[$i]}.log
         curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
     fi
 done
-}
-bukit
+#clear
+
