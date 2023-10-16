@@ -63,10 +63,11 @@ CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 cekray=`cat /root/log-install.txt | grep -ow "XRAY" | sort | uniq`
-if [ "$cekray" = "XRAY" ]; then
-domain=`cat /etc/xray/domain`
+source /var/lib/ipvps.conf
+if [[ "$IP" = "" ]]; then
+domain=$(cat /etc/xray/domain)
 else
-domain=`cat /etc/v2ray/domain`
+domain=$IP
 fi
 tls="$(cat ~/log-install.txt | grep -w "Vmess WS TLS" | cut -d: -f2|sed 's/ //g')"
 none="$(cat ~/log-install.txt | grep -w "Vmess WS none TLS" | cut -d: -f2|sed 's/ //g')"
@@ -175,8 +176,6 @@ TEXT="
 <code>──────────────────────</code>
 <code>Remarks      : </code> <code>${user}</code>
 <code>Domain       : </code> <code>${domain}</code>
-<code>Quota       : </code> <code>${Quota}</code>
-<code>Limit Ip       : </code> <code>${iplimit}</code>
 <code>Port TLS     : </code> <code>${tls}</code>
 <code>Port NTLS    : </code> <code>80</code>
 <code>Port GRPC    : </code> <code>${tls}</code>
@@ -205,8 +204,8 @@ if [ ! -e /etc/vmess ]; then
 fi
 
 if [[ $iplimit -gt 0 ]]; then
-mkdir -p /etc/jb/limit/vmess/ip
-echo -e "$iplimit" > /etc/jb/limit/vmess/ip/$user
+mkdir -p /etc/julak/limit/vmess/ip
+echo -e "$iplimit" > /etc/julak/limit/vmess/ip/$user
 else
 echo > /dev/null
 fi
@@ -225,7 +224,7 @@ DATADB=$(cat /etc/vmess/.vmess.db | grep "^###" | grep -w "${user}" | awk '{prin
 if [[ "${DATADB}" != '' ]]; then
   sed -i "/\b${user}\b/d" /etc/vmess/.vmess.db
 fi
-echo "### ${user} ${exp} ${uuid} ${Quota} ${iplimit}" >>/etc/vmess/.vmess.db
+echo "### ${user} ${exp} ${uuid} ${iplimit}" >>/etc/vmess/.vmess.db
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 
 clear
@@ -237,9 +236,7 @@ echo -e "$COLOR1 ${NC}   ${COLBG1}${WH}• XRAY VMESS •    ${NC} $COLOR1 $NC" 
 echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Remarks        ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Domain         ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Quota          ${COLOR1}: ${WH}${Quota}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Limit Ip       ${COLOR1}: ${WH}${iplimit}" | tee -a /etc/xray/log-create-${user}.log
-#echo -e "$COLOR1 ${NC} ${WH}Wildcard      ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "$COLOR1 ${NC} ${WH}Limit IP      ${COLOR1}: ${WH}${iplimit}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port TLS       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port none TLS  ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
 echo -e "$COLOR1 ${NC} ${WH}Port gRPC      ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
@@ -269,57 +266,24 @@ read -n 1 -s -r -p "Press any key to back on menu"
 menu-vmess
 }
 function trial-vmess(){
-Green="\e[92;1m"
-RED="\033[31m"
-YELLOW="\033[33m"
-BLUE="\033[36m"
-FONT="\033[0m"
-GREENBG="\033[42;37m"
-REDBG="\033[41;37m"
-OK="${Green}--->${FONT}"
-ERROR="${RED}[ERROR]${FONT}"
-GRAY="\e[1;30m"
-NC='\e[0m'
-red='\e[1;31m'
-green='\e[0;32m'
-DF='\e[39m'
-Bold='\e[1m'
-Blink='\e[5m'
-yell='\e[33m'
-red='\e[31m'
-green='\e[32m'
-blue='\e[34m'
-PURPLE='\e[35m'
-cyan='\e[36m'
-Lred='\e[91m'
-Lgreen='\e[92m'
-Lyellow='\e[93m'
-NC='\e[0m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-LIGHT='\033[0;37m'
-grenbo="\e[92;1m"
-red() { echo -e "\\033[32;1m${*}\\033[0m"; }
-clear
+author=$(cat /etc/profil)
+
+TIMES="10"
+CHATID=$(cat /etc/per/id)
+KEY=$(cat /etc/per/token)
+URL="https://api.telegram.org/bot$KEY/sendMessage"
 domain=$(cat /etc/xray/domain)
-masaaktif=1
-Quota=5
-user=Trial-VM`</dev/urandom tr -dc 0-9 | head -c3`
-clear 
+author=$(cat /etc/profil)
+tls="$(cat ~/log-install.txt | grep -w "Vmess WS TLS" | cut -d: -f2|sed 's/ //g')"
+none="$(cat ~/log-install.txt | grep -w "Vmess WS none TLS" | cut -d: -f2|sed 's/ //g')"
+user=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
 uuid=$(cat /proc/sys/kernel/random/uuid)
-exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
-tgl=$(date -d "$masaaktif days" +"%d")
-bln=$(date -d "$masaaktif days" +"%b")
-thn=$(date -d "$masaaktif days" +"%Y")
-expe="$tgl $bln, $thn"
-tgl2=$(date +"%d")
-bln2=$(date +"%b")
-thn2=$(date +"%Y")
-tnggl="$tgl2 $bln2, $thn2"
+masaaktif=1
+exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
 sed -i '/#vmess$/a\#vm '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
-exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
-sed -i '/#vmessgrpc$/a\#vmg '"$user $exp"'\
+exp=`date -d "$masaaktif Minutes"`
+sed -i '/#vmessgrpc$/a\#vmg '"$user $exp $uuid"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
 asu=`cat<<EOF
       {
@@ -372,178 +336,76 @@ vmess_base643=$( base64 -w 0 <<< $vmess_json3)
 vmesslink1="vmess://$(echo $asu | base64 -w 0)"
 vmesslink2="vmess://$(echo $ask | base64 -w 0)"
 vmesslink3="vmess://$(echo $grpc | base64 -w 0)"
-systemctl restart xray > /dev/null 2>&1
-service cron restart > /dev/null 2>&1
 
-
-cat >/var/www/html/vmess-$user.txt <<-END
-
-◇━━━━━━━━━━━━━━━━━◇
-  J U L A K  B A N T U R
-◇━━━━━━━━━━━━━━━━━◇
- https://github.com/bagusid93/
-◇━━━━━━━━━━━━━━━━━◇
-# Format Vmess WS TLS
-
-- name: Vmess-$user-WS TLS
-  type: vmess
-  server: ${domain}
-  port: 443
-  uuid: ${uuid}
-  alterId: 0
-  cipher: auto
-  udp: true
-  tls: true
-  skip-cert-verify: true
-  servername: ${domain}
-  network: ws
-  ws-opts:
-    path: /vmess
-    headers:
-      Host: ${domain}
-
-# Format Vmess WS Non TLS
-
-- name: Vmess-$user-WS Non TLS
-  type: vmess
-  server: ${domain}
-  port: 80
-  uuid: ${uuid}
-  alterId: 0
-  cipher: auto
-  udp: true
-  tls: false
-  skip-cert-verify: false
-  servername: ${domain}
-  network: ws
-  ws-opts:
-    path: /vmess
-    headers:
-      Host: ${domain}
-
-# Format Vmess gRPC
-
-- name: Vmess-$user-gRPC (SNI)
-  server: ${domain}
-  port: 443
-  type: vmess
-  uuid: ${uuid}
-  alterId: 0
-  cipher: auto
-  network: grpc
-  tls: true
-  servername: ${domain}
-  skip-cert-verify: true
-  grpc-opts:
-    grpc-service-name: vmess-grpc
-
-◇━━━━━━━━━━━━━━━━━◇
- Link Akun Vmess                   
-◇━━━━━━━━━━━━━━━━━◇
-Link TLS         : 
-${vmesslink1}
-◇━━━━━━━━━━━━━━━━━◇
-Link none TLS    : 
-${vmesslink2}
-◇━━━━━━━━━━━━━━━━━◇
-Link GRPC        : 
-${vmesslink3}
-◇━━━━━━━━━━━━━━━━━◇
-
-END
-if [ ! -e /etc/vmess ]; then
-  mkdir -p /etc/vmess
-fi
-
-if [ -z ${Quota} ]; then
-  Quota="0"
-fi
-
-c=$(echo "${Quota}" | sed 's/[^0-9]*//g');
-d=$(( ${c} * 1024*1024*1024 ));
-
-if [[ ${c} != "0" ]]; then
-echo "${d}" > /etc/vmess/${user}
-fi
-DATADB=$(cat /etc/vmess/.vmess.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
-if [[ "${DATADB}" != '' ]]; then
-  sed -i "/\b${user}\b/d" /etc/vmess/.vmess.db
-fi
-echo "### ${user} ${exp} ${uuid}" >>/etc/vmess/.vmess.db
-clear
-TIMES="10"
-CHATID=$(cat /etc/per/id)
-KEY=$(cat /etc/per/token)
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-TEXT="<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>      XRAY/VMESS</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>Remarks   : ${user}
-Domain    : ${domain}
-Port TLS  : 400-900
-Port NTLS : 80, 8080, 8081-9999
-id        : ${uuid}
-alterId   : 0
-Security  : auto
-network   : ws or grpc
-Path      : /Multi-Path
-Dynamic   : https://bugmu.com/path
-Name      : vmess-grpc</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code> VMESS WS TLS</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
+TEXT="
+<code>───────────────────────</code>
+<code>    Xray/Vmess Account</code>
+<code>───────────────────────</code>
+<code>Remarks      : </code> <code>${user}</code>
+<code>Domain       : </code> <code>${domain}</code>
+<code>Port TLS     : </code> <code>${tls}</code>
+<code>Port NTLS    : </code> <code>80</code>
+<code>Port GRPC    : </code> <code>${tls}</code>
+<code>User ID      : </code> <code>${uuid}</code>
+<code>AlterId      : 0</code>
+<code>Security     : auto</code>
+<code>Network      : WS or gRPC</code>
+<code>Path         : </code> <code>/vmess - /multipath</code>
+<code>ServiceName  : </code> <code>vmess-grpc</code>
+<code>──────────────────────</code>
+<code>Link TLS     :</code> 
 <code>${vmesslink1}</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>VMESS WS NO TLS</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
+<code>──────────────────────</code>
+<code>Link NTLS    :</code> 
 <code>${vmesslink2}</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code> VMESS gRPC</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
+<code>──────────────────────</code>
+<code>Link GRPC    :</code> 
 <code>${vmesslink3}</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-Format OpenClash : https://${domain}:81/vmess-$user.txt
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-Aktif Selama   : $masaaktif Hari
-Dibuat Pada    : $tnggl
-Berakhir Pada  : $expe
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
+<code>──────────────────────</code>
+<code>Expired On : $exp</code>
+<code>──────────────────────</code>
 "
 
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+
 clear
 clear
-echo -e "\033[1;93m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e " Xray/Vmess Account "
-echo -e "\033[1;93m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e "Remarks          : ${user}"
-echo -e "Domain           : ${domain}"
-#echo -e "User Quota       : ${Quota} GB"
-echo -e "Port TLS         : 400-900"
-echo -e "Port none TLS    : 80, 8080, 8081-9999"
-echo -e "id               : ${uuid}"
-echo -e "alterId          : 0"
-echo -e "Security         : auto"
-echo -e "Network          : ws"
-echo -e "Path             : /Multi-Path"
-echo -e "Dynamic          : https://bugmu.com/path"
-echo -e "ServiceName      : vmess-grpc"
-echo -e "\033[0;34m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e "Link TLS         : ${vmesslink1}"
-echo -e "\033[0;34m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e "Link none TLS    : ${vmesslink2}"
-echo -e "\033[0;34m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e "Link GRPC        : ${vmesslink3}"
-echo -e "\033[0;34m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e "Format OpenClash : https://${domain}:81/vmess-$user.txt"
-echo -e "\033[0;34m◇━━━━━━━━━━━━━━━━━◇\033[0m"
-echo -e "Aktif Selama     : $masaaktif Hari"
-echo -e "Dibuat Pada      : $tnggl"
-echo -e "Berakhir Pada    : $expe"
-echo -e "\033[0;34m◇━━━━━━━━━━━━━━━━━◇\033[0m"
+clear
+clear
+clear
+systemctl restart xray > /dev/null 2>&1
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC}   ${COLBG1}${WH}• XRAY VMESS •    ${NC} $COLOR1 $NC" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Remarks        ${COLOR1}: ${WH}${user}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Domain         ${COLOR1}: ${WH}${domain}" | tee -a /etc/log-create-user.log
+#echo -e "$COLOR1 ${NC} ${WH}Wildcard      ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Port TLS       ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Port none TLS  ${COLOR1}: ${WH}80" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Port gRPC      ${COLOR1}: ${WH}443" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}id             ${COLOR1}: ${WH}${uuid}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}alterId        ${COLOR1}: ${WH}0" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Security       ${COLOR1}: ${WH}auto" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Network        ${COLOR1}: ${WH}ws" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Path           ${COLOR1}: ${WH}/vmess - /multipath" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}ServiceName    ${COLOR1}: ${WH}vmess-grpc" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}${vmesslink1}${NC}"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket None TLS ${WH}: ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}${vmesslink2}${NC}"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket GRPC     ${WH}: ${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1${NC}${WH}${vmesslink3}${NC}"  | tee -a /etc/log-create-user.log
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC} ${WH}Expired On     ${COLOR1}: ${WH}$exp" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1┌────────────────────────┐${NC}" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1 ${NC}   ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/log-create-user.log
+echo -e "$COLOR1└────────────────────────┘${NC}" | tee -a /etc/log-create-user.log
 echo ""
 read -n 1 -s -r -p "Press any key to back on menu"
-
 menu-vmess
 }
 function renew-vmess(){
@@ -552,7 +414,7 @@ CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 domain=$(cat /etc/xray/domain)
-NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
+NUMBER_OF_CLIENTS=$(grep -c -E "^#vm " "/etc/xray/config.json")
 	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 		clear
  	echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -572,7 +434,7 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
 	echo "Select the existing client you want to renew"
 	echo " Press CTRL+C to return"
 	echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-	grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | nl -s ') '
+	grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | nl -s ') '
 	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 		if [[ ${CLIENT_NUMBER} == '1' ]]; then
 			read -rp "Select one client [1]: " CLIENT_NUMBER
@@ -581,8 +443,8 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
 		fi
 	done
 read -p "Expired (days): " masaaktif
-user=$(grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+user=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 now=$(date +%Y-%m-%d)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
@@ -591,6 +453,7 @@ exp3=$(($exp2 + $masaaktif))
 exp4=`date -d "$exp3 days" +"%Y-%m-%d"`
 sed -i "s/#vm $user $exp/#vm $user $exp4/g" /etc/xray/config.json
 sed -i "s/#vmg $user $exp/#vmg $user $exp4/g" /etc/xray/config.json
+sed -i "s/### $user $exp/### $user $exp4/g" /etc/vmess/.vmess.db
 clear
 TEXT="
 <code>◇━━━━━━━━━━━━━━◇</code>
@@ -619,7 +482,7 @@ systemctl restart xray > /dev/null 2>&1
 }
 function del-vmess(){
 clear
-NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
+NUMBER_OF_CLIENTS=$(grep -c -E "^#vm " "/etc/xray/config.json")
 	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 		echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
                 echo -e "$COLOR1 ${NC}${COLBG1}     ⇱ Delete  Account ⇲       ${NC} $COLOR1 $NC"
@@ -652,8 +515,7 @@ user=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLI
 exp=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 sed -i "/^#vm $user $exp/,/^},{/d" /etc/xray/config.json
 sed -i "/^#vmg $user $exp/,/^},{/d" /etc/xray/config.json
-sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
-rm /etc/xray/log-create-${user}.log
+sed -i "/^### $user $exp/,/^},{/d" /etc/vmess/.vmess.db
 clear
 systemctl restart xray > /dev/null 2>&1
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -668,84 +530,111 @@ systemctl restart xray > /dev/null 2>&1
 }
 
 function cek-vmess(){
-TIMES="10"
-CHATID=$(cat /etc/per/id)
-KEY=$(cat /etc/per/token)
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-domain=$(cat /etc/xray/domain)
-author=$(cat /etc/profil)
-#systemctl restart xray
-#sleep 1
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+plain='\033[0m'
+blue='\033[0;34m'
+ungu='\033[0;35m'
+Green="\033[32m"
+Red="\033[31m"
+WhiteB="\e[5;37m"
+BlueCyan="\e[5;36m"
+MYIP=$(wget -qO- ipv4.icanhazip.com)
+Green_background="\033[42;37m"
+Red_background="\033[41;37m"
+Suffix="\033[0m"
+NC='\e[0m'
+timenow=$(date +%T)
+function convert() {
+    local -i bytes=$1
+    if [[ $bytes -lt 1024 ]]; then
+        echo "${bytes}B"
+    elif [[ $bytes -lt 1048576 ]]; then
+        echo "$(((bytes + 1023) / 1024))KB"
+    elif [[ $bytes -lt 1073741824 ]]; then
+        echo "$(((bytes + 1048575) / 1048576))MB"
+    else
+        echo "$(((bytes + 1073741823) / 1073741824))GB"
+    fi
+}
+tim2sec() {
+    mult=1
+    arg="$1"
+    res=0
+    while [ ${#arg} -gt 0 ]; do
+        prev="${arg%:*}"
+        if [ "$prev" = "$arg" ]; then
+            curr="${arg#0}"
+            prev=""
+        else
+            curr="${arg##*:}"
+            curr="${curr#0}"
+        fi
+        curr="${curr%.*}"
+        res=$((res + curr * mult))
+        mult=$((mult * 60))
+        arg="$prev"
+    done
+    echo "$res"
+}
 clear
-echo -n > /tmp/other.txt
-data=( `cat /etc/xray/config.json | grep '^#vm' | cut -d ' ' -f 2 | sort | uniq`);
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC} ${COLBG1}            ${WH}• USER ONLINE •                 ${NC} $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-
-for akun in "${data[@]}"
-do
-if [[ -z "$akun" ]]; then
-akun="tidakada"
-fi
-
-echo -n > /tmp/ipvmess.txt
-data2=( `cat /var/log/xray/access.log | tail -n 500 | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq`);
-for ip in "${data2[@]}"
-do
-
-jum=$(cat /var/log/xray/access.log | grep -w "$akun" | tail -n 500 | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | grep -w "$ip" | sort | uniq)
-if [[ "$jum" = "$ip" ]]; then
-echo "$jum" >> /tmp/ipvmess.txt
-else
-echo "$ip" >> /tmp/other.txt
-fi
-jum2=$(cat /tmp/ipvmess.txt)
-sed -i "/$jum2/d" /tmp/other.txt > /dev/null 2>&1
+echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+echo -e "\e[42m        Vmess User Login Account         \E[0m"
+echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+marimakan=($(cat /etc/vmess/.vmess.db | grep '^###' | cut -d ' ' -f 2 | sort | uniq))
+echo -n >/tmp/rotate
+for db in ${marimakan[@]}; do
+    logFile=$(cat /var/log/xray/access.log | grep -w "email: ${db}" | tail -n 150)
+    while read a; do
+        if [[ -n ${a} ]]; then
+            set -- ${a}
+            my="${7}"
+            res="${2}"
+            makansate="${3}"
+            ult=$(echo "${makansate}" | sed 's/tcp://g' | sed '/^$/d' | cut -d. -f1,2,3)
+            now=$(tim2sec ${timenow})
+            sateeeee=$(tim2sec ${res})
+            nowt=$(((${now} - ${sateeeee})))
+            if [[ ${nowt} -lt 40 ]]; then
+                cat /tmp/rotate | grep -w "${my}" | grep -w "${ult}" >/dev/null
+                if [[ $? -eq 1 ]]; then
+                    echo "${my} ${res} ${ult}" >>/tmp/rotate
+                    split=$(cat /tmp/rotate)
+                fi
+            fi
+        fi
+    done <<<"${logFile}"
 done
-
-jum=$(cat /tmp/ipvmess.txt)
-if [[ -z "$jum" ]]; then
-echo > /dev/null
-else
-jum2=$(cat /tmp/ipvmess.txt | wc -l)
-echo -e "$COLOR1${NC} USERNAME : \033[0;33m$akun";
-echo -e "$COLOR1${NC} IP LOGIN : \033[0;33m$jum2";
-echo -e ""
-
-
-TEXT="
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>  ⚠️ XRAY VMESS NOTIF ⚠️</b>
-<b>      User Login</b>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>DOMAIN    :</b> <code>${domain} </code>
-<b>USERNAME  :</b> <code>$akun </code>
-<b>TOTAL IP  :</b> <code>${jum2} </code>
-<code>◇━━━━━━━━━━━━━━◇</code>
-"
-
-curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-
+if [[ ${split} != "" ]]; then
+    for user in ${marimakan[@]}; do
+        result=$(cat /tmp/rotate | grep -w "${user}" | wc -l)
+        if [[ ${result} -gt 0 ]]; then
+            if [[ -e /etc/limit/vmess/${user} ]]; then
+                byt=$(cat /etc/limit/vmess/${user})
+                gb=$(convert ${byt})
+            else
+                gb=""
+            fi
+            if [[ -e /etc/vmess/${user} ]]; then
+                byte=$(cat /etc/vmess/${user})
+                lim=$(convert ${byte})
+                echo -e " \e[032;1mAccount\e[0m   : ${yellow}$user${NC}"
+                echo -e " \e[032;1mUsage\e[0m     : ${yellow}${gb}${NC}"
+                echo -e " \e[032;1mLimit\e[0m     : ${yellow}${lim}${NC}"
+                echo -e " \e[032;1mIP Login\e[0m  : ${yellow}${result}${NC}"
+                echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+            fi
+        fi
+    done
 fi
-rm -rf /tmp/ipvmess.txt
-done
-
-rm -rf /tmp/other.txt
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1┌────────────────────── ${WH}BY${NC} ${COLOR1}───────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC}                  ${WH}• $author  •                   $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-echo ""
-read -n 1 -s -r -p "   Press any key to back on menu"
-menu-vmess
 }
 function list-vmess(){
 clear
 tls="$(cat ~/log-install.txt | grep -w "Vmess Ws Tls" | cut -d: -f2|sed 's/ //g')"
 none="$(cat ~/log-install.txt | grep -w "Vmess Ws None Tls" | cut -d: -f2|sed 's/ //g')"
-NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
+NUMBER_OF_CLIENTS=$(grep -c -E "^#vm " "/etc/xray/config.json")
 	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 		clear
                 echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -767,7 +656,7 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
         echo " Press CTRL+C to return"
         echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
         echo "     No  Expired   User"
-	grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | nl -s ') '
+	grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | nl -s ') '
 	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
 		if [[ ${CLIENT_NUMBER} == '1' ]]; then
 			read -rp "Select one client [1]: " CLIENT_NUMBER
@@ -776,11 +665,11 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#vmg " "/etc/xray/config.json")
 		fi
 	done
 clear
-user=$(grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+user=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
 domain=$(cat /etc/xray/domain)
 author=$(cat /etc/profil)
-uuid=$(grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^#vmg " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+uuid=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 asu=`cat<<EOF
       {
       "v": "2",
@@ -872,7 +761,7 @@ function chngelimit() {
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "$COLBG1        Chnge Xray/Vmess Account         ${NC}"
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/vmess/.vmess.db")
+    NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/config.json")
     if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
         echo ""
         echo "   You have no existing clients!"
@@ -919,6 +808,7 @@ function chngelimit() {
             if [[ ${c} != "0" ]]; then
                 echo "${d}" >/etc/vmess/${user}
                 echo "${iplim}" >/etc/vmess/${user}IP
+                echo "${iplim}" >/etc/julak/limit/vmess/ip/$user
             fi
             clear
             echo "-----------------------------------------------"
@@ -938,15 +828,15 @@ echo -e "$COLOR1┌────────────────────�
 echo -e "$COLOR1 ${NC} ${COLBG1}             ${WH}• VMESS PANEL MENU •              ${NC} $COLOR1 $NC"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}01${WH}]${NC} ${COLOR1}• ${WH}ADD VMESS${NC}       ${WH}[${COLOR1}05${WH}]${NC} ${COLOR1}• ${WH}CEK CONFIG${NC}   $COLOR1 $NC"
+echo -e " $COLOR1 $NC ${WH}[${COLOR1}01${WH}]${NC} ${COLOR1}• ${WH}ADD VMESS${NC}       ${WH}[${COLOR1}05${WH}]${NC} ${COLOR1}• ${WH}CEK CONFIG${NC}   $COLOR1 $NC"
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}02${WH}]${NC} ${COLOR1}• ${WH}RENEW VMESS${NC}     ${WH}[${COLOR1}06${WH}]${NC} ${COLOR1}• ${WH}TRIAL VMESS${NC}    $COLOR1 $NC"
+echo -e " $COLOR1 $NC ${WH}[${COLOR1}02${WH}]${NC} ${COLOR1}• ${WH}RENEW VMESS${NC}     ${WH}[${COLOR1}06${WH}]${NC} ${COLOR1}• ${WH}TRIAL VMESS${NC}    $COLOR1 $NC"
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}03${WH}]${NC} ${COLOR1}• ${WH}DELETE VMESS${NC}    ${WH}[${COLOR1}07${WH}]${NC} ${COLOR1}• ${WH}UUID VMESS${NC}    $COLOR1 $NC"
+echo -e " $COLOR1 $NC ${WH}[${COLOR1}03${WH}]${NC} ${COLOR1}• ${WH}DELETE VMESS${NC}    ${WH}[${COLOR1}07${WH}]${NC} ${COLOR1}• ${WH}UUID VMESS${NC}    $COLOR1 $NC"
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}04${WH}]${NC} ${COLOR1}• ${WH}USER ONLINE${NC}     ${WH}[${COLOR1}08${WH}]${NC} ${COLOR1}• ${WH}EDIT LIMIT VMESS${NC}    $COLOR1 $NC"
+echo -e " $COLOR1 $NC ${WH}[${COLOR1}04${WH}]${NC} ${COLOR1}• ${WH}USER ONLINE${NC}     ${WH}[${COLOR1}08${WH}]${NC} ${COLOR1}• ${WH}EDIT LIMIT VMESS${NC}    $COLOR1 $NC"
 echo -e " $COLOR1 $NC                                              ${NC} $COLOR1 $NC"
-echo -e " $COLOR1 $NC   ${WH}[${COLOR1}00${WH}]${NC} ${COLOR1}• ${WH}GO BACK${NC}                              $COLOR1 $NC"
+echo -e " $COLOR1 $NC ${WH}[${COLOR1}00${WH}]${NC} ${COLOR1}• ${WH}GO BACK${NC}                              $COLOR1 $NC"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌────────────────────── ${WH}BY${NC} ${COLOR1}───────────────────────┐${NC}"
 echo -e "$COLOR1 ${NC} ${COLBG1}               ${WH}• $author •              $COLOR1 $NC"
