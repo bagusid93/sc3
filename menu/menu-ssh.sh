@@ -260,8 +260,8 @@ echo -e "Expired          : $exp" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\e[42m      $author     \E[0m" | tee -a /etc/xray/log-createssh-${user}.log
 echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-createssh-${user}.log
-fi
 echo -e "" | tee -a /etc/xray/log-createssh-${user}.log
+fi
 read -n 1 -s -r -p "Press any key to back on menu"
 menu-ssh
 }
