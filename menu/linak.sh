@@ -40,7 +40,8 @@ wget -O clearcache "https://${julak}/main/menu/clearcache.sh"
 wget -O menu-trojan "https://${julak}/main/xray/m-trojan.sh"
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 wget -O tendang "https://${julak}/main/ssh/tendang.sh"
-wget -O kills "https://${julak}/main/ssh/kills.sh"
+wget -O ls "https://${julak}/main/ssh/ls.sh"
+wget -O lx "https://${julak}/main/ssh/lx.sh"
 wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
 wget -O menu-domain "https://${julak}/main/menu/menu-domain.sh"
 wget -O add-host "https://${julak}/main/ssh/add-host.sh"
@@ -72,7 +73,6 @@ wget -O restore "https://${julak}/main/backup/restore.sh"
 wget -O new-dns "https://${julak}/main/ssh/new-dns.sh"
 wget -O sbdns "https://${julak}/main/ssh/sbdns.sh"
 wget -O nsdns "https://${julak}/main/ssh/nsdns.sh"
-wget -O ls "https://raw.githubusercontent.com/julakhss/julakhss/main/JB7/ls.sh"
 
 chmod +x kimut
 chmod +x menu
@@ -86,7 +86,6 @@ chmod +x clearcache
 chmod +x menu-trojan
 chmod +x menu-ssh
 chmod +x tendang
-chmod +x kills
 chmod +x menu-set
 chmod +x menu-domain
 chmod +x add-host
@@ -119,6 +118,7 @@ chmod +x new-dns
 chmod +x sbdns
 chmod +x nsdns
 chmod +x ls
+chmod +x lx
 
 cd
 sleep 3
