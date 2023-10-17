@@ -201,17 +201,23 @@ systemctl restart xray
 if [ ! -e /etc/vmess ]; then
   mkdir -p /etc/vmess
 fi
-if [ -z ${iplim} ]; then
-  iplim="0"
+
+if [[ $iplim -gt 0 ]]; then
+mkdir -p /etc/julak/limit/vmess/ip
+echo -e "$iplim" > /etc/julak/limit/vmess/ip/$user
+else
+echo > /dev/null
 fi
+
 if [ -z ${Quota} ]; then
   Quota="0"
 fi
+
 c=$(echo "${Quota}" | sed 's/[^0-9]*//g')
 d=$((${c} * 1024 * 1024 * 1024))
+
 if [[ ${c} != "0" ]]; then
   echo "${d}" >/etc/vmess/${user}
-  echo "${iplim}" >/etc/vmess/${user}IP
 fi
 DATADB=$(cat /etc/vmess/.vmess.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
 if [[ "${DATADB}" != '' ]]; then
