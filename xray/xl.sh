@@ -76,7 +76,7 @@ function vmess() {
          exp=$(grep -wE "^### $vmuser" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
          sed -i "/^### $vmuser $exp/,/^},{/d" /etc/xray/config.json
          sed -i "/^### $vmuser $exp/d" /etc/vmess/.vmess.db
-#         systemctl restart xray
+         systemctl restart xray
       fi
     done
   fi
