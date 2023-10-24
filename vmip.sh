@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function send_log(){
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+CHATID=$(cat /etc/per/id)
+KEY=$(cat /etc/per/token)
 export TIME="10"
 export URL="https://api.telegram.org/bot$KEY/sendMessage"
 TEXT="
@@ -18,8 +18,8 @@ TEXT="
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
-function vmip(){
-#LIMITVMESSIP
+
+clear
 echo -n > /var/log/xray/access.log
 sleep 4
 data=( `ls /etc/julak/limit/vmess/ip`);
@@ -30,8 +30,8 @@ data=( `ls /etc/julak/limit/vmess/ip`);
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
-            exp=$(grep -w "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-                  sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+            exp=$(grep -w "^#vm $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+                  sed -i "/^#vm $user $exp/,/^},{/d" /etc/xray/config.json
                   sed -i "/^#vmg $user $exp/,/^},{/d" /etc/xray/config.json
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
@@ -43,64 +43,3 @@ data=( `ls /etc/julak/limit/vmess/ip`);
         fi
         sleep 0.1
     done
-}
-function vlip(){
-#LIMITVLESSIP
-echo -n > /var/log/xray/access.log
-sleep 4
-data=( `ls /etc/julak/limit/vless/ip`);
-#ASU
-    for user in "${data[@]}"
-    do
-        iplimit=$(cat /etc/julak/limit/vless/ip/$user)
-        ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
-        cekcek=$(echo -e "$ehh" | wc -l);
-        if [[ $cekcek -gt $iplimit ]]; then
-            exp=$(grep -w "^#& $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-                  sed -i "/^#& $user $exp/,/^},{/d" /etc/xray/config.json
-                  sed -i "/^#vlg $user $exp/,/^},{/d" /etc/xray/config.json
-                  sed -i "/^### $user $exp/d" /etc/vless/.vless.db
-                  systemctl restart xray >> /dev/null 2>&1
-                  jum2=$(cat /tmp/ipvless.txt | wc -l)
-                  rm -rf /etc/julak/limit/vless/ip/$user
-                  send_log
-                else
-            echo ""
-        fi
-        sleep 0.1
-    done
-}
-function trip(){
-#LIMITIPTROJAN
-echo -n > /var/log/xray/access.log
-sleep 4
-data=( `ls /etc/julak/limit/trojan/ip`);
-#ASU
-    for user in "${data[@]}"
-    do
-        iplimit=$(cat /etc/julak/limit/trojan/ip/$user)
-        ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
-        cekcek=$(echo -e "$ehh" | wc -l);
-        if [[ $cekcek -gt $iplimit ]]; then
-            exp=$(grep -w "^#! $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-                  sed -i "/^#! $user $exp/,/^},{/d" /etc/xray/config.json
-                  sed -i "/^#trg $user $exp/,/^},{/d" /etc/xray/config.json
-                  sed -i "/^### $user $exp/d" /etc/trojan/.trojan.db
-                  systemctl restart xray >> /dev/null 2>&1
-                  jum2=$(cat /tmp/iptrojan.txt | wc -l)
-                  rm -rf /etc/julak/limit/trojan/ip/$user
-                  send_log
-                else
-            echo ""
-        fi
-        sleep 0.1
-    done
-}
-
-if [[ ${1} == "vmip" ]]; then
-vmip
-elif [[ ${1} == "vlip" ]]; then
-vlip
-elif [[ ${1} == "trip" ]]; then
-trip
-fi
