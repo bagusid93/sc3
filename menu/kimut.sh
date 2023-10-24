@@ -47,7 +47,7 @@ echo -e "\033[1;93mSambil Ngopi Dulu Broow..!\e[0m"
 sleep 5
 
 rm -rf kimut
-rm -rf menu
+rm -rf menu-vmess
 #rm -rf m-bot
 #rm -rf m-ip
 #rm -rf menu-trial
@@ -118,7 +118,7 @@ rm -rf menu-ssh
 #rm -rf add-wireguard
 #rm -rf add-tru
 #rm -rf add-vls
-#rm -rf add-vms
+rm -rf add-vms
 #rm -rf menu-theme
 #rm -rf menu-l2tp
 #rm -rf sshlogin
@@ -130,7 +130,7 @@ wget -O kimut "https://${julak}/main/menu/kimut.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
-wget -O menu "https://${julak}/main/menu/menu3.sh"
+#wget -O menu "https://${julak}/main/menu/menu3.sh"
 clear
 echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
@@ -140,9 +140,9 @@ echo -e "\033[1;93mOKE..!\e[0m"
 sleep 1
 echo -e "\033[1;93mUPDATE ALL MENU..!\e[0m"
 sleep 3
-wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
+wget -O menu-vmess "https://${julak}/main/menu/menu-vmess.sh"
 clear
-#wget -O burit "https://${julak}/main/miss.sh"
+wget -O add-vms "https://${julak}/main/xray/add-vms.sh"
 clear
 #wget -O backup "https://${julak}/main/backup/backup.sh"
 clear
@@ -152,14 +152,8 @@ echo -e "\033[1;93mOKE..!\e[0m"
 echo -e ""
 
 chmod +x kimut
-chmod +x menu
-#chmod +x menu-set
-chmod +x menu-ssh
-#chmod +x burit
-#chmod +x backup
-#chmod +x restore
-
-
+chmod +x add-vms
+chmod +x menu-vmess
 clear
 sleep 3
 echo -e ""
