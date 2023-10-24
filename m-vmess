@@ -243,8 +243,8 @@ systemctl restart xray > /dev/null 2>&1
 }
 function renew-ws(){
 TIMES="10"
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+CHATID=$(cat /etc/per/id)
+KEY=$(cat /etc/per/token)
 export URL="https://api.telegram.org/bot$KEY/sendMessage"
 domain=$(cat /etc/xray/domain)
 NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/config.json")
