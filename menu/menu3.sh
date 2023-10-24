@@ -52,7 +52,7 @@ PERMISSION () {
     if [ "$MYIP" = "$IZIN" ]; then
     Bloman
     else
-    res="Permission Denied!"
+    res="Permission Denied !"
     fi
     BURIQ
 }
@@ -68,17 +68,7 @@ exit 0
 elif [ "$res" = "Aktif" ]; then
 echo -ne
 else
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-echo -e ""
-echo -e "            ${RED}AKSES DITOLAK !${NC}"
-echo -e "   \033[0;33mIPVPS KAMU${NC} $MYIP \033[0;33mTidak Terdaftar${NC}"
-echo -e "   \033[0;33mHubungi Admin Untuk Buy AutoScript${NC}"
-echo -e "           ${RED}KONTAK ADMIN !${NC}"
-echo -e "   \033[0;36mTelegram${NC}: https://t.me/Cibut2d"
-echo -e "   \033[0;36mWhatsApp${NC}: https://wa.me/6281250851741"
-echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+echo -e "Permission Denied"
 exit 0
 fi
 
@@ -90,11 +80,11 @@ fi
 clear
 
 # =========================================
-vmc=$(grep -c -E "^#vmg " "/etc/xray/config.json")
+vmc=$(grep -c -E "^### " "/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS WS
-vlx=$(grep -c -E "^#vlg " "/etc/xray/config.json")
+vlx=$(grep -c -E "^#& " "/etc/xray/config.json")
 # TOTAL ACC CREATE  TROJAN
-trx=$(grep -c -E "^#tr " "/etc/xray/config.json")
+trx=$(grep -c -E "^#! " "/etc/xray/config.json")
 # TOTAL ACC CREATE OVPN SSH
 ssh1="$(awk -F: '$3 >= 1000 && $1 != "nobody" {print $1}' /etc/passwd | wc -l)"
 
