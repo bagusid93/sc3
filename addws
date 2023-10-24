@@ -55,7 +55,7 @@ checking_sc() {
 checking_sc
 echo -e "\e[32mloading...\e[0m"
 clear
-source /var/lib/julak/ipvps.conf
+source /var/lib/ipvps.conf
 if [[ "$IP" = "" ]]; then
 domain=$(cat /etc/xray/domain)
 else
@@ -85,9 +85,9 @@ clear
       menu
 		fi
 	done
-ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
-PUB=$(cat /etc/slowdns/server.pub)
-NS=$(cat /etc/xray/dns)
+#ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
+#PUB=$(cat /etc/slowdns/server.pub)
+#NS=$(cat /etc/xray/dns)
 uuid=$(cat /proc/sys/kernel/random/uuid)
 read -p "Expired (days): " masaaktif
 #read -p "Limit User (GB): " Quota
@@ -101,7 +101,7 @@ bln2=$(date +"%b")
 thn2=$(date +"%Y")
 tnggl="$tgl2 $bln2, $thn2"
 exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
-sed -i '/#vmess$/a\### '"$user $exp"'\
+sed -i '/#vmess$/a\#vm '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
 exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
 sed -i '/#vmessgrpc$/a\#vmg '"$user $exp"'\
@@ -295,8 +295,6 @@ Name      : vmess-grpc</code>
 <code>◇━━━━━━━━━━━━━━━━━◇</code>
 <code>${vmesslink3}</code>
 <code>◇━━━━━━━━━━━━━━━━━◇</code>
-Format OpenClash : https://${domain}:81/vmess-$user.txt
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
 Expired  : $expe
 <code>◇━━━━━━━━━━━━━━━━━◇</code>
 "
@@ -310,8 +308,8 @@ echo -e "\033[1;93m━━━━━━━━━━━━━━━━━\033[0m" |
 echo -e "Remarks          : ${user}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "Domain           : ${domain}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "User Ip            : ${iplimit} IP" | tee -a /etc/xray/log-create-${user}.log
-echo -e "Xray Dns        : ${NS}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "Pubkey          : ${PUB}" | tee -a /etc/xray/log-create-${user}.log
+#echo -e "Xray Dns        : ${NS}" | tee -a /etc/xray/log-create-${user}.log
+#echo -e "Pubkey          : ${PUB}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "Port TLS         : 443" | tee -a /etc/xray/log-create-${user}.log
 echo -e "Port none TLS    : 80" | tee -a /etc/xray/log-create-${user}.log
 echo -e "id               : ${uuid}" | tee -a /etc/xray/log-create-${user}.log
@@ -330,8 +328,6 @@ echo -e "${vmesslink2}" | tee -a /etc/xray/log-create-${user}.log
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/xray/log-create-${user}.log
 echo -e "Link GRPC        : " | tee -a /etc/xray/log-create-${user}.log
 echo -e "${vmesslink3}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "\033[0;34m━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/xray/log-create-${user}.log
-echo -e "Format OpenClash : https://${domain}:81/vmess-$user.txt" | tee -a /etc/xray/log-create-${user}.log
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/xray/log-create-${user}.log
 echo -e "Expired    : $expe" | tee -a /etc/xray/log-create-${user}.log
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/xray/log-create-${user}.log
