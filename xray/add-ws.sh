@@ -1,50 +1,82 @@
 #!/bin/bash
-dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
-###########- COLOR CODE -##############
-colornow=$(cat /etc/julak/theme/color.conf)
-NC="\e[0m"
-RED="\033[0;31m"
-COLOR1="$(cat /etc/julak/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
-COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
-WH='\033[1;37m'
-###########- END COLOR CODE -##########
-
-author=$(cat /etc/profil)
+# //====================================================
+# //	System Request:Debian 9+/Ubuntu 18.04+/20+
+# //	Author:	Julak Bantur
+# //	Dscription: Xray Menu Management
+# //	email: putrameratus2@gmail.com
+# //  telegram: https://t.me/Cibut2d
+# //====================================================
+Green="\e[92;1m"
+RED="\033[31m"
+YELLOW="\033[33m"
+BLUE="\033[36m"
+FONT="\033[0m"
+GREENBG="\033[42;37m"
+REDBG="\033[41;37m"
+OK="${Green}--->${FONT}"
+ERROR="${RED}[ERROR]${FONT}"
+GRAY="\e[1;30m"
+NC='\e[0m'
+red='\e[1;31m'
+green='\e[0;32m'
+red='\e[1;31m'
+green='\e[0;32m'
+NC='\e[0m'
+green() { echo -e "\\033[32;1m${*}\\033[0m"; }
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
 TIMES="10"
 CHATID=$(cat /etc/per/id)
 KEY=$(cat /etc/per/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-cekray=`cat /root/log-install.txt | grep -ow "XRAY" | sort | uniq`
-if [ "$cekray" = "XRAY" ]; then
-domain=`cat /etc/xray/domain`
-else
-domain=`cat /etc/v2ray/domain`
-fi
-tls="$(cat ~/log-install.txt | grep -w "Vmess WS TLS" | cut -d: -f2|sed 's/ //g')"
-none="$(cat ~/log-install.txt | grep -w "Vmess WS none TLS" | cut -d: -f2|sed 's/ //g')"
-until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
-echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-echo -e "$COLOR1 ${NC} ${COLBG1}         ${WH}• Add Vmess Account •              ${NC} $COLOR1 $NC"
-echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-
-		read -rp "Name User: " -e user
-		CLIENT_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
-
-		if [[ ${CLIENT_EXISTS} == '1' ]]; then
+domain=$(cat /etc/xray/domain)
+ipsaya=$(wget -qO- ipinfo.io/ip)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="https://raw.githubusercontent.com/bagusid93/hss/sc3"
+checking_sc() {
+  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
+  if [[ $date_list < $useexp ]]; then
+    echo -ne
+  else
+    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+    echo -e "\033[42m          JULAK BANTUR AUTOSCRIPT          \033[0m"
+    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+    echo -e ""
+    echo -e "            ${RED}PERMISSION DENIED !${NC}"
+    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
+    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
+    echo -e "             \033[0;33mContact Admin :${NC}"
+    echo -e "      \033[0;36mTelegram${NC} t.me/Cibut2d"
+    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6281250851741"
+    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+    exit
+  fi
+}
+checking_sc
 clear
-            echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-            echo -e "$COLOR1 ${NC} ${COLBG1}            ${WH}• Add Vmess Account •              ${NC} $COLOR1 $NC"
-            echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-            echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
-            echo ""
-            echo -e " A client with the specified name was already created, please choose another name."
-            echo ""
-            echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
-            read -n 1 -s -r -p "Press any key to back on menu"
-menu-vmess
-		fi
-	done
+until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+  clear
+  echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+  echo -e "\e[42m         Add Xray/Vmess Account          \E[0m"
+  echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+
+  read -rp "User: " -e user
+  CLIENT_EXISTS=$(grep -w $user /etc/xray/config.json | wc -l)
+
+  if [[ ${CLIENT_EXISTS} == '1' ]]; then
+    clear
+    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "\e[42m         Add Xray/Vmess Account          \E[0m"
+    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo ""
+    echo "A client with the specified name was already created, please choose another name."
+    echo ""
+    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    read -n 1 -s -r -p "Press any key to back on menu"
+    menu
+  fi
+done
+
 uuid=$(cat /proc/sys/kernel/random/uuid)
 sec=3
 spinner=(⣻ ⢿ ⡿ ⣟ ⣯ ⣷)
@@ -64,16 +96,16 @@ done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
 done
-exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
-sed -i '/#vmess$/a\#vm '"$user $exp"'\
+exp=$(date -d "$masaaktif days" +"%Y-No such file or directory-20")
+sed -i '/#vmess$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
-exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
-sed -i '/#vmessgrpc$/a\#vmg '"$user $exp $uuid"'\
+exp=$(date -d "$masaaktif days" +"%Y-No such file or directory-4")
+sed -i '/#vmessgrpc$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
-asu=`cat<<EOF
+VMESS_WS=`cat<<EOF
       {
       "v": "2",
-      "ps": "${user}",
+      "ps": "$user WS (CDN) TLS",
       "add": "${domain}",
       "port": "443",
       "id": "${uuid}",
@@ -85,10 +117,10 @@ asu=`cat<<EOF
       "tls": "tls"
 }
 EOF`
-ask=`cat<<EOF
+VMESS_NON_TLS=`cat<<EOF
       {
       "v": "2",
-      "ps": "${user}",
+      "ps": "$user WS (CDN) NTLS",
       "add": "${domain}",
       "port": "80",
       "id": "${uuid}",
@@ -100,10 +132,10 @@ ask=`cat<<EOF
       "tls": "none"
 }
 EOF`
-grpc=`cat<<EOF
+VMESS_GRPC=`cat<<EOF
       {
       "v": "2",
-      "ps": "${user}",
+      "ps": "$user (SNI) GRPC",
       "add": "${domain}",
       "port": "443",
       "id": "${uuid}",
@@ -115,40 +147,115 @@ grpc=`cat<<EOF
       "tls": "tls"
 }
 EOF`
-vmess_base641=$( base64 -w 0 <<< $vmess_json1)
-vmess_base642=$( base64 -w 0 <<< $vmess_json2)
-vmess_base643=$( base64 -w 0 <<< $vmess_json3)
-vmesslink1="vmess://$(echo $asu | base64 -w 0)"
-vmesslink2="vmess://$(echo $ask | base64 -w 0)"
-vmesslink3="vmess://$(echo $grpc | base64 -w 0)"
+cat >/var/www/html/vmess-$user.txt <<-END
 
+---------------------
+# Format Vmess WS (CDN)
+---------------------
+
+- name: Vmess-$user-WS (CDN)
+  type: vmess
+  server: ${domain}
+  port: 443
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  skip-cert-verify: true
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /vmess
+    headers:
+      Host: ${domain}
+---------------------
+# Format Vmess WS (CDN) Non TLS
+---------------------
+
+- name: Vmess-$user-WS (CDN) Non TLS
+  type: vmess
+  server: ${domain}
+  port: 80
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  skip-cert-verify: false
+  servername: ${domain}
+  network: ws
+  ws-opts:
+    path: /vmess
+    headers:
+      Host: ${domain}
+---------------------
+# Format Vmess gRPC (SNI)
+---------------------
+
+- name: Vmess-$user-gRPC (SNI)
+  server: ${domain}
+  port: 443
+  type: vmess
+  uuid: ${uuid}
+  alterId: 0
+  cipher: auto
+  network: grpc
+  tls: true
+  servername: ${domain}
+  skip-cert-verify: true
+  grpc-opts:
+    grpc-service-name: vmess-grpc
+
+---------------------
+# Link Vmess Account
+---------------------
+Link TLS : vmess://$(echo $VMESS_WS | base64 -w 0)
+---------------------
+Link none TLS : vmess://$(echo $VMESS_NON_TLS | base64 -w 0)
+---------------------
+Link GRPC : vmess://$(echo $VMESS_GRPC | base64 -w 0)
+---------------------
+
+
+
+END
+vmesslink1="vmess://$(echo $VMESS_WS | base64 -w 0)"
+vmesslink2="vmess://$(echo $VMESS_NON_TLS | base64 -w 0)"
+vmesslink3="vmess://$(echo $VMESS_GRPC | base64 -w 0)"
 TEXT="
-<code>──────────────────────</code>
-<code>    Xray/Vmess Account</code>
-<code>──────────────────────</code>
-<code>Remarks      : </code> <code>${user}</code>
-<code>Domain       : </code> <code>${domain}</code>
-<code>Port TLS     : </code> <code>${tls}</code>
-<code>Port NTLS    : </code> <code>80</code>
-<code>Port GRPC    : </code> <code>${tls}</code>
-<code>User ID      : </code> <code>${uuid}</code>
+<code>───────────────────────────</code>
+<code>     Xray/Vmess Account</code>
+<code>───────────────────────────</code>
+<code>Remarks      : </code><code>${user}</code>
+<code>Domain       : </code><code>${domain}</code>
+<code>User Quota   : </code><code>${Quota} GB</code>
+<code>User IP       : </code><code>${iplim} Login</code>
+<code>Port TLS     : 443</code>
+<code>Port DNS     : 443, 53</code>
+<code>Port NTLS    : 80, 8080, 2086</code>
+<code>Port GRPC    : 443</code>
+<code>User ID      : </code><code>${uuid}</code>
 <code>AlterId      : 0</code>
 <code>Security     : auto</code>
 <code>Network      : WS or gRPC</code>
-<code>Path         : </code> <code>/vmess - /multipath</code>
-<code>ServiceName  : </code> <code>vmess-grpc</code>
-<code>──────────────────────</code>
+<code>Path TLS     : (/multi path)</code>
+<code>Path NLS     : (/multi path)</code>
+<code>Path Dynamic : http://BUG.COM</code>
+<code>ServiceName  : vmess-grpc</code>
+<code>───────────────────────────</code>
 <code>Link TLS     :</code> 
 <code>${vmesslink1}</code>
-<code>──────────────────────</code>
+<code>───────────────────────────</code>
 <code>Link NTLS    :</code> 
 <code>${vmesslink2}</code>
-<code>──────────────────────</code>
+<code>───────────────────────────</code>
 <code>Link GRPC    :</code> 
 <code>${vmesslink3}</code>
-<code>──────────────────────</code>
+<code>───────────────────────────</code>
+<code>Format OpenClash :</code> https://${domain}:81/vmess-$user.txt
+<code>───────────────────────────</code>
 <code>Expired On : $exp</code>
-<code>──────────────────────</code>
 "
 systemctl restart xray
 if [ ! -e /etc/vmess ]; then
@@ -170,43 +277,35 @@ DATADB=$(cat /etc/vmess/.vmess.db | grep "^###" | grep -w "${user}" | awk '{prin
 if [[ "${DATADB}" != '' ]]; then
   sed -i "/\b${user}\b/d" /etc/vmess/.vmess.db
 fi
-echo "### ${user} ${exp} ${uuid} ${iplim}" >>/etc/vmess/.vmess.db
-curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-
+echo "### ${user} ${exp} ${uuid}" >>/etc/vmess/.vmess.db
+#curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 clear
-clear
-clear
-clear
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC}   ${COLBG1}${WH}• XRAY VMESS •    ${NC} $COLOR1 $NC" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Remarks        ${COLOR1}: ${WH}${user}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Domain         ${COLOR1}: ${WH}${domain}" | tee -a /etc/xray/log-create-${user}.log
-#echo -e "$COLOR1 ${NC} ${WH}Wildcard      ${COLOR1}: ${WH}(bug.com).${domain}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Port TLS       ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Port none TLS  ${COLOR1}: ${WH}80" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Port gRPC      ${COLOR1}: ${WH}443" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}id             ${COLOR1}: ${WH}${uuid}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}alterId        ${COLOR1}: ${WH}0" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Security       ${COLOR1}: ${WH}auto" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Network        ${COLOR1}: ${WH}ws" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}Path           ${COLOR1}: ${WH}/vmess - /multipath" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${WH}ServiceName    ${COLOR1}: ${WH}vmess-grpc" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket TLS      ${WH}:${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1${NC}${WH}${vmesslink1}${NC}"  | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket None TLS ${WH}: ${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1${NC}${WH}${vmesslink2}${NC}"  | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC} ${COLOR1}Link Websocket GRPC     ${WH}: ${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1${NC}${WH}${vmesslink3}${NC}"  | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC}${WH}Expired On     ${COLOR1}: ${WH}$exp" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1──────────────────────────────${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1┌────────────────────────┐${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1 ${NC}   ${WH}• $author •${NC}    $COLOR1 $NC" | tee -a /etc/xray/log-create-${user}.log
-echo -e "$COLOR1└────────────────────────┘${NC}" | tee -a /etc/xray/log-create-${user}.log
-echo "" | tee -a /etc/xray/log-create-${user}.log
-read -n 1 -s -r -p "Press any key to back on menu"
-menu-vmess
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\e[42m    Xray/Vmess Account     \E[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Remarks      : ${user}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Host Server  : ${domain}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "User Quota   : ${Quota} GB" | tee -a /etc/xray/log-create-${user}.log
+echo -e "User IP      : ${iplim} IP" | tee -a /etc/xray/log-create-${user}.log
+echo -e "port TLS     : 443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Port NTLS    : 80" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Port GRPC    : 443" | tee -a /etc/xray/log-create-${user}.log
+echo -e "User ID      : ${uuid}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "AlterId      : 0" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Security     : auto" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Network      : WS or gRPC" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Path TLS     : (/multi path)/vmess " | tee -a /etc/xray/log-create-${user}.log
+echo -e "Path NTLS    : (/multi path)/vmess " | tee -a /etc/xray/log-create-${user}.log
+echo -e "Path Dynamic : http://BUG.COM/vmess " | tee -a /etc/xray/log-create-${user}.log
+echo -e "ServiceName  : vmess-grpc" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Link TLS     : ${vmesslink1}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Link NTLS    : ${vmesslink2}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Link GRPC    : ${vmesslink3}" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Format OpenClash : https://${domain}:81/vmess-$user.txt" | tee -a /etc/xray/log-create-${user}.log
+echo -e "\033[1;93m───────────────────────────\033[0m" | tee -a /etc/xray/log-create-${user}.log
+echo -e "Expired On : $exp" | tee -a /etc/xray/log-create-${user}.log
+echo -e "" | tee -a /etc/xray/log-create-${user}.log
