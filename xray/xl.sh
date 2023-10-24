@@ -1,7 +1,6 @@
 #!/bin/bash
 inaIP=$(wget -qO- ipv4.icanhazip.com)
 timenow=$(date +%T)
-source '/etc/ftvpn/var.txt'
 tim2sec() {
   mult=1
   arg="$1"
@@ -74,9 +73,9 @@ function vmess() {
 <code>NO MULTI LOGINS!</code>
 "
         curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-#         exp=$(grep -wE "^### $vmuser" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-#         sed -i "/^### $vmuser $exp/,/^},{/d" /etc/xray/config.json
-#         sed -i "/^### $vmuser $exp/d" /etc/vmess/.vmess.db
+         exp=$(grep -wE "^### $vmuser" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+         sed -i "/^### $vmuser $exp/,/^},{/d" /etc/xray/config.json
+         sed -i "/^### $vmuser $exp/d" /etc/vmess/.vmess.db
 #         systemctl restart xray
       fi
     done
