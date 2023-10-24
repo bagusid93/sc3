@@ -96,10 +96,10 @@ done
 until [[ $iplim =~ ^[0-9]+$ ]]; do
 read -p "Limit User (IP): " iplim
 done
-exp=$(date -d "$masaaktif days" +"%Y-No such file or directory-20")
+exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
 sed -i '/#vmess$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
-exp=$(date -d "$masaaktif days" +"%Y-No such file or directory-4")
+exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
 sed -i '/#vmessgrpc$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
 VMESS_WS=`cat<<EOF
