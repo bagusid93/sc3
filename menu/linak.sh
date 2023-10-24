@@ -41,7 +41,7 @@ wget -O menu-trojan "https://${julak}/main/xray/m-trojan.sh"
 wget -O menu-ssh "https://${julak}/main/menu/menu-ssh.sh"
 wget -O tendang "https://${julak}/main/ssh/tendang.sh"
 wget -O ls "https://${julak}/main/ssh/ls.sh"
-#wget -O lx "https://${julak}/main/ssh/lx.sh"
+wget -O lx "https://${julak}/main/ssh/lx.sh"
 wget -O menu-set "https://${julak}/main/menu/menu-set.sh"
 wget -O menu-domain "https://${julak}/main/menu/menu-domain.sh"
 wget -O add-host "https://${julak}/main/ssh/add-host.sh"
@@ -118,7 +118,7 @@ chmod +x new-dns
 chmod +x sbdns
 chmod +x nsdns
 chmod +x ls
-#chmod +x lx
+chmod +x lx
 
 cd
 sleep 3
