@@ -128,30 +128,6 @@ clear
 export LANG='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
 
-
-# // Export Color & Information
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CYAN='\033[0;36m'
-export LIGHT='\033[0;37m'
-export NC='\033[0m'
-
-# // Export Banner Status Information
-export EROR="[${RED} EROR ${NC}]"
-export INFO="[${YELLOW} INFO ${NC}]"
-export OKEY="[${GREEN} OKEY ${NC}]"
-export PENDING="[${YELLOW} PENDING ${NC}]"
-export SEND="[${YELLOW} SEND ${NC}]"
-export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
-
-# // Export Align
-export BOLD="\e[1m"
-export WARNING="${RED}\e[5m"
-export UNDERLINE="\e[4m"
-
 # TOTAL RAM
 total_ram=` grep "MemTotal: " /proc/meminfo | awk '{ print $2}'`
 totalram=$(($total_ram/1024))
@@ -251,7 +227,7 @@ clear
 echo -e "${COLOR1}░█▀█░█▀█░█▀█░█▀█░█▀▄░█▀█░▀░█▀█░█▀█░░░░░░░█▀▀░▀█▀░█▀█░█▀▄░█▀▀${NC}"
 echo -e "${COLOR1}░█▀▀░█▀█░█▀▀░█▀█░█░█░█▀█░░░█▀█░█░█░░░░░░░▀▀█░░█░░█░█░█▀▄░█▀▀${NC}"
 echo -e "${COLOR1}░▀░░░▀░▀░▀░░░▀░▀░▀▀░░▀░▀░░░▀░▀░▀░▀░░░░░░░▀▀▀░░▀░░▀▀▀░▀░▀░▀▀▀${NC}"
-echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}" | lolcat
 echo -e "♣${BIYellow} Server Uptime       👉 ${COLOR1}$( uptime -p  | cut -d " " -f 2-10000 ) ${NC}"
 echo -e "♣${BIYellow} Current Time        👉 ${COLOR1}$( date -d "0 days" +"%d-%m-%Y | %X" )${NC}"
 echo -e "♣${BIYellow} Operating System    👉 ${COLOR1}$( cat /etc/os-release | grep -w PRETTY_NAME | sed 's/PRETTY_NAME//g' | sed 's/=//g' | sed 's/"//g' ) ( $( uname -m) )${NC}"
@@ -264,7 +240,7 @@ echo -e "♣${BIYellow} Jumlah Ram          👉 ${COLOR1}${totalram} MB"
 echo -e "♣${BIYellow} CPU Usage           👉 ${COLOR1}$cpu_usage"
 echo -e "♣${BIYellow} Whatsapp            👉 ${BOLD}${BICyan}081250851741${NC}"
 echo -e "♣${BIYellow} AutoScript By       👉 ${BOLD}${BICyan}PAPADA'AN STORE${NC}"
-echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${COLOR1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}" | lolcat
   echo -e "     ${BICyan} SSH ${NC}: $ressh"" ${BICyan} NGINX ${NC}: $resngx"" ${BICyan}  XRAY ${NC}: $resv2r"" ${BICyan} TROJAN ${NC}: $resv2r"
 echo -e "   ${BICyan}     STUNNEL ${NC}: $resst" "${BICyan} DROPBEAR ${NC}: $resdbr" "${BICyan} SSH-WS ${NC}: $ressshws"
 echo -e " $COLOR1┌─────────────────────────────────────────────────────┐${NC}" 
@@ -272,25 +248,21 @@ echo -e " $COLOR1│$NC       \033[0m ${BOLD}${YELLOW}SSH     VMESS       VLESS 
 echo -e " $COLOR1│$NC       \033[0m ${Blue} $ssh1        $vmc           $vlx          $trx   $NC" 
 echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}" 
 echo -e "$COLOR1 ${NC}${COLBG1}                  🔥 MENU UTAMA 🔥                    ${NC} $COLOR1 $NC"
-echo -e "$COLOR1 ┌─────────────────────────────────────────────────────┐${NC}"
+echo -e "$COLOR1 ┌─────────────────────────────────────────────────────┐${NC}" | lolcat
 echo -e " $COLOR1│$NC    ${BICyan}[${WH}01${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 SSH     ${NC}"    "     ${BICyan}[${WH}06${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 SETTING     ${NC}" "${COLOR1}│${NC}"
 echo -e " $COLOR1│$NC    ${BICyan}[${WH}02${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 VMESS   ${NC}" "     ${BICyan}[${WH}07${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 RUNNING     ${NC}" "${COLOR1}│${NC}"
 echo -e " $COLOR1│$NC    ${BICyan}[${WH}03${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 VLESS   ${NC}"  "     ${BICyan}[${WH}08${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 THEME    ${NC}" "${COLOR1}   │${NC}"
 echo -e " $COLOR1│$NC    ${BICyan}[${WH}04${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 TROJAN  ${NC}" "     ${BICyan}[${WH}09${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 BACKUP    ${NC}" "${COLOR1}  │${NC}"
 echo -e " $COLOR1│$NC    ${BICyan}[${WH}05${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 L2TP    ${NC}"  "     ${BICyan}[${WH}10${BICyan}]${BICyan}[${BIYellow}Menu${BICyan}]$COLOR1 SET REBOOT ${NC}" "${COLOR1} │${NC}"
-echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}"
-echo -e "$COLOR1 ${NC}${COLBG1}                 🔥 MENU ADMIN 🔥                    ${NC} $COLOR1 $NC"
-echo -e "$COLOR1 ┌─────────────────────────────────────────────────────┐${NC}"
-echo -e " $COLOR1|$NC    ${BICyan}[${WH}11${BICyan}] ${COLOR1}REGISTRASI IPVPS BARU${NC} "
-echo -e "$COLOR1 └─────────────────────────────────────────────────────┘${NC}"
+echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}" | lolcat
 echo -e "$COLOR1 ┌─────────────────────────────────────────────────────┐${NC}"
 echo -e "${BICyan} ${NC} ${BICyan}HARI ini${NC}: ${Blue}$ttoday$NC ${BICyan}KEMARIN${NC}: ${Blue}$tyest$NC ${BICyan}BULAN${NC}: ${Blue}$tmon$NC $NC"
 echo -e "$COLOR1 └─────────────────────────────────────────────────────┘${NC}"
-echo -e " $COLOR1┌─────────────────────────────────────────────────────┐${NC}"
+echo -e " $COLOR1┌─────────────────────────────────────────────────────┐${NC}"  | lolcat
 echo -e " $COLOR1│$NC  ${WH}Version      ${NC} :${BICyan} ${sem} ${BICyan}LITE ${NC}"
 echo -e " $COLOR1│$NC  ${WH}User         ${NC} :${BIYellow} ${Name} ${NC}"
 echo -e " $COLOR1│$NC  ${WH}Expired      ${NC} :${Blue} ${Exp1}${NC} [${red}$res${NC}] ${NC}"
-echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}"
+echo -e " $COLOR1└─────────────────────────────────────────────────────┘${NC}" | lolcat
 echo ""
 echo -e   " [$COLOR1 Tekan x Untuk Exit Script ${NC}]"
 echo ""
