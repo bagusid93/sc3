@@ -57,10 +57,10 @@ function vmess() {
         vmip=$(cat /etc/vmess/${vmuser}IP)
       fi
       if [[ ${vmhas} -gt $vmip ]]; then
-        TIME="10"
-        CHATID=$(cat /etc/per/id)
-        KEY=$(cat /etc/per/token)
-        URL="https://api.telegram.org/bot$KEY/sendMessage"
+TIME="10"
+CHATID=$(cat /etc/per/id)
+KEY=$(cat /etc/per/token)
+URL="https://api.telegram.org/bot$KEY/sendMessage"
         TEXT="
 <code>◇━━━━━━━━━━━━━━◇</code>
 <b>   ⚠️VMESS NOTIF⚠️</b>
@@ -72,7 +72,7 @@ function vmess() {
 <code>I REMOVE ACCOUNT</code>
 <code>NO MULTI LOGINS!</code>
 "
-        curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+        curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
          exp=$(grep -wE "^### $vmuser" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
          sed -i "/^### $vmuser $exp/,/^},{/d" /etc/xray/config.json
          sed -i "/^### $vmuser $exp/d" /etc/vmess/.vmess.db
