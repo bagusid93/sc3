@@ -678,14 +678,14 @@ clear
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC" | lolcat
     echo -e "$COLBG1        Member Xray/Vmess Account        $NC"
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC" | lolcat
-    NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/config.json")
+    NUMBER_OF_CLIENTS=$(grep -c -E "^#vm " "/etc/xray/config.json")
     if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
         echo ""
         echo "   You have no existing clients!"
         echo ""
         exit 0
     fi
-    listmem=$(grep -s "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | nl)
+    listmem=$(grep -s "^#vm " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | nl)
     clear
     echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$NC" | lolcat
     echo -e "$COLBG1        Member Xray/Vmess Account        $NC"
