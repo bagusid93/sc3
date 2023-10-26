@@ -52,5 +52,5 @@ echo "$domain" > /etc/v2ray/domain
 echo "$domain" > /etc/xray/domain
 echo "$domain" > /etc/v2ray/scdomain
 echo "$domain" > /etc/xray/scdomain
-echo "IP=$domain" > /var/lib/ipvps.conf
+echo "IP=$domain" > /var/lib/julak/ipvps.conf
 certv2ray
