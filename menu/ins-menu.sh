@@ -20,7 +20,7 @@ WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 
 clear
-    wget https://raw.githubusercontent.com/julakhss/julakhss/main/JB10/menu.zip
+    wget https://raw.githubusercontent.com/bagusid93/sc3/main/menu/menu.zip
     unzip menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
